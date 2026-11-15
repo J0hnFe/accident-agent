@@ -75,6 +75,8 @@
 | 16 | Limitaciones conocidas y trabajo futuro | Etapa 5 | [ ] |
 | 17 | Anexos | Etapa 6 | [ ] |
 
+**Ultima actualizacion:** cierre de la Etapa 0 (2026-11-15). Ninguna seccion se completa todavia. La evidencia de la etapa (`docs/evidencias/0.*` y `etapa-0_notas.md`) alimenta las secciones 11 (proveedor de IA), 12 (Langfuse), 13 (pre-commit y gitleaks) y 14 (entorno, versiones y configuracion).
+
 ## 5. Estructura del documento final
 
 ### 5.1 Portada y control del documento

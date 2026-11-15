@@ -55,6 +55,8 @@
 | 14 | Preguntas frecuentes | Etapa 6 | [ ] |
 | 15 | Anexos | Etapa 6 | [ ] |
 
+**Ultima actualizacion:** cierre de la Etapa 0 (2026-11-15). La etapa no produce evidencia `func_`: solo prepara el entorno.
+
 ## 4. Estructura del documento final
 
 ### 4.1 Portada y control del documento

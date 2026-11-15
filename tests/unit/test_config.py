@@ -6,8 +6,9 @@ from accident_agent.config import Settings
 
 @pytest.fixture(autouse=True)
 def _clean_env(monkeypatch: pytest.MonkeyPatch) -> None:
-    for name in ("OPENROUTER_MODELS", "DEFAULT_TIMEZONE", "ORCH_MAX_ITERATIONS", "LANGFUSE_HOST"):
-        monkeypatch.delenv(name, raising=False)
+    # Variables exportadas en la shell del desarrollador no deben alterar las pruebas.
+    for name in Settings.model_fields:
+        monkeypatch.delenv(name.upper(), raising=False)
 
 
 def test_defaults_without_env_file() -> None:

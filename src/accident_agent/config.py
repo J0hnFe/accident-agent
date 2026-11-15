@@ -22,7 +22,7 @@ class Settings(BaseSettings):
 
     langfuse_public_key: SecretStr = SecretStr("")
     langfuse_secret_key: SecretStr = SecretStr("")
-    langfuse_host: str = ""
+    langfuse_base_url: str = ""
 
     orch_max_iterations: int = Field(default=5, ge=1, le=20)
     orch_max_tool_calls_per_iteration: int = Field(default=4, ge=1, le=10)
@@ -60,7 +60,7 @@ class Settings(BaseSettings):
         return bool(
             self.langfuse_public_key.get_secret_value()
             and self.langfuse_secret_key.get_secret_value()
-            and self.langfuse_host
+            and self.langfuse_base_url
         )
 
 
