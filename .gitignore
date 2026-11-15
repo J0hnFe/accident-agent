@@ -1,0 +1,30 @@
+# Secretos
+.env
+.env.*
+!.env.example
+
+# Entorno y caches de Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+dist/
+build/
+*.egg-info/
+
+# Generados en ejecucion
+logs/
+reports/
+
+# Enunciado de BIT: material del evaluador, no se publica (seccion 12 del plan)
+*.docx
+
+# Sistema operativo y editores
+.DS_Store
+.idea/
+.vscode/
