@@ -1,0 +1,64 @@
+# 5.4 Revision de Cypher: solo lectura y parametrizado (2026-11-15)
+
+## 1. Puntos donde la aplicacion ejecuta Cypher
+$ grep -rn "execute_query\|execute_write\|session(" src/accident_agent
+src/accident_agent/ingestion/verification.py:145:        records, _, _ = driver.execute_query(
+src/accident_agent/ingestion/verification.py:150:        records, _, _ = driver.execute_query(query, routing_=RoutingControl.READ)
+src/accident_agent/ingestion/verification.py:152:    records, _, _ = driver.execute_query(_FULLTEXT, routing_=RoutingControl.READ)
+src/accident_agent/ingestion/verification.py:159:    records, _, _ = driver.execute_query(_STRING_PROPERTIES, routing_=RoutingControl.READ)
+src/accident_agent/ingestion/neo4j_writer.py:334:        records, _, _ = self._driver.execute_query(
+src/accident_agent/ingestion/neo4j_writer.py:340:                self._driver.execute_query(
+src/accident_agent/ingestion/neo4j_writer.py:344:            self._driver.execute_query(statement)
+src/accident_agent/ingestion/neo4j_writer.py:350:        with self._driver.session() as session:
+src/accident_agent/ingestion/neo4j_writer.py:351:            created = session.execute_write(_load, rows)
+src/accident_agent/ingestion/neo4j_writer.py:353:        self._driver.execute_query("CALL db.awaitIndexes(120)")
+src/accident_agent/graph/neo4j_repository.py:59:            records, _, _ = self._driver.execute_query(
+src/accident_agent/interfaces/api.py:185:    def delete_session(session_id: str, request: Request) -> Response:
+
+# Consultas (herramientas): solo graph/neo4j_repository.py, un unico metodo _read con
+# RoutingControl.READ, timeout por transaccion y parametros en un dict aparte.
+# Escrituras: solo ingestion/neo4j_writer.py (servicio loader); ingestion/verification.py es de lectura.
+
+## 2. Las plantillas son constantes, nunca texto armado con valores
+$ grep -n "Final\[" src/accident_agent/graph/queries.py
+14:_FILTERED: Final[LiteralString] = """
+41:SEARCH_IDS: Final[LiteralString] = (
+52:ACCIDENT_DETAILS: Final[LiteralString] = """
+81:_STATS_TAIL: Final[LiteralString] = """
+87:STATS_QUERIES: Final[dict[GroupBy, LiteralString]] = {
+103:FULLTEXT_ACCIDENTS: Final[LiteralString] = """
+108:_REPORT_FIELDS: Final[LiteralString] = """
+118:REPORTS_BY_TEXT: Final[LiteralString] = (
+128:REPORTS_ALL: Final[LiteralString] = (
+138:DATASET_INFO: Final[LiteralString] = """
+$ grep -nE "f\"|f'|\.format\(|%" src/accident_agent/graph/queries.py src/accident_agent/graph/neo4j_repository.py || echo "sin f-strings, format ni %"
+sin f-strings, format ni %
+# Las concatenaciones de queries.py unen solo constantes LiteralString; el texto libre del usuario
+# llega como parametro $query y antes se escapa para Lucene (lucene_query).
+
+## 3. Clasificacion de Neo4j de cada plantilla (EXPLAIN, sin ejecutarla)
+  SEARCH_IDS                       query_type=r
+  ACCIDENT_DETAILS                 query_type=r
+  FULLTEXT_ACCIDENTS               query_type=r
+  REPORTS_BY_TEXT                  query_type=r
+  REPORTS_ALL                      query_type=r
+  DATASET_INFO                     query_type=r
+  STATS_QUERIES[province]          query_type=r
+  STATS_QUERIES[cause]             query_type=r
+  STATS_QUERIES[accident_type]     query_type=r
+  STATS_QUERIES[month]             query_type=r
+  STATS_QUERIES[year]              query_type=r
+  STATS_QUERIES[weather]           query_type=r
+  STATS_QUERIES[vehicle_type]      query_type=r
+  plantillas: 13; 'r' = solo lectura
+  control negativo:
+    EXPLAIN MATCH (a:Accident) SET a.x = 1 -> query_type=w
+    EXPLAIN MATCH (a:Accident) DETACH DELETE a -> query_type=w
+
+## 4. Pruebas de integracion dedicadas
+$ uv run pytest -m integration -v tests/integration/test_tools_neo4j.py -k "read_only or cannot_write"
+tests/integration/test_tools_neo4j.py::test_repository_cannot_write PASSED [ 50%]
+tests/integration/test_tools_neo4j.py::test_every_query_template_is_read_only PASSED [100%]
+======================= 2 passed, 4 deselected in 0.32s ========================
+# test_repository_cannot_write: una escritura enviada por el repositorio falla con
+# Neo.ClientError.Statement.AccessMode ("Writing in read access mode not allowed") y no crea nodos.

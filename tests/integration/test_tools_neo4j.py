@@ -95,8 +95,10 @@ def test_report_scenario_4(repo: Neo4jAccidentRepository, tmp_path: Path) -> Non
 
 
 def test_repository_cannot_write(repo: Neo4jAccidentRepository, driver: Driver) -> None:
-    with pytest.raises(ClientError):
+    # Las transacciones del repositorio van en modo READ: el servidor rechaza la escritura.
+    with pytest.raises(ClientError) as info:
         repo._read("CREATE (n:Probe) RETURN n")
+    assert info.value.code == "Neo.ClientError.Statement.AccessMode"
     records, _, _ = driver.execute_query("MATCH (n:Probe) RETURN count(n) AS n")
     assert records[0]["n"] == 0
 
@@ -124,13 +126,3 @@ def test_every_query_template_is_read_only(driver: Driver, repo: Neo4jAccidentRe
         )
         kinds[name] = summary.query_type
     assert kinds == dict.fromkeys(templates, "r")
-
-
-def test_repository_reads_cannot_write(driver: Driver, repo: Neo4jAccidentRepository) -> None:
-    # Segunda barrera: las transacciones del repositorio van en modo READ y el servidor
-    # rechaza cualquier escritura, aunque una plantilla la tuviera por error.
-    with pytest.raises(ClientError) as info:
-        repo._read("CREATE (x:WriteProbe) RETURN x")
-    assert info.value.code == "Neo.ClientError.Statement.AccessMode"
-    records, _, _ = driver.execute_query("MATCH (x:WriteProbe) RETURN count(x) AS n")
-    assert records[0]["n"] == 0

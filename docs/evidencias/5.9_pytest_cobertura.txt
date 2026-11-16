@@ -1,0 +1,111 @@
+# 5.1 / 5.9 Suite completa con cobertura (2026-11-15 23:02 -05)
+# Neo4j de docker compose levantado y cargado. Sin filtro de marcas: unitarias, contrato, escenarios
+# 1 a 17 con el LLM simulado, integracion contra Neo4j y la prueba e2e con OpenRouter real.
+# La e2e se omite de forma controlada: la cuota diaria del plan gratuito estaba agotada (ver
+# func_5.3_mensajes_error.md, seccion 3.1). Paso con el LLM real en la etapa 4 y los escenarios
+# reales de esta etapa estan en func_5.2_transcripciones_escenarios.json.
+
+$ uv run pytest -m "integration or not integration" --cov=accident_agent --cov-report=term-missing
+testpaths: tests
+plugins: cov-7.1.0, platformdirs-4.14.2, anyio-4.15.1, respx-0.23.1
+collected 749 items
+
+tests/contract/test_repository_contract.py ............................  [  3%]
+tests/e2e/test_real_llm.py s                                             [  3%]
+tests/e2e/test_scenarios.py ...................                          [  6%]
+tests/integration/test_graph_load.py .........                           [  7%]
+tests/integration/test_tools_neo4j.py ......                             [  8%]
+tests/unit/test_accident_report.py ....................                  [ 11%]
+tests/unit/test_accident_search.py ..................................... [ 16%]
+.                                                                        [ 16%]
+tests/unit/test_api.py .............                                     [ 17%]
+tests/unit/test_ascii_guard.py ...................                       [ 20%]
+tests/unit/test_bootstrap.py ....                                        [ 20%]
+tests/unit/test_catalogs.py ............................................ [ 26%]
+........................................................................ [ 36%]
+.......................................                                  [ 41%]
+tests/unit/test_cli.py .........                                         [ 42%]
+tests/unit/test_config.py ....                                           [ 43%]
+tests/unit/test_current_time.py ...........                              [ 44%]
+tests/unit/test_domain_models.py ....................................... [ 50%]
+.....................                                                    [ 52%]
+tests/unit/test_langfuse_tracer.py ....                                  [ 53%]
+tests/unit/test_logging.py ........                                      [ 54%]
+tests/unit/test_neo4j_repository.py .........                            [ 55%]
+tests/unit/test_neo4j_writer.py ........                                 [ 56%]
+tests/unit/test_normalizers.py ......................................... [ 62%]
+........................................................................ [ 71%]
+........................................................                 [ 79%]
+tests/unit/test_openrouter_provider.py .................                 [ 81%]
+tests/unit/test_orchestrator.py .........................                [ 84%]
+tests/unit/test_pipeline.py ..................                           [ 87%]
+tests/unit/test_privacy.py .................                             [ 89%]
+tests/unit/test_quality_markdown.py ............                         [ 91%]
+tests/unit/test_quality_report.py .............................          [ 95%]
+tests/unit/test_raw_models.py ............                               [ 96%]
+tests/unit/test_tool_base.py ...............                             [ 98%]
+tests/unit/test_verification.py ..........                               [100%]
+
+================================ tests coverage ================================
+______________ coverage: platform darwin, python 3.12.16-final-0 _______________
+
+Name                                                  Stmts   Miss  Cover   Missing
+-----------------------------------------------------------------------------------
+src/accident_agent/__init__.py                            0      0   100%
+src/accident_agent/bootstrap.py                          68      5    93%   61-63, 105-106
+src/accident_agent/config.py                             48      0   100%
+src/accident_agent/core/__init__.py                       0      0   100%
+src/accident_agent/core/clock.py                         14      0   100%
+src/accident_agent/core/llm.py                           33      0   100%
+src/accident_agent/core/memory.py                        35      0   100%
+src/accident_agent/core/orchestrator.py                 184      2    99%   97-98
+src/accident_agent/core/prompts.py                       12      0   100%
+src/accident_agent/core/registry.py                      16      1    94%   14
+src/accident_agent/core/tool.py                          79      0   100%
+src/accident_agent/core/tracer.py                        78      0   100%
+src/accident_agent/domain/__init__.py                     0      0   100%
+src/accident_agent/domain/catalogs.py                   132      0   100%
+src/accident_agent/domain/models.py                     198      0   100%
+src/accident_agent/domain/privacy.py                      9      0   100%
+src/accident_agent/graph/__init__.py                      0      0   100%
+src/accident_agent/graph/connection.py                   17      3    82%   30, 32, 36
+src/accident_agent/graph/neo4j_repository.py             66      3    95%   68-69, 113
+src/accident_agent/graph/queries.py                      12      0   100%
+src/accident_agent/graph/repository.py                  115      0   100%
+src/accident_agent/ingestion/__init__.py                  0      0   100%
+src/accident_agent/ingestion/__main__.py                 63     29    54%   24-30, 47-54, 62-63, 67-77, 81, 85
+src/accident_agent/ingestion/neo4j_writer.py             87      1    99%   340
+src/accident_agent/ingestion/normalizers.py             193      0   100%
+src/accident_agent/ingestion/pipeline.py                141      4    97%   110-112, 364
+src/accident_agent/ingestion/quality_markdown.py        116      4    97%   493-495, 502, 507
+src/accident_agent/ingestion/quality_report.py          269     19    93%   386, 427, 443, 461, 549-570, 574
+src/accident_agent/ingestion/raw_models.py              107      2    98%   96, 146
+src/accident_agent/ingestion/verification.py             42      0   100%
+src/accident_agent/interfaces/__init__.py                 0      0   100%
+src/accident_agent/interfaces/api.py                    108      3    97%   142-143, 178
+src/accident_agent/interfaces/cli.py                     96      4    96%   119, 148-151
+src/accident_agent/observability/__init__.py              0      0   100%
+src/accident_agent/observability/events.py                2      0   100%
+src/accident_agent/observability/langfuse_tracer.py      47      0   100%
+src/accident_agent/observability/logging.py              36      1    97%   43
+src/accident_agent/providers/__init__.py                  0      0   100%
+src/accident_agent/providers/openrouter.py              122      9    93%   86, 96, 100, 115-116, 134, 186, 212-213
+src/accident_agent/tools/__init__.py                      0      0   100%
+src/accident_agent/tools/accident_report.py             109      0   100%
+src/accident_agent/tools/accident_search.py             171      8    95%   56, 237, 284, 314, 319, 351-352, 354
+src/accident_agent/tools/current_time.py                 42      0   100%
+-----------------------------------------------------------------------------------
+TOTAL                                                  2867     98    97%
+=========================== short test summary info ============================
+SKIPPED [1] tests/e2e/test_real_llm.py:33: proveedor no disponible: El servicio de inteligencia artificial alcanzo su limite de uso (por minuto o diario). Intenta de nuevo mas tarde.
+======================= 748 passed, 1 skipped in 11.78s ========================
+
+# Cobertura por paquete (objetivo [R] de la tarea 5.1: al menos 80% en core/ y tools/):
+core/                                        451      3    99%
+tools/                                           322      8    98%
+
+$ uv run pytest --collect-only -q -m "integration or not integration" | tail -1
+749 tests collected in 0.32s
+  -m "not integration and not e2e": 719/749 tests collected (30 deselected) in 0.24s
+  -m "integration":            29/749 tests collected (720 deselected) in 0.23s
+  -m "e2e":                    1/749 tests collected (748 deselected) in 0.25s

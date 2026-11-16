@@ -1,0 +1,152 @@
+# Arranque desde cero en un clon limpio (tarea 5.5), 2026-11-15 22:53 -05
+# Docker 29.9.3, Docker Compose version v5.7.0
+# El README completo es la tarea 6.1: se siguieron las instrucciones versionadas en las cabeceras de
+# .env.example (copiar a .env y completar) y docker-compose.yml (docker compose up -d --build).
+# La prueba se repite con el README final en la tarea 6.5.
+# Como el proyecto compose se llama accident-agent, down -v elimino el volumen de Neo4j existente y
+# se borro la imagen de la app: la carga y el build empiezan de cero.
+
+$ git clone <repositorio> clean && cd clean && git log --oneline -1
+d036847 fix(etapa-5): fallo rapido con Neo4j caido y validacion del mensaje en la CLI
+
+$ ls -a
+. .. .dockerignore .env.example .git .gitignore .pre-commit-config.yaml .python-version CLAUDE.md data docker-compose.yml Dockerfile docs pyproject.toml README.md requirements.txt scripts src tests uv.lock
+
+$ cp .env.example .env   # se completan NEO4J_PASSWORD y OPENROUTER_API_KEY (valores omitidos); Langfuse queda vacio
+variables completadas: 2
+
+$ docker compose down -v --remove-orphans && docker image rm accident-agent:local
+ Container accident-agent-api-1 Stopping
+ Container accident-agent-api-1 Stopped
+ Container accident-agent-api-1 Removing
+ Container accident-agent-api-1 Removed
+ Container accident-agent-loader-1 Stopping
+ Container accident-agent-loader-1 Stopped
+ Container accident-agent-loader-1 Removing
+ Container accident-agent-loader-1 Removed
+ Container accident-agent-neo4j-1 Stopping
+ Container accident-agent-neo4j-1 Stopped
+ Container accident-agent-neo4j-1 Removing
+ Container accident-agent-neo4j-1 Removed
+ Network accident-agent_default Removing
+ Volume accident-agent_neo4j_data Removing
+ Volume accident-agent_neo4j_data Removed
+ Network accident-agent_default Removed
+Deleted: sha256:1c06024372d9f1e60a2baa3377c68b2e9d359bb68414d765bf2340b896ee0651
+
+$ docker volume ls --filter name=accident-agent
+DRIVER    VOLUME NAME
+
+$ time docker compose up -d --build
+ Image accident-agent:local Built
+ Network accident-agent_default Creating
+ Network accident-agent_default Creating
+ Volume accident-agent_neo4j_data Creating
+ Volume accident-agent_neo4j_data Creating
+ Volume accident-agent_neo4j_data Created
+ Volume accident-agent_neo4j_data Created
+ Network accident-agent_default Created
+ Network accident-agent_default Created
+ Container accident-agent-neo4j-1 Creating
+ Container accident-agent-neo4j-1 Created
+ Container accident-agent-loader-1 Creating
+ Container accident-agent-loader-1 Created
+ Container accident-agent-api-1 Creating
+ Container accident-agent-api-1 Created
+ Container accident-agent-neo4j-1 Starting
+ Container accident-agent-neo4j-1 Started
+ Container accident-agent-neo4j-1 Waiting
+ Container accident-agent-neo4j-1 Healthy
+ Container accident-agent-loader-1 Starting
+ Container accident-agent-loader-1 Started
+ Container accident-agent-loader-1 Waiting
+ Container accident-agent-loader-1 Exited
+ Container accident-agent-api-1 Starting
+ Container accident-agent-api-1 Started
+(codigo de salida: 0, segundos: 12; salida completa del build: 114 lineas)
+
+$ docker compose ps -a
+SERVICE   IMAGE                     STATUS
+api       accident-agent:local      Up Less than a second
+loader    accident-agent:local      Exited (0) Less than a second ago
+neo4j     neo4j:5.26.31-community   Up 8 seconds (healthy)
+
+$ docker compose logs loader --no-log-prefix
+loader: siniestros_raw.json SHA-256 77e2ca6e3f29c838035009cad0f720ef70bbda8138369b23616800cbd1fd8280 (verificado contra siniestros_raw.json.sha256)
+loader: pipeline: 30 siniestros (29 vigentes), 4 informes
+loader: carga: 287 nodos y 438 relaciones en una transaccion
+loader:   accidents = 30 [ok]
+loader:   active_accidents = 29 [ok]
+loader:   annulled = ['SIN-2026-0010 -> SIN-2026-0011'] [ok]
+loader:   sin_2025_0007_version_damages = [2, 4100.0] [ok]
+loader:   active_with_motorcycle = 7 [ok]
+loader:   deaths_active = 18 [ok]
+loader:   injured_active = 44 [ok]
+loader:   active_with_deaths = 15 [ok]
+loader:   active_pichincha = 5 [ok]
+loader:   active_guayas = 5 [ok]
+loader:   active_e35 = 6 [ok]
+loader:   active_e35_with_deaths = ['SIN-2025-0001', 'SIN-2025-0013', 'SIN-2026-0004', 'SIN-2026-0007'] [ok]
+loader:   reports = 4 [ok]
+loader:   personal_data_properties = 0 [ok]
+loader:   nodes = {'Accident': 30, 'AccidentType': 5, 'Canton': 22, 'Cause': 10, 'Dataset': 1, 'Parish': 30, 'Person': 80, 'Province': 17, 'Report': 4, 'ReportSection': 9, 'Road': 20, 'Vehicle': 49, 'VehicleType': 10} [ok]
+loader:   relationships = {'ANALYZES_ROAD': 2, 'BELONGS_TO': 52, 'HAS_CAUSE': 30, 'HAS_SECTION': 9, 'INVOLVED_IN': 49, 'OCCURRED_IN': 30, 'OF_TYPE': 79, 'ON_ROAD': 30, 'PARTICIPATED_IN': 80, 'REPLACED_BY': 1, 'RODE_IN': 75, 'SUPERSEDES': 1} [ok]
+loader:   fulltext_indexes = ['accident_narratives: ONLINE', 'report_texts: ONLINE'] [ok]
+loader: datos personales en el grafo: ninguno
+loader: carga verificada
+
+$ curl -s localhost:8000/health
+{"status":"ok","neo4j":"ok","llm_configured":true}
+HTTP 200
+
+$ curl -s -X POST localhost:8000/chat -H "Content-Type: application/json" -d '{"message": "Cuantos siniestros hubo en Pichincha?"}'
+{"session_id":"5527969ece5646ef909afc18a29b14e8","answer":"En la provincia de **Pichincha** se registran **5 siniestros** (excluyendo los anulados).\n\nDetalle agregado:\n- Fallecidos: 4\n- Heridos: 9\n- Da\u00f1os estimados: 68\u202f300\u202fUSD\n\n*Nota: las estad\u00edsticas no incluyen registros anulados.*","tools_used":[{"name":"search_accidents","params":{"mode":"stats","group_by":"province","province":"Pichincha"},"duration_ms":636,"status":"ok","error_type":null}],"trace_id":"2bce0f0388624f1eb84bbe35371d62b5","stop_reason":"final_answer"}
+HTTP 200
+(segundos: 11)
+
+$ docker compose logs api --no-log-prefix | grep -c tracer   # sin claves de Langfuse: NoopTracer, sin conexiones
+0
+
+$ uv sync --frozen
+ + uvicorn==0.54.0
+ + virtualenv==21.15.2
+ + wrapt==2.5.2
+
+$ uv run pytest -q   # suite por defecto: unitarias, contrato y escenarios con el LLM simulado
+.......................................................................  [100%]
+719 passed, 31 deselected in 6.59s
+
+$ uv run pytest -q -m integration   # contra el Neo4j recien cargado
+..............................                                           [100%]
+30 passed, 720 deselected in 4.97s
+
+$ cd data && shasum -a 256 -c siniestros_raw.json.sha256
+siniestros_raw.json: OK
+
+$ git status --short   # el clon no queda modificado (.env y caches ignorados)
+(fin)
+
+# El build anterior (12 s) reutilizo la cache de capas de Docker. Build completo sin cache:
+$ docker compose build --no-cache && docker compose up -d
+#12 [api stage-0 5/8] RUN uv sync --frozen --no-dev --no-install-project
+Prepared 47 packages in 449ms
+Installed 47 packages in 70ms
+#12 [loader stage-0 5/8] RUN uv sync --frozen --no-dev --no-install-project
+#14 [loader stage-0 7/8] RUN uv sync --frozen --no-dev --no-editable
+      Built accident-agent @ file:///app
+Prepared 1 package in 16ms
+Installed 1 package in 3ms
+(build: codigo de salida 0, 5 s)
+ Container accident-agent-neo4j-1 Healthy
+ Container accident-agent-loader-1 Started
+ Container accident-agent-loader-1 Exited
+ Container accident-agent-api-1 Started
+(arranque tras el build: 3 s)
+
+$ docker compose logs loader --no-log-prefix | tail -2
+loader: datos personales en el grafo: ninguno
+loader: carga verificada
+$ curl -s localhost:8000/health
+{"status":"ok","neo4j":"ok","llm_configured":true}
+# En el build sin cache uv descargo e instalo las 47 dependencias fijadas (uv.lock); las imagenes
+# base python:3.12.15-slim-trixie, uv:0.13.6 y neo4j:5.26.31-community ya estaban descargadas en el equipo.

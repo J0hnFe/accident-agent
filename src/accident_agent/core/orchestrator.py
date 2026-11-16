@@ -48,8 +48,10 @@ ToolStatus = Literal["ok", "error", "timeout"]
 
 MESSAGES: Final[dict[str, str]] = {
     "rate_limit": (
-        "El servicio de inteligencia artificial alcanzo su limite de uso. "
-        "Intenta de nuevo en unos minutos."
+        # El plan gratuito tiene un limite por minuto y otro diario (se reinicia a las 00:00 UTC);
+        # el 429 no siempre indica cual se alcanzo.
+        "El servicio de inteligencia artificial alcanzo su limite de uso (por minuto o diario). "
+        "Intenta de nuevo mas tarde."
     ),
     "auth": (
         "La clave del proveedor de inteligencia artificial falta o no es valida. "

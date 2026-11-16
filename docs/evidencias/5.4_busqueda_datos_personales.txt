@@ -1,0 +1,129 @@
+# 5.4 Busqueda de datos personales en respuestas, informes, logs y trazas (2026-11-15)
+
+## Metodo
+
+- Valores exactos de la nomina del JSON original (data/siniestros_raw.json): nombres completos,
+  cedulas y placas de los registros, y cedulas del informe reservado INF-RES-01. Comparacion sin
+  tildes ni mayusculas; las placas tambien sin guion.
+- Patrones genericos P6 de docs/datos/politica_datos_personales.md (domain/privacy.py): cedula de
+  10 digitos, cedula con guion, RUC, placa de auto y placa de moto. No dependen del prefijo 99 ni
+  del formato de placa de los datos ficticios.
+- El script nunca imprime un valor de la nomina; de los patrones genericos muestra el valor solo si
+  no pertenece a la nomina, para clasificar falsos positivos.
+
+## Fuentes revisadas
+
+- Respuestas: transcripciones con el LLM real de las etapas 4 y 5 (escenarios 1 a 13), POST /chat
+  y CLI (docs/evidencias/), y las ejecuciones reales de esta etapa.
+- Salidas completas de las herramientas contra Neo4j, sin LLM: search_accidents con los 30
+  siniestros (incluido el anulado), mode=reports con todos los informes, mode=stats con las 7
+  agrupaciones y generate_accident_report con los 30 ids y narrativas (2 informes).
+- Informes: reports/ local, reports/ del contenedor api (informe del escenario 6) y los 2 informes
+  anteriores.
+- Logs: logs/agent.jsonl local, logs/agent.jsonl del contenedor api y docker compose logs api.
+- Trazas: todas las observaciones de Langfuse Cloud desde 2026-11-15T00:00Z (GET
+  /api/public/v2/observations, paginado): 150 observaciones de 36 trazas, con entradas y salidas
+  (prompts, resultados de herramientas y respuestas). Incluye las 9 trazas citadas en las
+  evidencias de la etapa 4.
+
+## Control positivo (el mismo script sobre el JSON original)
+
+coincidencias exactas de la nomina: {'nombre': 87, 'cedula': 87, 'placa': 126}
+coincidencias de patrones genericos: 213
+
+## Resultado
+
+nomina: 61 nombres, 80 cedulas, 49 placas
+archivos revisados: 47
+  docs/evidencias/0.2_entorno_local.md (1132 bytes): exactas=0 patrones=0
+  docs/evidencias/0.3_limites_openrouter.md (2443 bytes): exactas=0 patrones=0
+  docs/evidencias/0.3_prueba_tool_calling.md (4113 bytes): exactas=0 patrones=0
+  docs/evidencias/0.3b_limites_langfuse.md (2395 bytes): exactas=0 patrones=0
+  docs/evidencias/0.4_esqueleto_proyecto.md (4011 bytes): exactas=0 patrones=3
+  docs/evidencias/0.5_git_precommit.md (2236 bytes): exactas=0 patrones=1
+  docs/evidencias/1.10_verificacion_cierre.txt (1011 bytes): exactas=0 patrones=1
+  docs/evidencias/1.1_perfilado.json (79350 bytes): exactas=0 patrones=1
+  docs/evidencias/1.5_verificacion_datos_personales.txt (813 bytes): exactas=0 patrones=3
+  docs/evidencias/1.7_pruebas_normalizadores.txt (31039 bytes): exactas=0 patrones=1
+  docs/evidencias/2.6_salida_loader.txt (1660 bytes): exactas=0 patrones=2
+  docs/evidencias/2.8_consultas_ejemplo.txt (4590 bytes): exactas=0 patrones=0
+  docs/evidencias/2.8_docker_compose_up.txt (4789 bytes): exactas=0 patrones=12
+  docs/evidencias/3.7_ejemplos_herramientas.md (20594 bytes): exactas=0 patrones=2
+  docs/evidencias/3.7_informe_generado.md (7102 bytes): exactas=0 patrones=1
+  docs/evidencias/4.11_langfuse_verificacion.txt (1890 bytes): exactas=0 patrones=0
+  docs/evidencias/4.11_logs_solicitud.jsonl (1752 bytes): exactas=0 patrones=0
+  docs/evidencias/4.11_transcripciones_escenarios.json (11692 bytes): exactas=0 patrones=0
+  docs/evidencias/4.11_transcripciones_primera_ejecucion.json (19693 bytes): exactas=0 patrones=1
+  docs/evidencias/5.2_langfuse_escenarios_4_5_6.txt (2517 bytes): exactas=0 patrones=0
+  docs/evidencias/5.4_cypher_solo_lectura.txt (4178 bytes): exactas=0 patrones=0
+  docs/evidencias/5.5_arranque_desde_cero.txt (7697 bytes): exactas=0 patrones=4
+  docs/evidencias/5.6_gitleaks.txt (1348 bytes): exactas=0 patrones=0
+  docs/evidencias/5.9_pytest_cobertura.txt (8411 bytes): exactas=0 patrones=0
+  docs/evidencias/etapa-0_notas.md (6902 bytes): exactas=0 patrones=3
+  docs/evidencias/etapa-1_notas.md (34691 bytes): exactas=0 patrones=9
+  docs/evidencias/etapa-2_notas.md (7655 bytes): exactas=0 patrones=2
+  docs/evidencias/etapa-3_notas.md (8669 bytes): exactas=0 patrones=1
+  docs/evidencias/etapa-4_notas.md (12092 bytes): exactas=0 patrones=0
+  docs/evidencias/func_3.7_catalogo_valores.md (3644 bytes): exactas=0 patrones=0
+  docs/evidencias/func_4.11_api_chat.json (4188 bytes): exactas=0 patrones=0
+  docs/evidencias/func_4.11_cli_verbose.txt (1493 bytes): exactas=0 patrones=0
+  docs/evidencias/func_5.2_informe_escenario_6.md (9943 bytes): exactas=0 patrones=1
+  docs/evidencias/func_5.2_transcripciones_escenarios.json (19608 bytes): exactas=0 patrones=0
+  docs/evidencias/func_5.3_mensajes_error.md (18441 bytes): exactas=0 patrones=0
+  logs/agent.jsonl (3918 bytes): exactas=0 patrones=0
+  <docker compose logs api> (3192 bytes): exactas=0 patrones=0
+  <contenedor api>/logs/agent.jsonl (2824 bytes): exactas=0 patrones=0
+  <contenedor api>/reports/RPT-20261115-225702-d9a480.md (9186 bytes): exactas=0 patrones=1
+  <langfuse>/observaciones_2026-11-15.json (591336 bytes): exactas=0 patrones=0
+  <salidas>/informes/RPT-20261115-230252-79be48.md (26255 bytes): exactas=0 patrones=1
+  <salidas>/informes/RPT-20261115-230252-92ab59.md (13381 bytes): exactas=0 patrones=1
+  <salidas>/herramientas_completas.json (125805 bytes): exactas=0 patrones=2
+  <sonda>/agent.jsonl (1371 bytes): exactas=0 patrones=0
+  <ejecuciones 5.2-5.3>/real_run1.json (7038 bytes): exactas=0 patrones=0
+  <ejecuciones 5.2-5.3>/real_run6.json (1763 bytes): exactas=0 patrones=0
+  <ejecuciones 5.2-5.3>/real_429.txt (1006 bytes): exactas=0 patrones=0
+coincidencias exactas de la nomina: {'nombre': 0, 'cedula': 0, 'placa': 0}
+coincidencias de patrones genericos: 53
+
+## Clasificacion de las coincidencias de patrones genericos (todas falsos positivos)
+
+   2 cedula 1794797319
+   2 cedula 9999999999
+   2 placa_auto AAA-9999
+   1 placa_auto INF-2026
+   1 placa_auto RUF001
+  19 placa_auto SHA-256
+  23 placa_auto sha256
+   2 placa_auto SIN-2026
+   1 placa_auto USD-6200
+
+- sha256 / SHA-256 (42): huella del JSON original y digests de imagenes Docker.
+- SIN-2026 / INF-2026 (3): texto de las notas de la etapa 1 que describe el falso positivo ya
+  corregido en el patron (los ids completos SIN-2026-0009 o INF-2026-02 no coinciden).
+- AAA-9999 y 9999999999 (4): descripcion del formato de placa y cedula en la verificacion de la
+  etapa 1, no valores.
+- 1794797319 (2): unix_timestamp de get_current_time en 3.7_ejemplos_herramientas.md.
+- RUF001 (1): codigo de una regla de ruff. USD-6200 (1): nombre de un caso de prueba de montos.
+Ninguna coincide con la nomina (la nomina tiene 0 coincidencias en todas las fuentes).
+
+## Sonda de redaccion de punta a punta (logs y Langfuse)
+
+Orquestador, herramientas, Neo4j, logger y LangfuseTracer reales; LLM guionizado (sin cuota).
+Mensaje del usuario, argumentos de la herramienta y respuesta con los casos de prueba de P6
+(no pertenecen a la nomina): 1712345678, 171234567-8, 1712345678001, PBX-1234, gye123, IA123B.
+
+logs/agent.jsonl de la sonda (evento tool_call):
+  params = {"province": "Guayas", "text": "cedula [CEDULA] [PLACA]"}
+
+Langfuse Cloud, trace d52f66a513d647efb732fef0ea57326a:
+  observaciones de la sonda: 4 ['AGENT:request', 'GENERATION:llm', 'GENERATION:llm', 'TOOL:search_accidents']
+    '1712345678' presente: False
+    '171234567-8' presente: False
+    '1712345678001' presente: False
+    'PBX-1234' presente: False
+    'gye123' presente: False
+    'IA123B' presente: False
+    [CEDULA]: 12  [PLACA]: 9
+    entrada de la traza: Mi cedula es [CEDULA], RUC [CEDULA] y placa [PLACA]: busca Guayas
+    salida de la traza: Respuesta con [CEDULA] y la placa [PLACA] para comprobar la redaccion.
+    sessionId: sonda-redaccion

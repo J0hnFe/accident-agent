@@ -44,24 +44,25 @@
 | 3 | Conceptos basicos | Etapa 2 | [x] |
 | 4 | Capacidades del agente | Etapa 4 | [x] |
 | 5 | Puesta en marcha (resumen) | Etapa 5 | [ ] |
-| 6 | Uso desde la linea de comandos | Etapa 4 | [ ] |
-| 7 | Uso desde la API REST | Etapa 4 | [ ] |
+| 6 | Uso desde la linea de comandos | Etapa 4 | [x] |
+| 7 | Uso desde la API REST | Etapa 4 | [x] |
 | 8 | Como formular consultas | Etapa 4 | [x] |
-| 9 | Ejemplos de conversacion | Etapa 5 | [ ] |
-| 10 | Informes generados | Etapa 5 | [ ] |
-| 11 | Privacidad y tratamiento de datos | Etapa 5 | [ ] |
-| 12 | Comportamiento ante errores y ausencia de datos | Etapa 5 | [ ] |
-| 13 | Limitaciones para el usuario | Etapa 5 | [ ] |
+| 9 | Ejemplos de conversacion | Etapa 5 | [x] |
+| 10 | Informes generados | Etapa 5 | [x] |
+| 11 | Privacidad y tratamiento de datos | Etapa 5 | [x] |
+| 12 | Comportamiento ante errores y ausencia de datos | Etapa 5 | [x] |
+| 13 | Limitaciones para el usuario | Etapa 5 | [x] |
 | 14 | Preguntas frecuentes | Etapa 6 | [ ] |
 | 15 | Anexos | Etapa 6 | [ ] |
 
-**Ultima actualizacion:** cierre de la Etapa 4 (2026-11-15). `[x]` indica que el material de la seccion esta completo; la redaccion final es la tarea 6.3.
+**Ultima actualizacion:** cierre de la Etapa 5 (2026-11-15). `[x]` indica que el material de la seccion esta completo; la redaccion final es la tarea 6.3.
 
 - **Etapa 0:** no produce evidencia `func_`; solo prepara el entorno.
 - **Etapa 1:** no produce evidencia `func_`. Sus documentos alimentan la seccion 3 (conceptos basicos: tipos de siniestro y gravedad de INF-2026-02, en `docs/datos/catalogo_anomalias.md`), la 11 (privacidad: `docs/datos/politica_datos_personales.md`) y la 13 (limitaciones: riesgos residuales de privacidad).
 - **Etapa 2:** no produce evidencia `func_`. Completa la seccion 3 (conceptos basicos: tipos de siniestro con su definicion de INF-2026-02 en el grafo, gravedad, registros anulados e informes reemplazados; ver `docs/modelo_grafo.md`) y alimenta la 5 (puesta en marcha: comando unico y `NEO4J_PASSWORD` obligatoria).
 - **Etapa 3:** produce `func_3.7_catalogo_valores.md` (seccion 8 y anexos). Alimenta la 4 (capacidades de cada herramienta), la 10 (ejemplo de informe en `3.7_informe_generado.md`) y la 12 (sin resultados, id inexistente, valor no reconocido con sugerencias, base no disponible). Ninguna seccion se completa: dependen del agente de punta a punta (Etapas 4 y 5).
 - **Etapa 4:** produce `func_4.11_api_chat.json` (POST /chat con seguimiento) y `func_4.11_cli_verbose.txt`. Completa las secciones 2 (introduccion), 4 (capacidades) y 8 (como formular consultas, con ejemplos reales). Las 6 (CLI) y 7 (API) se marcan con las capturas de la CLI y de Swagger.
+- **Etapa 5:** produce `func_5.2_transcripciones_escenarios.json` (escenarios 1 a 13 con el LLM real), `func_5.2_informe_escenario_6.md` (informe completo) y `func_5.3_mensajes_error.md` (mensajes reales de cada situacion de error). Completa las secciones 9 (ejemplos), 10 (informes), 11 (privacidad: `5.4_busqueda_datos_personales.txt` y escenario 7), 12 (errores) y 13 (limitaciones, en `etapa-5_notas.md`). Las 6 (CLI) y 7 (API) quedan completas con las capturas `func_4.11_cli_verbose.png` y `func_4.11_swagger.png` de la etapa 4. La 5 (puesta en marcha) tiene los pasos verificados en `5.5_arranque_desde_cero.txt`, pero depende del README (tarea 6.1).
 
 ## 4. Estructura del documento final
 

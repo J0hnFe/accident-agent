@@ -1,0 +1,33 @@
+# Trazas de Langfuse Cloud de los escenarios 4, 5 y 6 (GET /api/public/v2/observations por traceId)
+# Claves leidas de .env, no se muestran. Latencias en segundos; uso en tokens.
+
+escenario 4 (ejecucion de la tarea 4.11) trace_id=87d4015f1573499da2b3225f104972c5 HTTP 200 observaciones=4
+  sessionId=si
+  AGENT      request                    inicio=03:08:23.575 latencia=13.668 entrada=0 salida=0
+  GENERATION llm                        inicio=03:08:27.177 latencia=0.001 entrada=3631 salida=194
+  TOOL       generate_accident_report   inicio=03:08:27.178 latencia=0.011 entrada=0 salida=0
+  GENERATION llm                        inicio=03:08:37.242 latencia=0 entrada=6787 salida=399
+
+escenario 5 (ejecucion de la tarea 4.11) trace_id=14a34612002b456c8055e4c3f886a419 HTTP 200 observaciones=6
+  sessionId=si
+  AGENT      request                    inicio=03:05:51.990 latencia=28.376 entrada=0 salida=0
+  GENERATION llm                        inicio=03:05:54.934 latencia=0.001 entrada=2853 salida=74
+  TOOL       get_current_time           inicio=03:05:54.935 latencia=0.001 entrada=0 salida=0
+  GENERATION llm                        inicio=03:05:59.328 latencia=0.001 entrada=3025 salida=168
+  TOOL       search_accidents           inicio=03:05:59.329 latencia=0.007 entrada=0 salida=0
+  GENERATION llm                        inicio=03:06:20.364 latencia=0.001 entrada=6089 salida=753
+
+escenario 6 (ejecucion de la tarea 5.2) trace_id=e8f7e915ae134d248c2404b1cfe62479 HTTP 200 observaciones=6
+  sessionId=si
+  AGENT      request                    inicio=03:56:45.792 latencia=23.688 entrada=0 salida=0
+  GENERATION llm                        inicio=03:56:45.799 latencia=7.903 entrada=2886 salida=104
+  TOOL       search_accidents           inicio=03:56:53.705 latencia=0.523 entrada=0 salida=0
+  GENERATION llm                        inicio=03:56:54.229 latencia=8.574 entrada=7581 salida=305
+  TOOL       generate_accident_report   inicio=03:57:02.804 latencia=0.012 entrada=0 salida=0
+  GENERATION llm                        inicio=03:57:02.818 latencia=6.66 entrada=11733 salida=476
+
+# Las trazas de los escenarios 4 y 5 son de la tarea 4.11, anteriores a la correccion de la medicion
+# de las generations (latencia ~0; ver etapa-4_notas.md); la latencia total de la traza (AGENT) es
+# correcta. La del escenario 6 es de esta etapa y mide cada llamada: 7.9 s + 8.6 s + 6.7 s mas las
+# herramientas suman los 23.7 s de la solicitud. Tres llamadas al LLM porque el informe depende de
+# los ids de la busqueda.

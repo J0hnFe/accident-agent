@@ -68,20 +68,21 @@
 | 9 | Herramientas y contratos | Etapa 3 | [x] |
 | 10 | Flujo RAG | Etapas 3 y 4 | [x] |
 | 11 | Integracion con el proveedor de IA | Etapa 4 | [x] |
-| 12 | Observabilidad | Etapa 4 | [ ] |
-| 13 | Seguridad y privacidad | Etapa 5 | [ ] |
-| 14 | Infraestructura y reproducibilidad | Etapas 2 y 5 | [ ] |
-| 15 | Pruebas | Etapa 5 | [ ] |
-| 16 | Limitaciones conocidas y trabajo futuro | Etapa 5 | [ ] |
+| 12 | Observabilidad | Etapa 4 | [x] |
+| 13 | Seguridad y privacidad | Etapa 5 | [x] |
+| 14 | Infraestructura y reproducibilidad | Etapas 2 y 5 | [x] |
+| 15 | Pruebas | Etapa 5 | [x] |
+| 16 | Limitaciones conocidas y trabajo futuro | Etapa 5 | [x] |
 | 17 | Anexos | Etapa 6 | [ ] |
 
-**Ultima actualizacion:** cierre de la Etapa 4 (2026-11-15). `[x]` indica que el material de la seccion esta completo; la redaccion final es la tarea 6.2.
+**Ultima actualizacion:** cierre de la Etapa 5 (2026-11-15). `[x]` indica que el material de la seccion esta completo; la redaccion final es la tarea 6.2.
 
 - **Etapa 0:** la evidencia (`docs/evidencias/0.*` y `etapa-0_notas.md`) alimenta las secciones 11 (proveedor de IA), 12 (Langfuse), 13 (pre-commit y gitleaks) y 14 (entorno, versiones y configuracion).
 - **Etapa 1:** completa la seccion 4 (analisis de los datos: `docs/datos/`, `1.1_perfilado.json` y el reporte de calidad). Alimenta ademas la 5 (reglas y normalizadores; falta la carga de la Etapa 2), la 13 (politica de datos personales y prompt injection), la 15 (pruebas unitarias) y la 16 (riesgos residuales de privacidad). Resumen en `etapa-1_notas.md`.
 - **Etapa 2:** completa la seccion 5 (normalizacion y carga: pipeline, carga atomica e idempotente, verificacion) y la 6 (modelo de grafo: `docs/modelo_grafo.md`, consultas de ejemplo y muestra frente al JSON). Alimenta ademas la 13 (verificacion de datos personales en el grafo, Cypher parametrizado), la 14 (Dockerfile, compose y arranque desde cero; se completa en la Etapa 5) y la 15 (pruebas de integracion). Resumen en `etapa-2_notas.md`.
 - **Etapa 3:** completa la seccion 9 (herramientas y contratos: `3.7_ejemplos_herramientas.md`, `3.7_informe_generado.md`). Alimenta la 10 (parte de recuperacion del RAG; el ciclo con el LLM es la Etapa 4), la 13 (Cypher de solo lectura, escape de Lucene, DTOs en lista blanca) y la 15 (pruebas de contrato fake y Neo4j). Resumen en `etapa-3_notas.md`.
 - **Etapa 4:** completa las secciones 7 (arquitectura), 8 (orquestador), 10 (flujo RAG) y 11 (proveedor de IA): transcripciones reales `4.11_transcripciones_*.json`, consumo y limites en `etapa-4_notas.md`. La 12 (observabilidad) tiene logs y verificacion de Langfuse (`4.11_logs_solicitud.jsonl`, `4.11_langfuse_verificacion.txt`); se marca con la captura de Langfuse. Alimenta tambien la 13 (delimitacion, redaccion, escenario 7 con el LLM real).
+- **Etapa 5:** completa las secciones 13 (seguridad y privacidad: `5.4_busqueda_datos_personales.txt`, `5.4_cypher_solo_lectura.txt`, `5.6_gitleaks.txt`), 14 (arranque desde cero en un clon limpio: `5.5_arranque_desde_cero.txt`), 15 (pruebas: `5.9_pytest_cobertura.txt`, escenarios reales en `func_5.2_transcripciones_escenarios.json` y fallos en `func_5.3_mensajes_error.md`) y 16 (limitaciones y mejoras en `etapa-5_notas.md`). La 12 queda completa con la captura `4.11_langfuse_traza.png` de la etapa 4 y el arbol de las trazas de los escenarios 4 a 6 (`5.2_langfuse_escenarios_4_5_6.txt`); las capturas `[R]` de esos escenarios estan pendientes. La 3 (alcance) tiene los resultados, pero se marca al recorrer la lista de verificacion en la tarea 6.5. Resumen en `etapa-5_notas.md`.
 
 ## 5. Estructura del documento final
 
