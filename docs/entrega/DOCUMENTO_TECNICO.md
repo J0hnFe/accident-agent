@@ -6,7 +6,7 @@ Autor: J0hnFe (identidad del historial Git). Versión documental: 1.1, 16 de nov
 
 Repositorio público: https://github.com/J0hnFe/accident-agent
 
-Referencia de entrega: tag `entrega-1.0`. Implementación descrita: commit `eb9537e`, versión de aplicación 0.1.0; los commits posteriores solo modifican documentación y evidencias.
+Referencia de entrega: tag `entrega-1.0`. Implementación descrita: commit `ecea903`, versión de aplicación 0.1.0; los commits posteriores solo modifican documentación y evidencias.
 
 
 Contenido: 1. Resumen ejecutivo | 2. Alcance y trazabilidad | 3. Análisis de datos | 4. Normalización e ingesta | 5. Modelo de grafo | 6. Arquitectura y SOLID | 7. Orquestador y memoria | 8. Herramientas y contratos | 9. Recuperación de hechos (RAG) | 10. Proveedor de IA | 11. Observabilidad | 12. Seguridad y privacidad | 13. Infraestructura y reproducibilidad | 14. Pruebas y resultados | 15. Limitaciones y evolución | 16. Anexos y registro de decisiones.

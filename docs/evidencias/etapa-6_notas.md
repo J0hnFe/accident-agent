@@ -1,7 +1,7 @@
 # Etapa 6 - Avance de documentacion y entrega
 
 - Fecha: 2026-11-15.
-- Implementacion documentada: `eb9537e` (aplicacion 0.1.0).
+- Implementacion documentada: `ecea903` (antes `eb9537e`; ver "Reescritura del historial"), aplicacion 0.1.0.
 - Estado (2026-11-16): tareas 6.1 a 6.5 completas; etapa abierta hasta el envio (6.6) y el registro final (6.7).
 - Etapa trabajada por Codex: **Etapa 6 - Documentar y entregar**, tareas 6.1 a 6.3 y verificacion parcial de 6.5.
 - Commit del trabajo documental: `c546bc1` (todavia no entregado).
@@ -102,6 +102,26 @@ Comprobaciones:
 | Situaciones de la seccion 4.12 de la guia funcional | Las 11 con su mensaje real en el anexo |
 
 Listas: seccion 9 de la guia tecnica y seccion 7 de la guia funcional marcadas; la matriz del plan (seccion 11) tiene una columna de estado. Solo queda la entrega por correo.
+
+## Reescritura del historial (2026-11-16)
+
+Por decision del candidato, `docs/PLAN_DESARROLLO.md` y `docs/enunciado/` se conservan solo en local: se ignoran en `.gitignore` y se eliminaron de todo el historial con `git filter-repo --invert-paths` (el plan contenia el correo del destinatario y el enunciado reorganiza material de BIT). Antes se guardo un bundle completo del repositorio fuera del proyecto.
+
+- Comprobado tras la reescritura: ningun commit contiene esas rutas ni el correo; gitleaks sobre los 14 commits, sin hallazgos; sin cambios de codigo desde `ecea903`.
+- El README y el documento tecnico ya no remiten al plan.
+- El tag `entrega-1.0` se recreo sobre el commit final. Los documentos citan `ecea903` como implementacion descrita.
+- Todos los hashes cambiaron. Las evidencias anteriores conservan los hashes originales porque son copias de ejecuciones reales:
+
+| Hash original | Hash actual | Commit |
+| --- | --- | --- |
+| `5db0a2a` | `67819ac` | Esqueleto (etapa 0) |
+| `d036847` | `7db6362` | Correcciones de la etapa 5 |
+| `eb9537e` | `ecea903` | Etapa 5; implementacion descrita en los documentos |
+| `c546bc1` | `e512c7a` | Manuales de la etapa 6 |
+| `e44eaa0` | `0ae2b5e` | Revision de secretos |
+| `876c407` | `7756909` | Publicacion y capturas de Langfuse |
+| `b343267` | `af23905` | Documentos 1.1 (primer destino del tag) |
+| `44c3eda` | `4b620e8` | Formato de error de la API (etapa 4) |
 
 ## Evidencias y archivos
 

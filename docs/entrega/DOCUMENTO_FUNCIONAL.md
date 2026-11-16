@@ -6,7 +6,7 @@ Autor: J0hnFe (identidad del historial Git). Versión 1.1, 16 de noviembre de 20
 
 Repositorio público: https://github.com/J0hnFe/accident-agent
 
-Referencia de entrega: tag `entrega-1.0`. Aplicación 0.1.0, implementación descrita: commit `eb9537e`.
+Referencia de entrega: tag `entrega-1.0`. Aplicación 0.1.0, implementación descrita: commit `ecea903`.
 
 
 Contenido: 1. Introducción | 2. Conceptos básicos | 3. Capacidades | 4. Puesta en marcha | 5. Línea de comandos | 6. API REST | 7. Cómo formular consultas | 8. Conversaciones verificadas | 9. Informes generados | 10. Privacidad | 11. Errores y ausencia de datos | 12. Limitaciones | 13. Preguntas frecuentes | 14. Anexos.
