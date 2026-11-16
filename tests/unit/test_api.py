@@ -144,3 +144,33 @@ def test_openapi_docs(make_client: Any) -> None:
     assert client.get("/docs").status_code == 200
     paths = client.get("/openapi.json").json()["paths"]
     assert {"/chat", "/health", "/reports/{report_id}", "/sessions/{session_id}"} <= set(paths)
+
+
+def test_openapi_documents_the_real_error_format(make_client: Any) -> None:
+    client, _ = make_client([])
+    spec = client.get("/openapi.json").json()
+    schemas = spec["components"]["schemas"]
+    # El formato por defecto de FastAPI ({"detail": [...]}) no es el que devuelve la API.
+    assert "HTTPValidationError" not in schemas
+    assert "ValidationError" not in schemas
+    assert "ErrorResponse" in schemas
+    paths = spec["paths"]
+    for path, method, status in [
+        ("/chat", "post", "422"),
+        ("/chat", "post", "500"),
+        ("/reports/{report_id}", "get", "404"),
+        ("/reports/{report_id}", "get", "422"),
+        ("/sessions/{session_id}", "delete", "404"),
+    ]:
+        ref = paths[path][method]["responses"][status]["content"]["application/json"]["schema"]
+        assert ref["$ref"].endswith("/ErrorResponse"), (path, status)
+
+
+def test_not_found_uses_the_same_error_format(make_client: Any) -> None:
+    client, _ = make_client([])
+    report = client.get("/reports/RPT-20990101-000000-abcdef")
+    assert report.status_code == 404
+    assert report.json() == {"error": {"type": "not_found", "message": "informe no encontrado"}}
+    session = client.delete("/sessions/inexistente")
+    assert session.json() == {"error": {"type": "not_found", "message": "sesion no encontrada"}}
+    assert client.get("/no-existe").json()["error"]["type"] == "not_found"

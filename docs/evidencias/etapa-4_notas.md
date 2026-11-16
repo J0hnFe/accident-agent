@@ -79,6 +79,7 @@ Los resultados de herramientas llegan al modelo como `<resultado_herramienta>JSO
 | Las pruebas de Langfuse exportaban vacio a partir de la segunda | El SDK reutiliza un cliente por clave publica; cada prueba usa una clave distinta |
 | El endpoint de lectura `/api/public/traces` de Langfuse respondio 410 (deprecado) al verificar | Se uso `GET /api/public/v2/observations`. La aplicacion no lo usa: solo envia trazas por OpenTelemetry |
 | Sin `OPENROUTER_MODELS` el proveedor no arrancaba | Lista por defecto con los modelos de la tarea 0.3 |
+| El OpenAPI (Swagger) publicaba el formato de error por defecto de FastAPI (`HTTPValidationError`, `{"detail": [...]}`), distinto del que devuelve la API; los 404 tambien usaban `{"detail": ...}` | Detectado al revisar la captura de Swagger. Modelo `ErrorResponse` declarado en las respuestas 404, 422 y 500 de cada ruta, y manejador para que los 404 usen `{"error": {...}}`. Dos pruebas nuevas; captura de Swagger tomada de nuevo |
 | Una prueba de error dentro de un 200 esperaba pasar al siguiente modelo | Se separo: respuesta mal formada (siguiente modelo) frente a error transitorio del proveedor (reintento) |
 
 ## Archivos y modulos clave
@@ -100,7 +101,7 @@ Los resultados de herramientas llegan al modelo como `<resultado_herramienta>JSO
 | `docs/evidencias/func_4.11_api_chat.json` | `POST /chat` con seguimiento en la misma sesion | Funcional 4.7 |
 | `docs/evidencias/func_4.11_cli_verbose.txt` | Salida real de `ask --verbose` | Funcional 4.6 |
 | `docs/evidencias/4.11_langfuse_traza.png` | Detalle de la traza del escenario 2 en Langfuse Cloud (latencias de las dos llamadas al LLM) | Tecnica 5.12 |
-| `docs/evidencias/func_4.11_cli_verbose.png` | Captura de la CLI con `--verbose` | Funcional 4.6 |
+| `docs/evidencias/func_4.11_cli_verbose.png` | Captura de la CLI con `--verbose`. Es otra ejecucion de la misma pregunta que el `.txt`: trace `8380c646...`, el modelo llamo `get_current_time` y `search_accidents` (3 iteraciones); el `.txt` (trace `ca8ccd70...`) uso solo `search_accidents` (2 iteraciones). Las cifras son las mismas: 4 siniestros, 3 fallecidos, 3 heridos, USD 26 400 | Funcional 4.6 |
 | `docs/evidencias/func_4.11_swagger.png` | Captura de Swagger en `/docs` | Funcional 4.7 |
 
 Todas revisadas contra la nomina completa y los patrones de claves: 0 coincidencias.
