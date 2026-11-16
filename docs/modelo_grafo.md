@@ -53,7 +53,7 @@ graph LR
 
 | Etiqueta | Clave | Propiedades | Cantidad esperada |
 | --- | --- | --- | --- |
-| `Accident` | `accident_id` (`SIN-AAAA-NNNN`) | `version`, `versions_count`, `status`, `is_active`, `occurred_at`, `date`, `year`, `month`, `hour`, `updated_at`, `damages_usd`, `deaths`, `injured`, `unharmed`, `summary_mismatch`, `narrative`, `latitude`, `longitude`, `weather`, `surface`, `lighting`, `annulment_reason` | 30 |
+| `Accident` | `accident_id` (`SIN-AAAA-NNNN`) | `version`, `versions_count`, `status`, `is_active`, `occurred_at`, `date`, `year`, `month`, `hour`, `updated_at`, `damages_usd`, `deaths`, `injured`, `unharmed`, `summary_mismatch`, `narrative`, `narrative_search`, `latitude`, `longitude`, `weather`, `surface`, `lighting`, `annulment_reason` | 30 |
 | `Province` | `name` | - | 17 |
 | `Canton` | `canton_id` (`<provincia>\|<canton>`) | `name` | 22 |
 | `Parish` | `parish_id` (`<provincia>\|<canton>\|<parroquia>`) | `name` | 30 (29 nombres: hay dos `San Rafael`) |
@@ -64,7 +64,7 @@ graph LR
 | `Vehicle` | `vehicle_id` (`<accident_id>-V<n>`) | `brand`, `model`, `year`, `service` | 49 |
 | `Person` | `person_id` (`<accident_id>-P<n>`) | `role`, `age`, `sex`, `condition`, `alcohol_gl`, `protection`, `days_until_death` | 80 |
 | `Report` | `report_id` (`INF-AAAA-NN`) | `title`, `date`, `status`, `classification` | 4 |
-| `ReportSection` | `section_id` (`<report_id>-S<n>`) | `order`, `title`, `text` | 9 |
+| `ReportSection` | `section_id` (`<report_id>-S<n>`) | `order`, `title`, `text`, `title_search`, `text_search` | 9 |
 | `Dataset` | `sha256` | `source_file`, `source`, `generated`, `schema_version`, `timezone` | 1 |
 
 - Las cantidades salen de la carga real (tarea 2.6). Vehiculos y personas son los de los 30 siniestros cargados: la version 1 de SIN-2025-0007 no se carga.
@@ -95,8 +95,10 @@ graph LR
 | Unicidad | Clave de cada etiqueta de la seccion 3 | Integridad y busqueda por clave (crea un indice) |
 | Rango | `Accident.occurred_at`, `Accident.date`, `Accident.is_active` | Filtros por fecha ("ultimos 6 meses") y exclusion de anulados |
 | Rango | `Accident.weather`, `Accident.surface`, `Accident.lighting` | Filtros por condiciones |
-| Full-text | `accident_narratives` sobre `Accident.narrative`, analizador `spanish` | Busqueda en narrativas (`text` de `search_accidents`) |
-| Full-text | `report_texts` sobre `ReportSection.title` y `ReportSection.text`, analizador `spanish` | Busqueda en informes (`mode=reports`) |
+| Full-text | `accident_narratives` sobre `Accident.narrative_search`, analizador `spanish` | Busqueda en narrativas (`text` de `search_accidents`) |
+| Full-text | `report_texts` sobre `ReportSection.title_search` y `text_search`, analizador `spanish` | Busqueda en informes (`mode=reports`) |
+
+**Copias sin tildes para el full-text** (`narrative_search`, `title_search`, `text_search`): son el texto pasado por `normalize_key` (sin tildes y en minusculas). El stemmer espanol de Lucene solo quita las tildes de palabras de 5 letras o mas, asi que sobre el texto original `via` no encuentra `vía`, ni `rio` encuentra `río` (comprobado en la tarea 3.4). Las consultas se pliegan con la misma funcion. El texto original se conserva para mostrarlo. Si un indice existente indexa otras propiedades, el writer lo borra y lo crea de nuevo.
 
 Todas se crean con `IF NOT EXISTS` y en una transaccion separada de los datos (Neo4j no mezcla esquema y datos en una transaccion).
 
@@ -140,7 +142,7 @@ La correspondencia completa entre campo original y regla esta en `docs/datos/reg
 | `VehicleType` con clave `name` | Clave `code` y `name` legible | Mismo patron que `AccidentType` y `Cause` |
 | `ReportSection` con clave "report_id y orden" | `section_id` (`<report_id>-S<n>`) | Clave de una sola propiedad |
 | Sin nodo de procedencia | `Dataset` | La fuente y el SHA-256 se citan en los informes y prueban que el grafo viene del archivo verificado |
-| Full-text solo sobre `ReportSection.text` | `title` y `text`, analizador `spanish` | Los titulos tambien orientan la busqueda; el analizador reduce plurales y variaciones |
+| Full-text solo sobre `ReportSection.text` | Titulo y texto, analizador `spanish`, sobre copias sin tildes | Los titulos tambien orientan la busqueda; el analizador reduce plurales y las copias sin tildes resuelven las palabras cortas (tarea 3.4) |
 
 ## 8. Alternativas descartadas
 

@@ -65,7 +65,7 @@
 | 6 | Modelo de grafo | Etapa 2 | [x] |
 | 7 | Arquitectura de la solucion | Etapa 4 | [ ] |
 | 8 | Orquestador | Etapa 4 | [ ] |
-| 9 | Herramientas y contratos | Etapa 3 | [ ] |
+| 9 | Herramientas y contratos | Etapa 3 | [x] |
 | 10 | Flujo RAG | Etapas 3 y 4 | [ ] |
 | 11 | Integracion con el proveedor de IA | Etapa 4 | [ ] |
 | 12 | Observabilidad | Etapa 4 | [ ] |
@@ -75,11 +75,12 @@
 | 16 | Limitaciones conocidas y trabajo futuro | Etapa 5 | [ ] |
 | 17 | Anexos | Etapa 6 | [ ] |
 
-**Ultima actualizacion:** cierre de la Etapa 2 (2026-11-15). `[x]` indica que el material de la seccion esta completo; la redaccion final es la tarea 6.2.
+**Ultima actualizacion:** cierre de la Etapa 3 (2026-11-15). `[x]` indica que el material de la seccion esta completo; la redaccion final es la tarea 6.2.
 
 - **Etapa 0:** la evidencia (`docs/evidencias/0.*` y `etapa-0_notas.md`) alimenta las secciones 11 (proveedor de IA), 12 (Langfuse), 13 (pre-commit y gitleaks) y 14 (entorno, versiones y configuracion).
 - **Etapa 1:** completa la seccion 4 (analisis de los datos: `docs/datos/`, `1.1_perfilado.json` y el reporte de calidad). Alimenta ademas la 5 (reglas y normalizadores; falta la carga de la Etapa 2), la 13 (politica de datos personales y prompt injection), la 15 (pruebas unitarias) y la 16 (riesgos residuales de privacidad). Resumen en `etapa-1_notas.md`.
 - **Etapa 2:** completa la seccion 5 (normalizacion y carga: pipeline, carga atomica e idempotente, verificacion) y la 6 (modelo de grafo: `docs/modelo_grafo.md`, consultas de ejemplo y muestra frente al JSON). Alimenta ademas la 13 (verificacion de datos personales en el grafo, Cypher parametrizado), la 14 (Dockerfile, compose y arranque desde cero; se completa en la Etapa 5) y la 15 (pruebas de integracion). Resumen en `etapa-2_notas.md`.
+- **Etapa 3:** completa la seccion 9 (herramientas y contratos: `3.7_ejemplos_herramientas.md`, `3.7_informe_generado.md`). Alimenta la 10 (parte de recuperacion del RAG; el ciclo con el LLM es la Etapa 4), la 13 (Cypher de solo lectura, escape de Lucene, DTOs en lista blanca) y la 15 (pruebas de contrato fake y Neo4j). Resumen en `etapa-3_notas.md`.
 
 ## 5. Estructura del documento final
 

@@ -1,0 +1,97 @@
+# {{ title }}
+
+- **Identificador:** {{ report_id }}
+- **Generado:** {{ generated_at }}
+- **Fuente:** {{ source.source }} (archivo `{{ source.source_file }}`, SHA-256 `{{ source.sha256[:12] }}`, extracto del {{ source.generated }})
+- **Siniestros incluidos:** {{ included | length }}{% if not_found %}; no encontrados: {{ not_found | join(", ") }}{% endif %}
+
+
+Todos los datos de este informe se consultaron en la base de siniestros al generarlo.
+
+## Resumen
+
+| Indicador | Valor |
+| --- | --- |
+| Siniestros vigentes | {{ totals.accidents }} |
+| Fallecidos | {{ totals.deaths }} |
+| Heridos | {{ totals.injured }} |
+| Ilesos | {{ totals.unharmed }} |
+| Danos materiales (USD) | {{ totals.damages_usd | money }} |
+{% if annulled %}
+
+Registros anulados incluidos: {{ annulled | join(", ") }}. Se muestran por trazabilidad y no suman en los totales.
+{% endif %}
+{% if by_type %}
+
+### Por tipo de siniestro
+
+| Tipo | Siniestros |
+| --- | --- |
+{% for label, count in by_type %}
+| {{ label }} | {{ count }} |
+{% endfor %}
+
+### Por causa
+
+| Causa | Siniestros |
+| --- | --- |
+{% for label, count in by_cause %}
+| {{ label }} | {{ count }} |
+{% endfor %}
+{% endif %}
+
+## Detalle por siniestro
+{% for a in accidents %}
+
+### {{ a.accident_id }} - {{ a.occurred_at.strftime("%Y-%m-%d %H:%M") }}{% if not a.is_active %} (ANULADO){% endif %}
+
+
+{% if not a.is_active %}
+- **Estado:** ANULADO{% if a.annulment_reason %}. Motivo: {{ a.annulment_reason }}{% endif %}
+
+{% if a.replaced_by %}
+- **Reemplazado por:** {{ a.replaced_by }}
+{% endif %}
+{% endif %}
+{% if a.replaces %}
+- **Reemplaza a:** {{ a.replaces }} (anulado)
+{% endif %}
+- **Ubicacion:** {{ a.parish }}, {{ a.canton }}, {{ a.province }}
+- **Via:** {{ a.road }}{% if a.road_code %} ({{ a.road_code }}){% endif %}{% if a.km is not none %}, km {{ a.km }}{% endif %}
+
+- **Tipo y causa:** {{ a.accident_type | label }}; {{ a.cause | label }}
+- **Condiciones:** clima {{ a.weather | label | lower }}, superficie {{ a.surface | label | lower }}, iluminacion {{ a.lighting | label | lower }}
+- **Victimas:** {{ a.deaths }} fallecidos, {{ a.injured }} heridos, {{ a.unharmed }} ilesos
+- **Danos materiales (USD):** {{ a.damages_usd | money }}
+
+| Vehiculo | Tipo | Marca y modelo | Anio | Servicio |
+| --- | --- | --- | --- | --- |
+{% for v in a.vehicles %}
+| {{ v.vehicle_id }} | {{ v.vehicle_type | label }} | {{ v.brand }} {{ v.model }} | {{ v.year }} | {{ v.service | label }} |
+{% endfor %}
+
+| Persona | Rol | Edad | Sexo | Condicion | Proteccion | Alcoholemia (g/L) | Vehiculo |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+{% for p in a.people %}
+| {{ p.person_id }} | {{ p.role | label }} | {{ p.age }} | {{ p.sex }} | {{ p.condition | label }}{% if p.days_until_death is not none %} ({{ p.days_until_death }} dias despues){% endif %} | {{ p.protection | label }} | {{ "sin dato" if p.alcohol_gl is none else p.alcohol_gl }} | {{ p.vehicle_id or "-" }} |
+{% endfor %}
+{% if include_narrative %}
+
+Narrativa del parte (texto original):
+
+> {{ a.narrative }}
+{% endif %}
+{% endfor %}
+
+## Advertencias de calidad de datos
+
+{% for warning in warnings %}
+- {{ warning }}
+{% else %}
+- Sin advertencias para los siniestros incluidos.
+{% endfor %}
+- Las coordenadas de los partes son referenciales (diccionario INF-2026-02).
+
+## Nota de privacidad
+
+Este informe no incluye nombres, cedulas ni placas: esos datos no se cargan en la base. Las personas y los vehiculos se identifican con codigos sinteticos por siniestro.

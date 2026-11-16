@@ -43,6 +43,11 @@ def build_lookup[E: StrEnum](
     return MappingProxyType(table)
 
 
+def display_label(code: str) -> str:
+    """Texto legible de un codigo canonico: `perdida_de_pista` -> `Perdida de pista`."""
+    return code.replace("_", " ").capitalize()
+
+
 class AccidentType(StrEnum):
     """Tipos de siniestro de INF-2026-02; sus definiciones se toman del informe en la carga."""
 

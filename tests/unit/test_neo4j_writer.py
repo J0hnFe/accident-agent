@@ -112,3 +112,14 @@ def test_datetimes_use_a_fixed_offset_not_zoneinfo(rows: GraphRows) -> None:
     assert all(isinstance(v.tzinfo, timezone) for v in datetimes)
     assert not any(isinstance(v.tzinfo, ZoneInfo) for v in datetimes)
     assert {v.isoformat()[-6:] for v in datetimes} == {"-05:00"}
+
+
+def test_search_copies_are_accent_folded(rows: GraphRows) -> None:
+    accident = rows.accidents[0]["props"]
+    assert accident["narrative_search"].isascii()
+    assert accident["narrative_search"] == accident["narrative_search"].casefold()
+    section = rows.sections[0]["props"]
+    assert section["text_search"].isascii()
+    assert section["title_search"].isascii()
+    # El texto original se conserva para mostrarlo.
+    assert any(not s["props"]["text"].isascii() for s in rows.sections)

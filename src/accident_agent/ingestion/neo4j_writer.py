@@ -16,8 +16,9 @@ from typing import Any, Final, LiteralString
 from neo4j import Driver, ManagedTransaction
 from pydantic import BaseModel, ConfigDict
 
-from accident_agent.domain.catalogs import AccidentType, Cause, VehicleType
+from accident_agent.domain.catalogs import AccidentType, Cause, VehicleType, display_label
 from accident_agent.domain.models import Accident, CleanDataset
+from accident_agent.ingestion.normalizers import normalize_key
 
 Row = dict[str, Any]
 
@@ -44,11 +45,17 @@ SCHEMA_STATEMENTS: Final[tuple[LiteralString, ...]] = (
     "CREATE INDEX accident_weather IF NOT EXISTS FOR (n:Accident) ON (n.weather)",
     "CREATE INDEX accident_surface IF NOT EXISTS FOR (n:Accident) ON (n.surface)",
     "CREATE INDEX accident_lighting IF NOT EXISTS FOR (n:Accident) ON (n.lighting)",
-    "CREATE FULLTEXT INDEX accident_narratives IF NOT EXISTS FOR (n:Accident) ON EACH [n.narrative]"
-    " OPTIONS {indexConfig: {`fulltext.analyzer`: 'spanish'}}",
+    "CREATE FULLTEXT INDEX accident_narratives IF NOT EXISTS FOR (n:Accident) ON EACH"
+    " [n.narrative_search] OPTIONS {indexConfig: {`fulltext.analyzer`: 'spanish'}}",
     "CREATE FULLTEXT INDEX report_texts IF NOT EXISTS FOR (n:ReportSection) ON EACH"
-    " [n.title, n.text] OPTIONS {indexConfig: {`fulltext.analyzer`: 'spanish'}}",
+    " [n.title_search, n.text_search] OPTIONS {indexConfig: {`fulltext.analyzer`: 'spanish'}}",
 )
+# Propiedades que debe indexar cada indice full-text. Si un indice existente indexa otras,
+# se borra y se crea de nuevo: CREATE ... IF NOT EXISTS no cambia un indice que ya existe.
+FULLTEXT_PROPERTIES: Final[dict[str, list[str]]] = {
+    "accident_narratives": ["narrative_search"],
+    "report_texts": ["title_search", "text_search"],
+}
 
 
 class GraphRows(BaseModel):
@@ -89,10 +96,6 @@ def _props(model: BaseModel, *, exclude: set[str]) -> Row:
     return {k: _plain(v) for k, v in model.model_dump(exclude=exclude).items()}
 
 
-def _label(code: str) -> str:
-    return code.replace("_", " ").capitalize()
-
-
 def _canton_id(accident: Accident) -> str:
     return f"{accident.location.province.value}|{accident.location.canton}"
 
@@ -122,17 +125,23 @@ def graph_rows(dataset: CleanDataset) -> GraphRows:
         accident_types=[
             {
                 "code": t.value,
-                "name": _label(t.value),
+                "name": display_label(t.value),
                 "definition": dataset.accident_type_definitions[t],
             }
             for t in AccidentType
         ],
-        causes=[{"code": c.value, "name": _label(c.value)} for c in Cause],
-        vehicle_types=[{"code": t.value, "name": _label(t.value)} for t in VehicleType],
+        causes=[{"code": c.value, "name": display_label(c.value)} for c in Cause],
+        vehicle_types=[{"code": t.value, "name": display_label(t.value)} for t in VehicleType],
         accidents=[
             {
                 "props": _props(a, exclude=accident_exclude)
-                | {"latitude": a.location.latitude, "longitude": a.location.longitude},
+                | {
+                    "latitude": a.location.latitude,
+                    "longitude": a.location.longitude,
+                    # Copia sin tildes para el full-text: el stemmer espanol de Lucene no quita
+                    # las tildes de palabras cortas ("via" no encontraria "via" con tilde).
+                    "narrative_search": normalize_key(a.narrative),
+                },
                 "parish_id": f"{_canton_id(a)}|{a.location.parish}",
                 "road": a.location.road,
                 "km": a.location.km,
@@ -170,7 +179,12 @@ def graph_rows(dataset: CleanDataset) -> GraphRows:
         ],
         sections=[
             {
-                "props": {"section_id": f"{r.report_id}-S{s.order}", **_props(s, exclude=set())},
+                "props": {
+                    "section_id": f"{r.report_id}-S{s.order}",
+                    **_props(s, exclude=set()),
+                    "title_search": normalize_key(s.title),
+                    "text_search": normalize_key(s.text),
+                },
                 "report_id": r.report_id,
             }
             for r in dataset.reports
@@ -317,6 +331,15 @@ class Neo4jWriter:
         self._driver = driver
 
     def apply_schema(self) -> None:
+        records, _, _ = self._driver.execute_query(
+            "SHOW FULLTEXT INDEXES YIELD name, properties RETURN name, properties"
+        )
+        for record in records:
+            expected = FULLTEXT_PROPERTIES.get(record["name"])
+            if expected is not None and record["properties"] != expected:
+                self._driver.execute_query(
+                    f"DROP INDEX {record['name']}"
+                )  # nombre de la lista fija
         for statement in SCHEMA_STATEMENTS:
             self._driver.execute_query(statement)
 

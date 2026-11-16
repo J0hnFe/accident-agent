@@ -55,11 +55,12 @@
 | 14 | Preguntas frecuentes | Etapa 6 | [ ] |
 | 15 | Anexos | Etapa 6 | [ ] |
 
-**Ultima actualizacion:** cierre de la Etapa 2 (2026-11-15). `[x]` indica que el material de la seccion esta completo; la redaccion final es la tarea 6.3.
+**Ultima actualizacion:** cierre de la Etapa 3 (2026-11-15). `[x]` indica que el material de la seccion esta completo; la redaccion final es la tarea 6.3.
 
 - **Etapa 0:** no produce evidencia `func_`; solo prepara el entorno.
 - **Etapa 1:** no produce evidencia `func_`. Sus documentos alimentan la seccion 3 (conceptos basicos: tipos de siniestro y gravedad de INF-2026-02, en `docs/datos/catalogo_anomalias.md`), la 11 (privacidad: `docs/datos/politica_datos_personales.md`) y la 13 (limitaciones: riesgos residuales de privacidad).
 - **Etapa 2:** no produce evidencia `func_`. Completa la seccion 3 (conceptos basicos: tipos de siniestro con su definicion de INF-2026-02 en el grafo, gravedad, registros anulados e informes reemplazados; ver `docs/modelo_grafo.md`) y alimenta la 5 (puesta en marcha: comando unico y `NEO4J_PASSWORD` obligatoria).
+- **Etapa 3:** produce `func_3.7_catalogo_valores.md` (seccion 8 y anexos). Alimenta la 4 (capacidades de cada herramienta), la 10 (ejemplo de informe en `3.7_informe_generado.md`) y la 12 (sin resultados, id inexistente, valor no reconocido con sugerencias, base no disponible). Ninguna seccion se completa: dependen del agente de punta a punta (Etapas 4 y 5).
 
 ## 4. Estructura del documento final
 
