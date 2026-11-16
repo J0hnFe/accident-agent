@@ -2,26 +2,28 @@
 
 - Fecha: 2026-11-15.
 - Implementacion documentada: `eb9537e` (aplicacion 0.1.0).
-- Estado: tareas 6.1, 6.2 y 6.3 completas; etapa abierta.
+- Estado (2026-11-16): tareas 6.1 a 6.5 completas; etapa abierta hasta el envio (6.6) y el registro final (6.7).
 - Etapa trabajada por Codex: **Etapa 6 - Documentar y entregar**, tareas 6.1 a 6.3 y verificacion parcial de 6.5.
 - Commit del trabajo documental: `c546bc1` (todavia no entregado).
 - Repositorio publico: `https://github.com/J0hnFe/accident-agent`, conectado como `origin`; rama local `main`.
 - Publicacion (2026-11-16): `main` subida con seguimiento de `origin/main`; ultimo commit publicado `e44eaa0` (11 commits). GitHub indica `visibility=PUBLIC`, `isEmpty=false`.
 - Acceso anonimo verificado en ventana de incognito: `6.4_acceso_anonimo_github.png`.
-- Commit/tag entregado y confirmacion de envio: pendientes.
+- Referencia de entrega: tag `entrega-1.0`, citado en los documentos 1.1; se crea sobre el commit de la version 1.1 antes del envio.
+- Confirmacion de envio: pendiente.
 
 ## Punto de reanudacion
 
-Continuar en **6.5**. El usuario solicito dejar registrado el estado para continuar despues.
+Continuar en **6.6**.
 
 1. Hecho (2026-11-16): revision de secretos del historial completo con gitleaks v8.30.1 (10 commits, sin hallazgos), `.env` nunca versionado y busqueda literal de las claves del `.env` local sin coincidencias. Evidencia: `6.4_revision_secretos_historial.txt`.
 2. Hecho (2026-11-16): `main` subida con `git push -u origin main` (`e44eaa0`).
 3. Hecho (2026-11-16): acceso anonimo verificado; captura `6.4_acceso_anonimo_github.png`.
-4. Actualizar los documentos Markdown/PDF con URL y referencia de entrega; cerrar la lista de verificacion y la matriz (6.5).
-5. Enviar enlace y documentos al destinatario del plan (6.6), con instruccion expresa del usuario para el envio.
-6. Registrar commit/tag entregado, confirmacion del envio y cierre de etapa (6.7).
+4. Hecho (2026-11-16): documentos 1.1 con URL, referencia de entrega y capturas de Langfuse; listas de verificacion y matriz recorridas (6.5). Ver "Cierre de 6.5".
+5. Commit y push de la version 1.1; crear el tag `entrega-1.0` sobre ese commit y publicarlo (`git push origin entrega-1.0`).
+6. Enviar enlace y documentos al destinatario del plan (6.6), con instruccion expresa del usuario para el envio.
+7. Registrar commit/tag entregado, confirmacion del envio y cierre de etapa (6.7).
 
-Capturas de Langfuse de los escenarios 4 a 6 (5.2, recomendadas): guardadas el 2026-11-16 (`5.2_langfuse_escenario_4.png`, `_5.png`, `_6.png`); falta incorporarlas a la seccion 12 del documento tecnico y regenerar el PDF (6.5).
+Capturas de Langfuse de los escenarios 4 a 6 (5.2, recomendadas): guardadas el 2026-11-16 e incorporadas a la seccion 11 del documento tecnico.
 El analisis con IA dentro del informe (3.5, opcional) sigue sin implementar por decision documentada.
 Las pruebas e instalacion limpia ya verificadas no necesitan repetirse salvo cambios que lo justifiquen.
 
@@ -70,9 +72,36 @@ bloqueada; la repeticion con acceso autorizado a Neo4j aprobo las 748. La cobert
 - Documentos: fuentes y PDF disponibles; referencias a URL publica pendientes de publicacion.
 - Arranque desde clon limpio verificado con el README: proyecto, imagen, puertos y volumen aislados;
   loader correcto y API saludable. Sin clave IA, por lo que no se repitio conversacion real.
-- Falta revisar secretos en el historial final, publicar, verificar acceso anonimo y enviar.
-- No se marca 6.5, 6.7 ni el DoD de la etapa hasta cerrar esos puntos.
+- Revision de secretos, publicacion y acceso anonimo: completados en 6.4 (2026-11-16).
 - Las capturas de Langfuse de 5.2 las tomo el candidato desde el panel el 2026-11-16; se contrastaron con el arbol guardado (trace_id, herramientas, latencias y tokens).
+
+## Cierre de 6.5 (2026-11-16)
+
+Cambios en los entregables (version 1.1):
+
+- Documentos tecnico y funcional: URL publica, tag `entrega-1.0` y commit `eb9537e` en la portada; fila 1.1 en el control de versiones.
+- Tecnico: capturas de Langfuse de los escenarios 4 a 6 en Observabilidad; resultado de 6.4 en Seguridad; parrafo explicito sobre Neo4j caido, 429 y timeout (pregunta de la seccion 8 de la guia que estaba solo en una tabla); etiquetas de entrada y salida en los ejemplos de contratos.
+- Funcional: paso de clonado; "Herramientas: ninguna." en el escenario 13; tildes en las tablas de los anexos; encabezados duplicados eliminados.
+- Ambos: la introduccion de los informes anexos decia "dentro de un bloque de codigo" y no lo estaban; se corrigio el texto y se bajo el nivel de sus encabezados para que no compitan con las secciones.
+- README: `git clone https://github.com/J0hnFe/accident-agent.git` y `cd accident-agent` antes de copiar `.env`.
+- PDF: el exportador (ReportLab, fuera del repositorio) unia los elementos de lista en un solo parrafo; ahora genera vinetas, citas y encabezados de cuarto nivel. Resultado: 24 paginas el tecnico y 21 el funcional, revisadas visualmente.
+
+Comprobaciones:
+
+| Comprobacion | Resultado |
+| --- | --- |
+| `uv run pytest` (sin Neo4j ni LLM) | 719 pasan, 30 deseleccionadas |
+| Ruff y mypy | Sin errores; mypy en 81 archivos |
+| Codigo desde `eb9537e` | Sin cambios en `src`, `tests`, `scripts`, dependencias, Dockerfile ni Compose |
+| Clon anonimo de `https://github.com/J0hnFe/accident-agent.git` | Sin credenciales; SHA-256 del JSON `77e2ca6e...d8280`, igual al de control |
+| Catalogo del funcional frente a `scripts/export_catalog.py` | Tablas identicas |
+| Consultas Cypher del tecnico | Presentes en `docs/modelo_grafo.md` y `tests/integration/example_queries.py` |
+| Cifras de control | 29 vigentes, 18 fallecidos, 44 heridos, 287 nodos y 438 relaciones (`2.6_salida_loader.txt`) |
+| Capturas de los documentos | Sin claves, nombres, cedulas ni placas |
+| Preguntas de la seccion 8 de la guia tecnica | Respondidas en las secciones 3, 5, 6, 7, 9, 10, 12, 13 y 14 |
+| Situaciones de la seccion 4.12 de la guia funcional | Las 11 con su mensaje real en el anexo |
+
+Listas: seccion 9 de la guia tecnica y seccion 7 de la guia funcional marcadas; la matriz del plan (seccion 11) tiene una columna de estado. Solo queda la entrega por correo.
 
 ## Evidencias y archivos
 

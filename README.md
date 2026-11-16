@@ -15,9 +15,9 @@ Los datos son ficticios: 29 siniestros vigentes entre 2025-01-12 y 2026-09-02,
 
 ## Instalacion y comando unico
 
-Desde la raiz de una copia del repositorio:
-
 ```sh
+git clone https://github.com/J0hnFe/accident-agent.git
+cd accident-agent
 cp .env.example .env
 ```
 

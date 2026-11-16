@@ -282,15 +282,15 @@ Se usa la misma carpeta y convencion que en la guia del documento tecnico (`docs
 
 ## 7. Lista de verificacion final
 
-- [ ] Todas las secciones de la tabla de avance estan completas.
-- [ ] Cada capacidad tiene al menos un ejemplo real.
-- [ ] Hay un ejemplo de seguimiento ("ese accidente") y otro de varias herramientas encadenadas.
-- [ ] Todas las situaciones de la seccion 4.12 estan documentadas con el mensaje real.
-- [ ] Los ejemplos coinciden con la version entregada del sistema.
-- [ ] Ningun ejemplo muestra nombres, cedulas, placas ni claves.
-- [ ] El catalogo de valores coincide con el codigo.
-- [ ] No hay contradicciones con el README ni con el documento tecnico.
+- [x] Todas las secciones de la tabla de avance estan completas.
+- [x] Cada capacidad tiene al menos un ejemplo real.
+- [x] Hay un ejemplo de seguimiento ("ese accidente") y otro de varias herramientas encadenadas.
+- [x] Todas las situaciones de la seccion 4.12 estan documentadas con el mensaje real.
+- [x] Los ejemplos coinciden con la version entregada del sistema.
+- [x] Ningun ejemplo muestra nombres, cedulas, placas ni claves.
+- [x] El catalogo de valores coincide con el codigo.
+- [x] No hay contradicciones con el README ni con el documento tecnico.
 
-## Avance de entrega (2026-11-15)
+## Avance de entrega (2026-11-16)
 
-Documento redactado y exportado a PDF en `docs/entrega/`, con fuente Markdown, ejemplos y evidencias. Publicacion, envio y verificacion limpia con README final pendientes. Ver `docs/evidencias/etapa-6_notas.md`.
+Version 1.1 en `docs/entrega/` (Markdown y PDF): URL publica, referencia de entrega (tag `entrega-1.0`), paso de clonado y revision de anexos (encabezados, ortografia y catalogo contrastado con `scripts/export_catalog.py`). Lista de verificacion de la seccion 7 recorrida en la tarea 6.5; resultado en `docs/evidencias/etapa-6_notas.md`. Envio pendiente (6.6).

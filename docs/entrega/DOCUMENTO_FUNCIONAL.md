@@ -2,9 +2,11 @@
 
 Orquestador de consultas sobre siniestros de tránsito del Ecuador - Prueba técnica BIT
 
-Autor: J0hnFe (identidad del historial Git). Versión 1.0, 15 de noviembre de 2026.
-Aplicación 0.1.0, implementación descrita: `eb9537e`.
-Publicación y envío pendientes; estado actualizado en `docs/evidencias/etapa-6_notas.md`.
+Autor: J0hnFe (identidad del historial Git). Versión 1.1, 16 de noviembre de 2026.
+
+Repositorio público: https://github.com/J0hnFe/accident-agent
+
+Referencia de entrega: tag `entrega-1.0`. Aplicación 0.1.0, implementación descrita: commit `eb9537e`.
 
 
 Contenido: 1. Introducción | 2. Conceptos básicos | 3. Capacidades | 4. Puesta en marcha | 5. Línea de comandos | 6. API REST | 7. Cómo formular consultas | 8. Conversaciones verificadas | 9. Informes generados | 10. Privacidad | 11. Errores y ausencia de datos | 12. Limitaciones | 13. Preguntas frecuentes | 14. Anexos.
@@ -13,6 +15,7 @@ Contenido: 1. Introducción | 2. Conceptos básicos | 3. Capacidades | 4. Puesta
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
 | 1.0 | 2026-11-15 | Primera edición basada en etapas 0 a 5; entrega externa pendiente |
+| 1.1 | 2026-11-16 | Repositorio público, referencia de entrega y revisión final de anexos |
 
 ## 1. Introducción
 
@@ -42,7 +45,7 @@ Una sesión conserva la conversación y los últimos siniestros consultados. «E
 
 ## 4. Puesta en marcha
 
-Se necesita Docker con Compose y una clave de OpenRouter para conversar. Copiar `.env.example` a `.env`, definir NEO4J_PASSWORD (al menos ocho caracteres) y OPENROUTER_API_KEY. Ejecutar desde la raíz:
+Se necesita Docker con Compose y una clave de OpenRouter para conversar. Clonar el repositorio (https://github.com/J0hnFe/accident-agent), copiar `.env.example` a `.env`, definir NEO4J_PASSWORD (al menos ocho caracteres) y OPENROUTER_API_KEY. Ejecutar desde la raíz:
 
 ```sh
 docker compose up -d --build
@@ -390,17 +393,12 @@ Puedo ayudarte con:
 
 Si tienes alguna pregunta sobre siniestros de tránsito, estaré encantado de ayudarte.
 
-Herramientas: .
+Herramientas: ninguna.
 Trace_id: `63f4b4ab7a78453ab798304e2c80b4d8`.
 
 ### Catálogo de valores aceptados
 
-### Catalogo de valores de busqueda
-
-Generado desde el codigo con `uv run python scripts/export_catalog.py`.
-Fuente: `src/accident_agent/domain/catalogs.py` y `tools/accident_search.py`.
-Las mayusculas y las tildes no importan: `Pichincha`, `PICHINCHA` y `pichincha`
-son el mismo valor. Un valor desconocido se rechaza con sugerencias.
+Generado desde el código con `uv run python scripts/export_catalog.py`, a partir de `src/accident_agent/domain/catalogs.py` y `tools/accident_search.py`. Las mayúsculas y las tildes no importan: `Pichincha`, `PICHINCHA` y `pichincha` son el mismo valor. Un valor desconocido se rechaza con sugerencias. Los textos legibles provienen del código, que se escribe sin tildes.
 
 #### Provincia (`province`)
 
@@ -456,7 +454,7 @@ son el mismo valor. Un valor desconocido se rechaza con sugerencias.
 | `adelantamiento_indebido` | Adelantamiento indebido | - |
 | `fallo_mecanico` | Fallo mecanico | - |
 
-#### Tipo de vehiculo (`vehicle_type`)
+#### Tipo de vehículo (`vehicle_type`)
 
 | Valor | Texto legible | Otras escrituras aceptadas |
 | --- | --- | --- |
@@ -487,7 +485,7 @@ son el mismo valor. Un valor desconocido se rechaza con sugerencias.
 | `mojada` | Mojada | - |
 | `humeda` | Humeda | - |
 
-#### Iluminacion (`lighting`)
+#### Iluminación (`lighting`)
 
 | Valor | Texto legible | Otras escrituras aceptadas |
 | --- | --- | --- |
@@ -500,24 +498,16 @@ son el mismo valor. Un valor desconocido se rechaza con sugerencias.
 
 - `mode`: `search`, `stats`, `reports`.
 - `group_by` (obligatorio con `mode=stats`): `province`, `cause`, `accident_type`, `month`, `year`, `weather`, `vehicle_type`.
-- `road`: codigo de via (`E35`, `E45`, `E15`) o parte del nombre (`Via a la Costa`).
-- `canton`: nombre del canton (`Quito`, `Ruminahui`); sin catalogo cerrado.
+- `road`: código de vía (`E35`, `E45`, `E15`) o parte del nombre (`Via a la Costa`).
+- `canton`: nombre del cantón (`Quito`, `Ruminahui`); sin catálogo cerrado.
 
 ### Informe completo: escenario 6
 
-### Informe generado en el escenario 6
+Archivo real que generó `generate_accident_report` cuando el LLM real (OpenRouter) atendió «Haz un informe de los siniestros con motocicletas» por `POST /chat` (tarea 5.2, trace `e8f7e915ae134d248c2404b1cfe62479`, 15 de noviembre de 2026). El agente encadenó `search_accidents` (`vehicle_type=motocicleta`, 7 resultados) y `generate_accident_report` con esos 7 ids. Se copió desde el contenedor `api` con `docker cp` y se reproduce sin cambios: las etiquetas de la plantilla se escriben sin tildes y las narrativas conservan el texto original de los partes.
 
-Archivo real que genero `generate_accident_report` cuando el LLM real (OpenRouter) atendio
-"Haz un informe de los siniestros con motocicletas" por `POST /chat` (tarea 5.2,
-trace `e8f7e915ae134d248c2404b1cfe62479`, 2026-11-15). El agente encadeno `search_accidents`
-(`vehicle_type=motocicleta`, 7 resultados) y `generate_accident_report` con esos 7 ids. Se copio
-desde el contenedor `api` con `docker cp` y se muestra sin cambios dentro de un bloque de codigo,
-porque contiene los textos originales de los partes (con tildes).
+Las cifras que dio el agente en su respuesta (7 siniestros, 4 fallecidos, 7 heridos, 4 ilesos, USD 44 900, distribución por tipo y causa) coinciden con las de este archivo.
 
-Las cifras que dio el agente en su respuesta (7 siniestros, 4 fallecidos, 7 heridos, 4 ilesos,
-USD 44 900, distribucion por tipo y causa) coinciden con las de este archivo.
-
-### Informe de 7 siniestros
+#### Informe de 7 siniestros
 
 - **Identificador:** RPT-20261115-225702-d9a480
 - **Generado:** 2026-11-15 22:57 (America/Guayaquil)
@@ -526,7 +516,7 @@ USD 44 900, distribucion por tipo y causa) coinciden con las de este archivo.
 
 Todos los datos de este informe se consultaron en la base de siniestros al generarlo.
 
-#### Resumen
+##### Resumen
 
 | Indicador | Valor |
 | --- | --- |
@@ -536,7 +526,7 @@ Todos los datos de este informe se consultaron en la base de siniestros al gener
 | Ilesos | 4 |
 | Danos materiales (USD) | 44,900.00 |
 
-##### Por tipo de siniestro
+###### Por tipo de siniestro
 
 | Tipo | Siniestros |
 | --- | --- |
@@ -544,7 +534,7 @@ Todos los datos de este informe se consultaron en la base de siniestros al gener
 | Atropello | 2 |
 | Perdida de pista | 1 |
 
-##### Por causa
+###### Por causa
 
 | Causa | Siniestros |
 | --- | --- |
@@ -554,9 +544,9 @@ Todos los datos de este informe se consultaron en la base de siniestros al gener
 | Mal estado de la via | 1 |
 | No respetar semaforo | 1 |
 
-#### Detalle por siniestro
+##### Detalle por siniestro
 
-##### SIN-2026-0008 - 2026-07-04 20:20
+###### SIN-2026-0008 - 2026-07-04 20:20
 
 - **Ubicacion:** Crucita, Portoviejo, Manabi
 - **Via:** Via Portoviejo-Crucita, km 7.0
@@ -578,7 +568,7 @@ Narrativa del parte (texto original):
 
 > Una motocicleta atropelló a un peatón que caminaba por la calzada en un tramo sin iluminación ni acera. El peatón falleció y el motociclista, con casco, sufrió lesiones leves.
 
-##### SIN-2026-0005 - 2026-04-12 18:50
+###### SIN-2026-0005 - 2026-04-12 18:50
 
 - **Ubicacion:** Ballenita, Santa Elena, Santa Elena
 - **Via:** E15 (E15), km 22.0
@@ -601,7 +591,7 @@ Narrativa del parte (texto original):
 
 > Una motocicleta que circulaba a exceso de velocidad impactó contra una camioneta que ingresaba a la vía principal. El motociclista, con casco, falleció. El conductor de la camioneta salió ileso.
 
-##### SIN-2025-0018 - 2025-12-06 11:50
+###### SIN-2025-0018 - 2025-12-06 11:50
 
 - **Ubicacion:** Atacames, Esmeraldas, Esmeraldas
 - **Via:** Via Esmeraldas-Atacames, km 8.0
@@ -623,7 +613,7 @@ Narrativa del parte (texto original):
 
 > Una motocicleta atropelló a una menor que cruzaba la calzada en una zona escolar sin señalización suficiente. La menor sufrió lesiones graves; el motociclista, con casco, tuvo heridas leves.
 
-##### SIN-2025-0016 - 2025-10-26 13:10
+###### SIN-2025-0016 - 2025-10-26 13:10
 
 - **Ubicacion:** Ahuano, Tena, Napo
 - **Via:** Troncal Amazonica E45 (E45), km 44.0
@@ -644,7 +634,7 @@ Narrativa del parte (texto original):
 
 > Un motociclista perdió el control al pasar por un tramo con lodo y baches y cayó a un costado de la vía. Usaba casco y fue trasladado con fracturas. No se realizó prueba de alcoholemia.
 
-##### SIN-2025-0011 - 2025-07-19 19:40
+###### SIN-2025-0011 - 2025-07-19 19:40
 
 - **Ubicacion:** San Mateo, Manta, Manabi
 - **Via:** Via Manta-Portoviejo, km 11.0
@@ -668,7 +658,7 @@ Narrativa del parte (texto original):
 
 > Una motocicleta con dos ocupantes, sin casco, impactó contra un automóvil que realizaba un giro. El conductor de la motocicleta falleció; su acompañante resultó con heridas graves. El conductor del automóvil salió ileso.
 
-##### SIN-2025-0008 - 2025-05-17 23:45
+###### SIN-2025-0008 - 2025-05-17 23:45
 
 - **Ubicacion:** Chongon, Guayaquil, Guayas
 - **Via:** Via a la Costa (Guayaquil), km 14.0
@@ -691,7 +681,7 @@ Narrativa del parte (texto original):
 
 > Un automóvil cruzó la línea central e impactó contra una motocicleta que circulaba en sentido contrario. El motociclista, que usaba casco, falleció en el lugar. El conductor del automóvil presentó 1,1 g/L de alcohol en sangre y no resultó herido.
 
-##### SIN-2025-0003 - 2025-02-22 14:05
+###### SIN-2025-0003 - 2025-02-22 14:05
 
 - **Ubicacion:** Cotocollao, Quito, Pichincha
 - **Via:** Av. Simon Bolivar (Quito)
@@ -715,12 +705,12 @@ Narrativa del parte (texto original):
 
 > Una motocicleta cruzó la intersección con luz roja y fue impactada lateralmente por un taxi que circulaba con luz verde. El motociclista resultó con politraumatismos graves y su acompañante con lesiones leves.
 
-#### Advertencias de calidad de datos
+##### Advertencias de calidad de datos
 
 - Sin advertencias para los siniestros incluidos.
 - Las coordenadas de los partes son referenciales (diccionario INF-2026-02).
 
-#### Nota de privacidad
+##### Nota de privacidad
 
 Este informe no incluye nombres, cedulas ni placas: esos datos no se cargan en la base. Las personas y los vehiculos se identifican con codigos sinteticos por siniestro.
 
@@ -768,7 +758,7 @@ Fuente: func_4.11_api_chat.json, escenario 4; la solicitud reutiliza la sesión 
 ### Mensajes observados
 
 
-| Situacion | Que ve el usuario (mensaje real) | Como se obtuvo |
+| Situación | Qué ve el usuario (mensaje real) | Cómo se obtuvo |
 | --- | --- | --- |
 | No hay resultados | `No hay siniestros registrados en la provincia de **Galápagos** en la base de datos.` | Escenario 10, LLM real |
 | Identificador inexistente | `El siniestro **SIN-9999-9999** no existe en la base de datos. Por eso no se pudo generar ningún informe.` | Escenario 11, LLM real; no se crea archivo de informe |
@@ -777,9 +767,9 @@ Fuente: func_4.11_api_chat.json, escenario 4; la solicitud reutiliza la sesión 
 | Pedido de datos personales | `No puedo proporcionar nombres ni números de cédula. El sistema no almacena esos datos personales por política de privacidad.` | Escenario 7, LLM real (tarea 4.11) |
 | Valor no reconocido | La herramienta responde al LLM `valor de provincia no reconocido; quiza: Pichincha. Valores validos: ...` | Herramienta real con `province=Pichincah` |
 | Base de datos no disponible | `La base de datos de siniestros no está disponible en este momento, por lo que no puedo consultar la cantidad de siniestros en Guayas. Por favor, inténtalo más tarde.` | `docker compose stop neo4j` y `POST /chat`, LLM real; `GET /health` responde `degraded` |
-| Clave del proveedor invalida | `La clave del proveedor de inteligencia artificial falta o no es valida. Revisa OPENROUTER_API_KEY en el archivo .env.` | CLI real con una clave invalida (HTTP 401, sin probar los modelos de respaldo) |
-| Limite del proveedor (429) | `El servicio de inteligencia artificial alcanzo su limite de uso (por minuto o diario). Intenta de nuevo mas tarde.` | 429 real de OpenRouter con la cuota diaria agotada (CLI) y 429 simulado con respx en los 3 modelos |
-| Herramienta demasiado lenta | La herramienta responde al LLM `la herramienta search_accidents supero 1 s`; el ciclo continua y el LLM redacta la respuesta | Neo4j real con una demora inyectada de 3 s y timeout de 1 s |
-| Limite de iteraciones | `No pude completar la respuesta dentro del limite de pasos permitido. Intenta dividir la pregunta en partes mas simples.` | LLM guionizado que pide herramientas sin parar |
-| Mensaje invalido en la API | HTTP 422 `{"error": {"type": "validation", "message": "solicitud no valida", "details": [{"field": "message", "message": "String should have at least 1 character"}]}}` | `POST /chat` real con mensaje vacio, de 2001 caracteres, de otro tipo o JSON roto |
-| Mensaje vacio en la CLI | `La pregunta esta vacia.` (codigo de salida 2, sin llamar al LLM) | CLI real; antes de la correccion de esta etapa el mensaje vacio llegaba al LLM |
+| Clave del proveedor inválida | `La clave del proveedor de inteligencia artificial falta o no es valida. Revisa OPENROUTER_API_KEY en el archivo .env.` | CLI real con una clave inválida (HTTP 401, sin probar los modelos de respaldo) |
+| Límite del proveedor (429) | `El servicio de inteligencia artificial alcanzo su limite de uso (por minuto o diario). Intenta de nuevo mas tarde.` | 429 real de OpenRouter con la cuota diaria agotada (CLI) y 429 simulado con respx en los 3 modelos |
+| Herramienta demasiado lenta | La herramienta responde al LLM `la herramienta search_accidents supero 1 s`; el ciclo continúa y el LLM redacta la respuesta | Neo4j real con una demora inyectada de 3 s y timeout de 1 s |
+| Límite de iteraciones | `No pude completar la respuesta dentro del limite de pasos permitido. Intenta dividir la pregunta en partes mas simples.` | LLM guionizado que pide herramientas sin parar |
+| Mensaje inválido en la API | HTTP 422 `{"error": {"type": "validation", "message": "solicitud no valida", "details": [{"field": "message", "message": "String should have at least 1 character"}]}}` | `POST /chat` real con mensaje vacío, de 2001 caracteres, de otro tipo o JSON roto |
+| Mensaje vacío en la CLI | `La pregunta esta vacia.` (codigo de salida 2, sin llamar al LLM) | CLI real; antes de la corrección de la etapa 5 el mensaje vacío llegaba al LLM |

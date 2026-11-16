@@ -59,7 +59,7 @@
 | --- | --- | --- | --- |
 | 1 | Portada y control del documento | Etapa 6 | [x] |
 | 2 | Resumen ejecutivo | Etapa 6 | [x] |
-| 3 | Alcance y cumplimiento de requisitos | Etapa 5 | [ ] |
+| 3 | Alcance y cumplimiento de requisitos | Etapa 5 | [x] |
 | 4 | Analisis de los datos | Etapa 1 | [x] |
 | 5 | Normalizacion y carga | Etapa 2 | [x] |
 | 6 | Modelo de grafo | Etapa 2 | [x] |
@@ -403,17 +403,17 @@ El evaluador probablemente se hara estas preguntas. El documento debe responderl
 
 ## 9. Lista de verificacion final
 
-- [ ] Todas las secciones de la tabla de avance estan completas.
-- [ ] Cada requisito del enunciado tiene su evidencia (seccion 5.3).
-- [ ] Las cifras coinciden con los valores de control y con la ejecucion real.
-- [ ] Los fragmentos de codigo coinciden con el repositorio en el tag entregado.
-- [ ] Los diagramas son legibles y estan actualizados.
-- [ ] No hay claves, nombres ni cedulas en el documento ni en sus capturas.
-- [ ] Cada decision incluye las alternativas descartadas y su motivo.
-- [ ] Las limitaciones estan declaradas.
-- [ ] Todas las preguntas de la seccion 8 tienen respuesta.
-- [ ] No hay contradicciones con el README ni con el documento funcional.
+- [x] Todas las secciones de la tabla de avance estan completas.
+- [x] Cada requisito del enunciado tiene su evidencia (seccion 5.3).
+- [x] Las cifras coinciden con los valores de control y con la ejecucion real.
+- [x] Los fragmentos de codigo coinciden con el repositorio en el tag entregado.
+- [x] Los diagramas son legibles y estan actualizados.
+- [x] No hay claves, nombres ni cedulas en el documento ni en sus capturas.
+- [x] Cada decision incluye las alternativas descartadas y su motivo.
+- [x] Las limitaciones estan declaradas.
+- [x] Todas las preguntas de la seccion 8 tienen respuesta.
+- [x] No hay contradicciones con el README ni con el documento funcional.
 
-## Avance de entrega (2026-11-15)
+## Avance de entrega (2026-11-16)
 
-Documento redactado y exportado a PDF en `docs/entrega/`, con fuente Markdown, ejemplos y evidencias. Publicacion, envio y verificacion limpia con README final pendientes. Ver `docs/evidencias/etapa-6_notas.md`.
+Version 1.1 en `docs/entrega/` (Markdown y PDF): URL publica, referencia de entrega (tag `entrega-1.0`), capturas de Langfuse de los escenarios 4 a 6 y respuesta explicita a los fallos de la seccion 8. Lista de verificacion de la seccion 9 recorrida en la tarea 6.5; resultado en `docs/evidencias/etapa-6_notas.md`. Envio pendiente (6.6).

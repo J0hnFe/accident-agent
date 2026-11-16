@@ -2,10 +2,11 @@
 
 Orquestador multiagente con RAG sobre Neo4j - Prueba técnica BIT
 
-Autor: J0hnFe (identidad del historial Git). Versión documental: 1.0, 15 de noviembre de 2026.
-Implementación descrita: commit `eb9537e`, versión de aplicación 0.1.0.
-Estado de entrega: documentos preparados; repositorio público y envío pendientes.
-El enlace y commit de entrega se registrarán en `docs/evidencias/etapa-6_notas.md` al publicar.
+Autor: J0hnFe (identidad del historial Git). Versión documental: 1.1, 16 de noviembre de 2026.
+
+Repositorio público: https://github.com/J0hnFe/accident-agent
+
+Referencia de entrega: tag `entrega-1.0`. Implementación descrita: commit `eb9537e`, versión de aplicación 0.1.0; los commits posteriores solo modifican documentación y evidencias.
 
 
 Contenido: 1. Resumen ejecutivo | 2. Alcance y trazabilidad | 3. Análisis de datos | 4. Normalización e ingesta | 5. Modelo de grafo | 6. Arquitectura y SOLID | 7. Orquestador y memoria | 8. Herramientas y contratos | 9. Recuperación de hechos (RAG) | 10. Proveedor de IA | 11. Observabilidad | 12. Seguridad y privacidad | 13. Infraestructura y reproducibilidad | 14. Pruebas y resultados | 15. Limitaciones y evolución | 16. Anexos y registro de decisiones.
@@ -14,6 +15,7 @@ Contenido: 1. Resumen ejecutivo | 2. Alcance y trazabilidad | 3. Análisis de da
 | Versión | Fecha | Cambios |
 | --- | --- | --- |
 | 1.0 | 2026-11-15 | Primera edición basada en etapas 0 a 5; entrega externa pendiente |
+| 1.1 | 2026-11-16 | Repositorio público, referencia de entrega, capturas de Langfuse de los escenarios 4 a 6 y revisión final |
 
 ## 1. Resumen ejecutivo
 
@@ -33,7 +35,7 @@ La etapa 5 registró 748 pruebas aprobadas y una prueba real omitida por cuota a
 | Orquestación y seguimiento | Ciclo limitado, memoria por sesión | Escenarios 3 a 6 y prueba OCP |
 | Fallos y observabilidad | Envolturas, JSONL y Tracer | Evidencias 4.11 y 5.3 |
 | Privacidad y consultas seguras | DTOs, exclusiones y execute_read | Evidencias 5.4 y 5.6 |
-| Documentos y repositorio público | README y documentos de entrega | Publicación y envío todavía pendientes |
+| Documentos y repositorio público | README y documentos de entrega | https://github.com/J0hnFe/accident-agent, acceso anónimo verificado (evidencia 6.4) |
 
 No se incluyen interfaz gráfica, embeddings, autenticación ni sesiones persistentes. La matriz completa está en la sección 11 del plan. La evidencia de cada requisito está inventariada en las notas de las etapas 0 a 5; las tareas de entrega se auditan en la etapa 6.
 
@@ -157,15 +159,19 @@ Cambiar proveedor requiere implementar LLMProvider y seleccionar el adaptador en
 
 structlog emite eventos JSON tool_call, llm_call y request, correlacionados con trace_id, duración, parámetros, estado y errores. En CLI los logs van a archivo para no contaminar la conversación; la API también puede emitirlos a stdout. El ejemplo íntegro está en `4.11_logs_solicitud.jsonl`.
 
-Tracer abstrae Langfuse. Sin ambas claves se selecciona NoopTracer; SafeTracer evita que una caída del servicio de trazas interrumpa la respuesta. Logs y trazas pasan por redacción. Las trazas registran solicitudes, spans de herramientas y generations de LLM. Los árboles de escenarios 4 a 6 están guardados; sus capturas adicionales siguen pendientes.
+Tracer abstrae Langfuse. Sin ambas claves se selecciona NoopTracer; SafeTracer evita que una caída del servicio de trazas interrumpa la respuesta. Logs y trazas pasan por redacción. Las trazas registran solicitudes, spans de herramientas y generations de LLM. Las capturas siguientes muestran el árbol de las trazas de los escenarios 4, 5 y 6: un span por herramienta y una generation por llamada al modelo, con tokens y latencia total. En los escenarios 4 y 5, registrados antes de corregir la medición de las generations, cada llamada al modelo figura con unos 0 s; la duración total de la traza es correcta. El escenario 6 mide cada llamada: 7,9 s, 8,6 s y 6,7 s, que con las herramientas suman los 23,7 s de la solicitud. El detalle textual está en `5.2_langfuse_escenarios_4_5_6.txt`.
 
-![Traza real de Langfuse](../evidencias/4.11_langfuse_traza.png)
+![Escenario 4 en Langfuse: seguimiento con generate_accident_report](../evidencias/5.2_langfuse_escenario_4.png)
+
+![Escenario 5 en Langfuse: get_current_time y luego search_accidents](../evidencias/5.2_langfuse_escenario_5.png)
+
+![Escenario 6 en Langfuse: search_accidents y luego generate_accident_report](../evidencias/5.2_langfuse_escenario_6.png)
 
 ## 12. Seguridad y privacidad
 
 Nombres, cédulas y placas del dataset no se cargan en el grafo; INF-RES-01 se excluye incluso como texto. Los DTOs exponen campos permitidos. La prueba de inyección incluye el intento de cerrar delimitadores. Las 13 plantillas consultadas por el repositorio se verificaron con EXPLAIN como lectura, además del rechazo de escritura bajo execute_read.
 
-La evidencia 5.4 encontró cero coincidencias de la nómina en 47 archivos y 150 observaciones de Langfuse; los patrones genéricos tuvieron falsos positivos revisados. La evidencia 5.6 verificó ocho commits sin secretos. Estos resultados son históricos, no una auditoría automática de modificaciones futuras.
+La evidencia 5.4 encontró cero coincidencias de la nómina en 47 archivos y 150 observaciones de Langfuse; los patrones genéricos tuvieron falsos positivos revisados. La evidencia 5.6 verificó ocho commits sin secretos; antes de publicar, la evidencia 6.4 repitió gitleaks sobre el historial completo (diez commits) y buscó literalmente las claves del `.env` local, sin coincidencias. Estos resultados no son una auditoría automática de modificaciones futuras; el hook de gitleaks revisa cada commit nuevo.
 
 El JSON original se distribuye por decisión documentada del candidato y contiene información ficticia; la exclusión del grafo no elimina ese contenido del archivo fuente. OpenRouter recibe mensajes y hechos recuperados. No se garantiza redacción de datos personales escritos por el usuario en el mensaje ni en la respuesta del modelo; sí en logs y trazas. Edad exacta, fecha y lugar conservan riesgo de reidentificación si se sustituyera el dataset por datos reales.
 
@@ -189,6 +195,8 @@ Las unitarias aíslan reglas y errores; las de contrato comparan fake y reposito
 | 10 a 13: vacío, id inexistente, anulado y fuera de alcance | Avisos y ausencia de hechos inventados |
 | 14 a 17: base caída, proveedor, timeout y límite | Fallos controlados; proceso continúa |
 
+Con Neo4j detenido, search_accidents devuelve un error de servicio no disponible en un máximo medido de 3,5 s, antes de su timeout de 10 s; el modelo lo explica al usuario y GET /health informa `degraded`. Ante un 429, el adaptador reintenta con backoff y Retry-After, prueba los modelos de respaldo y, si todos fallan, la respuesta termina con stop_reason=llm_error y un mensaje de límite de uso. Una herramienta que supera su timeout devuelve un error de tipo timeout al modelo y el ciclo continúa. Los mensajes reales de cada caso están en `func_5.3_mensajes_error.md` y en el anexo del documento funcional.
+
 La etapa 5 registra 719 pruebas por defecto y 29 de integración aprobadas, una real omitida y 97% de cobertura total. Core alcanza 99% y tools 98%. Ruff y mypy pasaron en esa etapa. Los defectos corregidos fueron latencia excesiva de reintentos Neo4j, envío de mensajes CLI vacíos, texto engañoso ante cuota diaria y cobertura incompleta de SafeTracer. El detalle y las pruebas están en `etapa-5_notas.md`.
 
 ## 15. Limitaciones y evolución
@@ -203,7 +211,7 @@ Mejoras posibles: persistencia de sesiones e informes, autenticación, verificac
 
 Las fuentes completas son `docs/datos/analisis_datos.md`, `reglas_normalizacion.md`, `reporte_calidad_datos.md`, `docs/modelo_grafo.md` y las notas de cada etapa. Los contratos ejecutables están en `src/accident_agent/tools/`. El glosario: RAG significa recuperar hechos antes de generar; DTO es un objeto de transferencia; puerto es el contrato propio y adaptador su implementación; grounding es el vínculo entre respuesta y hechos recuperados.
 
-La entrega incluye las fuentes Markdown y exportaciones PDF. Se eligió PDF por su lectura sin dependencias de editor. No se declara publicado el repositorio ni enviado el correo hasta disponer de confirmación verificable.
+La entrega incluye las fuentes Markdown y exportaciones PDF. Se eligió PDF por su lectura sin dependencias de editor. El repositorio se publicó en https://github.com/J0hnFe/accident-agent y su acceso anónimo se verificó el 16 de noviembre de 2026 (`docs/evidencias/6.4_acceso_anonimo_github.png`).
 
 ### Consultas Cypher reproducidas del modelo
 
@@ -230,9 +238,13 @@ Resultados históricos correspondientes: Guayas y Pichincha, cinco vigentes cada
 
 ### Contratos: ejemplos reales
 
+Entrada de `get_current_time` (sin parámetros):
+
 ```json
 {}
 ```
+
+Salida:
 
 ```json
 {
@@ -249,13 +261,15 @@ Resultados históricos correspondientes: Guayas y Pichincha, cinco vigentes cada
 }
 ```
 
+Entrada de `search_accidents`:
+
 ```json
 {
   "province": "pichincha"
 }
 ```
 
-Salida recortada a un siniestro; el total se conserva.
+Salida, recortada a un siniestro; el total se conserva.
 
 ```json
 {
@@ -396,13 +410,9 @@ Fuente: 4.11_logs_solicitud.jsonl. Se cambia únicamente la sangría para legibi
 
 ### Informe completo generado
 
-# Informe generado (escenario 4)
+Salida real de `generate_accident_report` con los cuatro siniestros con fallecidos de la E35, generada el 15 de noviembre de 2026 contra el Neo4j de Docker Compose durante la tarea 3.7. Es el mismo conjunto que usa el seguimiento del escenario 4; el identificador difiere porque cada ejecución crea un informe nuevo. El texto del informe se reproduce sin cambios: las etiquetas de la plantilla se escriben sin tildes y las narrativas conservan el texto original de los partes.
 
-Salida real de `generate_accident_report` con los 4 siniestros con fallecidos de la E35,
-generada el 2026-11-15 contra el Neo4j de docker compose. Se muestra dentro de un bloque de
-codigo porque contiene los textos originales de los partes (con tildes).
-
-# Informe de 4 siniestros
+#### Informe de 4 siniestros
 
 - **Identificador:** RPT-20261115-214839-ce0d8a
 - **Generado:** 2026-11-15 21:48 (America/Guayaquil)
@@ -411,7 +421,7 @@ codigo porque contiene los textos originales de los partes (con tildes).
 
 Todos los datos de este informe se consultaron en la base de siniestros al generarlo.
 
-### Resumen
+##### Resumen
 
 | Indicador | Valor |
 | --- | --- |
@@ -421,14 +431,14 @@ Todos los datos de este informe se consultaron en la base de siniestros al gener
 | Ilesos | 1 |
 | Danos materiales (USD) | 110,900.00 |
 
-#### Por tipo de siniestro
+###### Por tipo de siniestro
 
 | Tipo | Siniestros |
 | --- | --- |
 | Choque | 3 |
 | Perdida de pista | 1 |
 
-#### Por causa
+###### Por causa
 
 | Causa | Siniestros |
 | --- | --- |
@@ -437,9 +447,9 @@ Todos los datos de este informe se consultaron en la base de siniestros al gener
 | Invadir carril | 1 |
 | Somnolencia | 1 |
 
-### Detalle por siniestro
+##### Detalle por siniestro
 
-#### SIN-2025-0001 - 2025-01-12 05:40
+###### SIN-2025-0001 - 2025-01-12 05:40
 
 - **Ubicacion:** Pasa, Ambato, Tungurahua
 - **Via:** Panamericana E35 (Troncal de la Sierra) (E35), km 128.0
@@ -464,7 +474,7 @@ Narrativa del parte (texto original):
 
 > Un bus interprovincial que cubría la ruta Quito-Riobamba invadió el carril contrario por neblina densa y colisionó contra un camión liviano. El conductor del camión falleció en el lugar; el conductor del bus y dos pasajeros resultaron heridos.
 
-#### SIN-2025-0013 - 2025-08-23 04:55
+###### SIN-2025-0013 - 2025-08-23 04:55
 
 - **Ubicacion:** Guaytacama, Latacunga, Cotopaxi
 - **Via:** Panamericana E35 (Troncal de la Sierra) (E35), km 90.0
@@ -487,7 +497,7 @@ Narrativa del parte (texto original):
 
 > Un tráiler alcanzó por detrás a un camión liviano que circulaba a baja velocidad por la neblina. El conductor del camión liviano falleció y el del tráiler resultó con heridas graves. La bitácora indicó que el conductor del tráiler no había descansado el tiempo reglamentario.
 
-#### SIN-2026-0004 - 2026-03-21 09:15
+###### SIN-2026-0004 - 2026-03-21 09:15
 
 - **Ubicacion:** Izamba, Ambato, Tungurahua
 - **Via:** Panamericana E35 (Troncal de la Sierra) (E35), km 118.0
@@ -516,7 +526,7 @@ Narrativa del parte (texto original):
 
 > Un bus interprovincial inició un adelantamiento a un camión pesado en una zona de línea continua y chocó contra un automóvil que venía en sentido contrario. El conductor del automóvil y su acompañante fallecieron. En el bus resultaron heridos el conductor y tres pasajeros; el camión no sufrió daños personales.
 
-#### SIN-2026-0007 - 2026-06-14 05:10
+###### SIN-2026-0007 - 2026-06-14 05:10
 
 - **Ubicacion:** Ayora, Cayambe, Pichincha
 - **Via:** Panamericana E35 (Troncal de la Sierra) (E35), km 30.0
@@ -538,11 +548,11 @@ Narrativa del parte (texto original):
 
 > Un automóvil perdió el control en una curva con neblina y se salió de la vía. El conductor falleció y uno de los pasajeros resultó con heridas graves. Todos los ocupantes llevaban cinturón.
 
-### Advertencias de calidad de datos
+##### Advertencias de calidad de datos
 
 - Sin advertencias para los siniestros incluidos.
 - Las coordenadas de los partes son referenciales (diccionario INF-2026-02).
 
-### Nota de privacidad
+##### Nota de privacidad
 
 Este informe no incluye nombres, cedulas ni placas: esos datos no se cargan en la base. Las personas y los vehiculos se identifican con codigos sinteticos por siniestro.
