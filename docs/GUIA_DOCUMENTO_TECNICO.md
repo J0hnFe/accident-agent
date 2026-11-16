@@ -60,7 +60,7 @@
 | 1 | Portada y control del documento | Etapa 6 | [ ] |
 | 2 | Resumen ejecutivo | Etapa 6 | [ ] |
 | 3 | Alcance y cumplimiento de requisitos | Etapa 5 | [ ] |
-| 4 | Analisis de los datos | Etapa 1 | [ ] |
+| 4 | Analisis de los datos | Etapa 1 | [x] |
 | 5 | Normalizacion y carga | Etapa 2 | [ ] |
 | 6 | Modelo de grafo | Etapa 2 | [ ] |
 | 7 | Arquitectura de la solucion | Etapa 4 | [ ] |
@@ -75,7 +75,10 @@
 | 16 | Limitaciones conocidas y trabajo futuro | Etapa 5 | [ ] |
 | 17 | Anexos | Etapa 6 | [ ] |
 
-**Ultima actualizacion:** cierre de la Etapa 0 (2026-11-15). Ninguna seccion se completa todavia. La evidencia de la etapa (`docs/evidencias/0.*` y `etapa-0_notas.md`) alimenta las secciones 11 (proveedor de IA), 12 (Langfuse), 13 (pre-commit y gitleaks) y 14 (entorno, versiones y configuracion).
+**Ultima actualizacion:** cierre de la Etapa 1 (2026-11-15). `[x]` indica que el material de la seccion esta completo; la redaccion final es la tarea 6.2.
+
+- **Etapa 0:** la evidencia (`docs/evidencias/0.*` y `etapa-0_notas.md`) alimenta las secciones 11 (proveedor de IA), 12 (Langfuse), 13 (pre-commit y gitleaks) y 14 (entorno, versiones y configuracion).
+- **Etapa 1:** completa la seccion 4 (analisis de los datos: `docs/datos/`, `1.1_perfilado.json` y el reporte de calidad). Alimenta ademas la 5 (reglas y normalizadores; falta la carga de la Etapa 2), la 13 (politica de datos personales y prompt injection), la 15 (pruebas unitarias) y la 16 (riesgos residuales de privacidad). Resumen en `etapa-1_notas.md`.
 
 ## 5. Estructura del documento final
 

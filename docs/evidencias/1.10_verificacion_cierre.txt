@@ -1,0 +1,23 @@
+# Verificacion de cierre de la Etapa 1 (2026-11-15)
+
+1. SHA-256 del original
+   registrado: 77e2ca6e3f29c838035009cad0f720ef70bbda8138369b23616800cbd1fd8280
+   actual:     77e2ca6e3f29c838035009cad0f720ef70bbda8138369b23616800cbd1fd8280
+   coincide: True | cambios en data/ frente al ultimo commit: ninguno
+2. Campos con tratamiento documentado (reglas_normalizacion.md, seccion 5)
+   rutas con valores: 54 de 60 | sin tratamiento documentado: ninguna
+3. Anomalias con decision (catalogo_anomalias.md, seccion 7)
+   detectadas: 42 | con decision: 42 | sin decision: ninguna
+   decisiones en el catalogo: 30 (A01 a A30)
+
+4. Pruebas (uv run pytest)
+   455 passed
+   normalizadores y catalogos:
+   324 passed
+
+5. Calidad
+   ruff check: All checks passed!
+   ruff format --check: 30 files already formatted
+   mypy src tests scripts: Success: no issues found in 30 source files
+   ascii_guard (versionados y nuevos, sin data/ ni docs/enunciado/): sin problemas
+   reporte de calidad al dia: 1 passed, 11 deselected

@@ -13,13 +13,20 @@ Prueba tecnica BIT: orquestador multiagente en Python con RAG sobre Neo4j, sobre
 ## Convenciones
 
 - Documentacion y comentarios en espanol. Identificadores en ingles: variables, funciones, clases, modulos, etiquetas y propiedades del grafo, y nombres de herramientas. Los valores canonicos de datos van en espanol.
-- **Solo ASCII en el repositorio:** codigo, comentarios, plantillas, catalogos y archivos Markdown (plan, guias, README, evidencias y este archivo). Sin tildes, sin enie (`anio`, `senalizacion`, `Canar`) y sin signos de apertura.
-- **Excepciones al ASCII:**
-  - Los documentos finales de entrega (documento tecnico y documento funcional) usan ortografia espanola completa: tildes, enie y signos de apertura.
-  - Los textos originales del JSON, como las narrativas, se conservan tal cual porque son datos.
-  - `docs/enunciado/GUIA_PRUEBA_TECNICA.md` conserva su ortografia original porque reorganiza el enunciado de BIT.
-- Nunca emojis, en ningun archivo.
-- Para comprobar que un archivo es ASCII: `LC_ALL=C grep -n '[^ -~]' <archivo>` no debe devolver lineas.
+- **Solo ASCII en el repositorio:** sin tildes, sin enie (`anio`, `senalizacion`, `Canar`) y sin signos de apertura, salvo donde lo indica esta tabla:
+
+  | Donde | Regla |
+  | --- | --- |
+  | Python: identificadores, comentarios y docstrings | Solo ASCII |
+  | Python: literales de texto con valores reales del JSON (p. ej. en pruebas) | Escapes `\uXXXX`. No se escriben a mano: `scripts/ascii_guard.py` los convierte solo y el valor en ejecucion no cambia |
+  | Markdown del repositorio (plan, guias, README, `docs/datos/`, evidencias, este archivo) | Texto en ASCII. Los valores originales del JSON se citan tal cual, entre comillas invertidas o en bloques de codigo |
+  | TOML, YAML y plantillas Jinja | Solo ASCII |
+  | Datos (`data/`, salidas JSON) | Se conservan tal cual; las salidas que se guardan como evidencia usan `ensure_ascii` |
+  | `docs/enunciado/GUIA_PRUEBA_TECNICA.md` | Ortografia original, porque reorganiza el enunciado de BIT |
+  | Documentos finales de entrega (tecnico y funcional) | Ortografia espanola completa: tildes, enie y signos de apertura. Si se versionan como Markdown, se agregan al `exclude` del hook `ascii-guard` |
+
+- Nunca emojis, en ningun archivo (la guardia los rechaza en Markdown incluso entre comillas invertidas).
+- **Comprobacion:** `uv run python scripts/ascii_guard.py <archivos>` escapa los literales de Python y reporta el resto con archivo, linea y columna; con `--check` solo informa. Se ejecuta sobre los archivos nuevos o modificados antes de dar por terminada una tarea, porque pre-commit solo revisa lo que se va a commitear.
 - Comentarios solo cuando explican el "por que".
 
 ## Flujo de trabajo (SDD ligero)
@@ -76,5 +83,6 @@ Disponibles a partir de las tareas 0.4 y 2.5 del plan:
 
 - `uv sync`: instala las dependencias.
 - `uv run pytest` (con `-m integration` para las pruebas que requieren Neo4j).
-- `uv run ruff check` y `uv run mypy src`.
+- `uv run ruff check` y `uv run mypy src tests scripts`.
+- `uv run python scripts/ascii_guard.py <archivos>`: convencion ASCII (tambien corre en pre-commit).
 - `docker compose up -d --build`: levanta Neo4j, carga los datos y arranca la API.

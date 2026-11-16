@@ -55,7 +55,10 @@
 | 14 | Preguntas frecuentes | Etapa 6 | [ ] |
 | 15 | Anexos | Etapa 6 | [ ] |
 
-**Ultima actualizacion:** cierre de la Etapa 0 (2026-11-15). La etapa no produce evidencia `func_`: solo prepara el entorno.
+**Ultima actualizacion:** cierre de la Etapa 1 (2026-11-15). Ninguna seccion se completa todavia.
+
+- **Etapa 0:** no produce evidencia `func_`; solo prepara el entorno.
+- **Etapa 1:** no produce evidencia `func_`. Sus documentos alimentan la seccion 3 (conceptos basicos: tipos de siniestro y gravedad de INF-2026-02, en `docs/datos/catalogo_anomalias.md`), la 11 (privacidad: `docs/datos/politica_datos_personales.md`) y la 13 (limitaciones: riesgos residuales de privacidad).
 
 ## 4. Estructura del documento final
 

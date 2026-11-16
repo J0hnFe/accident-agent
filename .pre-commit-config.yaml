@@ -23,3 +23,14 @@ repos:
     rev: v8.30.1
     hooks:
       - id: gitleaks
+
+  # Convencion "solo ASCII" (CLAUDE.md): escapa solos los literales de Python como \uXXXX y
+  # revisa Markdown (valores del JSON solo entre comillas invertidas), TOML, YAML y Jinja.
+  - repo: local
+    hooks:
+      - id: ascii-guard
+        name: ASCII guard
+        language: system
+        entry: uv run python scripts/ascii_guard.py
+        types_or: [python, markdown, toml, yaml, jinja]
+        exclude: ^(data/|docs/enunciado/)

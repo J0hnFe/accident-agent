@@ -1,0 +1,3846 @@
+{
+  "source_file": "siniestros_raw.json",
+  "sha256": "77e2ca6e3f29c838035009cad0f720ef70bbda8138369b23616800cbd1fd8280",
+  "metadata": {
+    "fuente": "Extracto ficticio de partes de siniestros de tr\u00e1nsito (ANT / ECU 911) - SOLO PARA PRUEBA T\u00c9CNICA",
+    "generado": "2026-11-09",
+    "version_esquema": "1.0",
+    "zona_horaria": "America/Guayaquil (UTC-05:00)",
+    "formato_fechas_texto": "dd/mm/aaaa (d\u00eda primero)",
+    "total_registros": 31,
+    "aviso": "Todos los datos, nombres, c\u00e9dulas y placas son inventados."
+  },
+  "record_count": 31,
+  "report_count": 5,
+  "fields": [
+    {
+      "path": "registros[].id_parte",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 31
+      },
+      "distinct": 30,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"SIN-2025-0007\"",
+          "count": 2
+        },
+        {
+          "value": "\"SIN-2025-0001\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2025-0002\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2025-0003\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2025-0004\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2025-0005\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2025-0006\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2025-0008\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2025-0009\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2025-0010\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2025-0011\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2025-0012\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2025-0013\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2025-0014\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2025-0015\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2025-0016\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2025-0017\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2025-0018\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2025-0019\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2026-0001\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2026-0002\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2026-0003\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2026-0004\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2026-0005\"",
+          "count": 1
+        },
+        {
+          "value": "\"SIN-2026-0006\"",
+          "count": 1
+        }
+      ],
+      "shapes": [
+        {
+          "value": "a-9-9",
+          "count": 31
+        }
+      ],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].version",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "integer": 31
+      },
+      "distinct": 2,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 30
+        },
+        {
+          "value": "2",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].fecha_actualizacion",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 31
+      },
+      "distinct": 30,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"2026-09-02\"",
+          "count": 2
+        },
+        {
+          "value": "\"2025-01-12\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-02-03\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-02-22\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-03-09\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-03-28\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-04-14\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-05-02\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-05-06\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-05-17\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-06-08\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-06-29\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-07-19\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-08-02\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-08-23\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-09-10\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-10-04\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-10-26\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-11-15\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-12-06\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-12-24\"",
+          "count": 1
+        },
+        {
+          "value": "\"2026-01-18\"",
+          "count": 1
+        },
+        {
+          "value": "\"2026-02-07\"",
+          "count": 1
+        },
+        {
+          "value": "\"2026-03-01\"",
+          "count": 1
+        },
+        {
+          "value": "\"2026-03-21\"",
+          "count": 1
+        }
+      ],
+      "shapes": [
+        {
+          "value": "9-9-9",
+          "count": 31
+        }
+      ],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].estado",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 31
+      },
+      "distinct": 2,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"ACTIVO\"",
+          "count": 30
+        },
+        {
+          "value": "\"ANULADO\"",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].fecha_hora",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 24,
+        "object": 7
+      },
+      "distinct": 23,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"2025-05-01 12:20:00\"",
+          "count": 2
+        },
+        {
+          "value": "\"01/03/2026 00:40\"",
+          "count": 1
+        },
+        {
+          "value": "\"02/09/2026 02:25\"",
+          "count": 1
+        },
+        {
+          "value": "\"03/02/2025 22:15\"",
+          "count": 1
+        },
+        {
+          "value": "\"06/12/2025 11:50\"",
+          "count": 1
+        },
+        {
+          "value": "\"10/09/2025 18:05\"",
+          "count": 1
+        },
+        {
+          "value": "\"14/04/2025 21:10\"",
+          "count": 1
+        },
+        {
+          "value": "\"14/06/2026 05:10\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-01-12T05:40:00-05:00\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-02-22 14:05:00\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-03-28T17:30:00-05:00\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-06-08T06:15:00-05:00\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-07-19 19:40:00\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-08-23T04:55:00-05:00\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-10-04 01:30:00\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-11-15T20:00:00-05:00\"",
+          "count": 1
+        },
+        {
+          "value": "\"2025-12-24 22:35:00\"",
+          "count": 1
+        },
+        {
+          "value": "\"2026-02-07T16:45:00-05:00\"",
+          "count": 1
+        },
+        {
+          "value": "\"2026-03-21 09:15:00\"",
+          "count": 1
+        },
+        {
+          "value": "\"2026-05-09T13:30:00-05:00\"",
+          "count": 1
+        },
+        {
+          "value": "\"2026-07-04 20:20:00\"",
+          "count": 1
+        },
+        {
+          "value": "\"2026-09-02T02:25:00-05:00\"",
+          "count": 1
+        },
+        {
+          "value": "\"29/06/2025 10:30\"",
+          "count": 1
+        }
+      ],
+      "shapes": [
+        {
+          "value": "9-9-9 9:9:9",
+          "count": 8
+        },
+        {
+          "value": "9-9-9a9:9:9-9:9",
+          "count": 8
+        },
+        {
+          "value": "9/9/9 9:9",
+          "count": 8
+        }
+      ],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].fecha_hora.fecha",
+      "present": 7,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 7
+      },
+      "distinct": 7,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"02-08-2025\"",
+          "count": 1
+        },
+        {
+          "value": "\"09-03-2025\"",
+          "count": 1
+        },
+        {
+          "value": "\"12-04-2026\"",
+          "count": 1
+        },
+        {
+          "value": "\"15-08-2026\"",
+          "count": 1
+        },
+        {
+          "value": "\"17-05-2025\"",
+          "count": 1
+        },
+        {
+          "value": "\"18-01-2026\"",
+          "count": 1
+        },
+        {
+          "value": "\"26-10-2025\"",
+          "count": 1
+        }
+      ],
+      "shapes": [
+        {
+          "value": "9-9-9",
+          "count": 7
+        }
+      ],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].fecha_hora.hora",
+      "present": 7,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 7
+      },
+      "distinct": 7,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"03:50\"",
+          "count": 1
+        },
+        {
+          "value": "\"07:20\"",
+          "count": 1
+        },
+        {
+          "value": "\"10:05\"",
+          "count": 1
+        },
+        {
+          "value": "\"13:10\"",
+          "count": 1
+        },
+        {
+          "value": "\"15:25\"",
+          "count": 1
+        },
+        {
+          "value": "\"18:50\"",
+          "count": 1
+        },
+        {
+          "value": "\"23:45\"",
+          "count": 1
+        }
+      ],
+      "shapes": [
+        {
+          "value": "9:9",
+          "count": 7
+        }
+      ],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].ubicacion",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "object": 31
+      },
+      "distinct": 0,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].ubicacion.provincia",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 31
+      },
+      "distinct": 21,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"Guayas\"",
+          "count": 3
+        },
+        {
+          "value": "\"PICHINCHA\"",
+          "count": 3
+        },
+        {
+          "value": "\"Pichincha\"",
+          "count": 3
+        },
+        {
+          "value": "\"Azuay\"",
+          "count": 2
+        },
+        {
+          "value": "\"El Oro\"",
+          "count": 2
+        },
+        {
+          "value": "\"GUAYAS\"",
+          "count": 2
+        },
+        {
+          "value": "\"TUNGURAHUA\"",
+          "count": 2
+        },
+        {
+          "value": "\"CANAR\"",
+          "count": 1
+        },
+        {
+          "value": "\"Chimborazo\"",
+          "count": 1
+        },
+        {
+          "value": "\"Cotopaxi\"",
+          "count": 1
+        },
+        {
+          "value": "\"Esmeraldas\"",
+          "count": 1
+        },
+        {
+          "value": "\"Imbabura\"",
+          "count": 1
+        },
+        {
+          "value": "\"Loja\"",
+          "count": 1
+        },
+        {
+          "value": "\"Los R\u00edos\"",
+          "count": 1
+        },
+        {
+          "value": "\"MANABI\"",
+          "count": 1
+        },
+        {
+          "value": "\"Manabi\"",
+          "count": 1
+        },
+        {
+          "value": "\"Napo\"",
+          "count": 1
+        },
+        {
+          "value": "\"SUCUMBIOS\"",
+          "count": 1
+        },
+        {
+          "value": "\"Santa Elena\"",
+          "count": 1
+        },
+        {
+          "value": "\"Santo Domingo de los Tsachilas\"",
+          "count": 1
+        },
+        {
+          "value": "\"Tungurahua\"",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].ubicacion.canton",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 31
+      },
+      "distinct": 26,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"GUAYAQUIL\"",
+          "count": 3
+        },
+        {
+          "value": "\"Ambato\"",
+          "count": 2
+        },
+        {
+          "value": "\"Cuenca\"",
+          "count": 2
+        },
+        {
+          "value": "\"QUITO\"",
+          "count": 2
+        },
+        {
+          "value": "\"AZOGUES\"",
+          "count": 1
+        },
+        {
+          "value": "\"Ba\u00f1os de Agua Santa\"",
+          "count": 1
+        },
+        {
+          "value": "\"CAYAMBE\"",
+          "count": 1
+        },
+        {
+          "value": "\"Dur\u00e1n\"",
+          "count": 1
+        },
+        {
+          "value": "\"ESMERALDAS\"",
+          "count": 1
+        },
+        {
+          "value": "\"Guayaquil\"",
+          "count": 1
+        },
+        {
+          "value": "\"LOJA\"",
+          "count": 1
+        },
+        {
+          "value": "\"Lago Agrio\"",
+          "count": 1
+        },
+        {
+          "value": "\"Latacunga\"",
+          "count": 1
+        },
+        {
+          "value": "\"MACHALA\"",
+          "count": 1
+        },
+        {
+          "value": "\"Machala\"",
+          "count": 1
+        },
+        {
+          "value": "\"Manta\"",
+          "count": 1
+        },
+        {
+          "value": "\"OTAVALO\"",
+          "count": 1
+        },
+        {
+          "value": "\"Portoviejo\"",
+          "count": 1
+        },
+        {
+          "value": "\"Quevedo\"",
+          "count": 1
+        },
+        {
+          "value": "\"Quito\"",
+          "count": 1
+        },
+        {
+          "value": "\"RUMINAHUI\"",
+          "count": 1
+        },
+        {
+          "value": "\"Riobamba\"",
+          "count": 1
+        },
+        {
+          "value": "\"Rumi\u00f1ahui\"",
+          "count": 1
+        },
+        {
+          "value": "\"SANTA ELENA\"",
+          "count": 1
+        },
+        {
+          "value": "\"SANTO DOMINGO\"",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].ubicacion.parroquia",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 31
+      },
+      "distinct": 29,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"El Vecino\"",
+          "count": 2
+        },
+        {
+          "value": "\"SAN RAFAEL\"",
+          "count": 2
+        },
+        {
+          "value": "\"AHUANO\"",
+          "count": 1
+        },
+        {
+          "value": "\"ALLURIQUIN\"",
+          "count": 1
+        },
+        {
+          "value": "\"ATACAMES\"",
+          "count": 1
+        },
+        {
+          "value": "\"AYORA\"",
+          "count": 1
+        },
+        {
+          "value": "\"BALLENITA\"",
+          "count": 1
+        },
+        {
+          "value": "\"BORRERO\"",
+          "count": 1
+        },
+        {
+          "value": "\"CHONGON\"",
+          "count": 1
+        },
+        {
+          "value": "\"CONOCOTO\"",
+          "count": 1
+        },
+        {
+          "value": "\"Cotocollao\"",
+          "count": 1
+        },
+        {
+          "value": "\"Crucita\"",
+          "count": 1
+        },
+        {
+          "value": "\"EL CAMBIO\"",
+          "count": 1
+        },
+        {
+          "value": "\"Eloy Alfaro\"",
+          "count": 1
+        },
+        {
+          "value": "\"Febres Cordero\"",
+          "count": 1
+        },
+        {
+          "value": "\"Guaytacama\"",
+          "count": 1
+        },
+        {
+          "value": "\"Izamba\"",
+          "count": 1
+        },
+        {
+          "value": "\"LA MARISCAL\"",
+          "count": 1
+        },
+        {
+          "value": "\"Lizarzaburu\"",
+          "count": 1
+        },
+        {
+          "value": "\"MALACATOS\"",
+          "count": 1
+        },
+        {
+          "value": "\"Nueva Loja\"",
+          "count": 1
+        },
+        {
+          "value": "\"PASCUALES\"",
+          "count": 1
+        },
+        {
+          "value": "\"Pasa\"",
+          "count": 1
+        },
+        {
+          "value": "\"Puerto Bol\u00edvar\"",
+          "count": 1
+        },
+        {
+          "value": "\"San Camilo\"",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].ubicacion.via",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 31
+      },
+      "distinct": 25,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"Panamericana E35 (Troncal de la Sierra)\"",
+          "count": 3
+        },
+        {
+          "value": "\"AUTOPISTA GENERAL RUMINAHUI\"",
+          "count": 2
+        },
+        {
+          "value": "\"AUTOPISTA NARCISA DE JESUS\"",
+          "count": 2
+        },
+        {
+          "value": "\"Av. de las Am\u00e9ricas (Cuenca)\"",
+          "count": 2
+        },
+        {
+          "value": "\"PANAMERICANA E35 (TRONCAL DE LA SIERRA)\"",
+          "count": 2
+        },
+        {
+          "value": "\"AV. SIMON BOLIVAR (QUITO)\"",
+          "count": 1
+        },
+        {
+          "value": "\"Autopista General Rumi\u00f1ahui\"",
+          "count": 1
+        },
+        {
+          "value": "\"Av. Francisco de Orellana (Guayaquil)\"",
+          "count": 1
+        },
+        {
+          "value": "\"Av. Sim\u00f3n Bol\u00edvar (Quito)\"",
+          "count": 1
+        },
+        {
+          "value": "\"E15\"",
+          "count": 1
+        },
+        {
+          "value": "\"E35\"",
+          "count": 1
+        },
+        {
+          "value": "\"TRONCAL AMAZONICA E45\"",
+          "count": 1
+        },
+        {
+          "value": "\"Troncal Amaz\u00f3nica E45\"",
+          "count": 1
+        },
+        {
+          "value": "\"VIA A LA COSTA (GUAYAQUIL)\"",
+          "count": 1
+        },
+        {
+          "value": "\"VIA CUENCA\u2013AZOGUES\"",
+          "count": 1
+        },
+        {
+          "value": "\"VIA ESMERALDAS\u2013ATACAMES\"",
+          "count": 1
+        },
+        {
+          "value": "\"VIA LOJA\u2013CATAMAYO\"",
+          "count": 1
+        },
+        {
+          "value": "\"VIA MACHALA\u2013PASAJE\"",
+          "count": 1
+        },
+        {
+          "value": "\"VIA SANTO DOMINGO\u2013QUITO\"",
+          "count": 1
+        },
+        {
+          "value": "\"V\u00eda Ba\u00f1os\u2013Puyo\"",
+          "count": 1
+        },
+        {
+          "value": "\"V\u00eda Dur\u00e1n\u2013Yaguachi\"",
+          "count": 1
+        },
+        {
+          "value": "\"V\u00eda Guayaquil\u2013Machala\"",
+          "count": 1
+        },
+        {
+          "value": "\"V\u00eda Manta\u2013Portoviejo\"",
+          "count": 1
+        },
+        {
+          "value": "\"V\u00eda Portoviejo\u2013Crucita\"",
+          "count": 1
+        },
+        {
+          "value": "\"V\u00eda Quevedo\u2013Santo Domingo\"",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].ubicacion.km",
+      "present": 31,
+      "absent": 0,
+      "nulls": 1,
+      "empty_strings": 4,
+      "types": {
+        "integer": 8,
+        "string": 22,
+        "null": 1
+      },
+      "distinct": 28,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"\"",
+          "count": 4
+        },
+        {
+          "value": "\"12+000\"",
+          "count": 1
+        },
+        {
+          "value": "\"14+000\"",
+          "count": 1
+        },
+        {
+          "value": "\"15+000\"",
+          "count": 1
+        },
+        {
+          "value": "\"20\"",
+          "count": 1
+        },
+        {
+          "value": "\"22+000\"",
+          "count": 1
+        },
+        {
+          "value": "\"3\"",
+          "count": 1
+        },
+        {
+          "value": "\"30\"",
+          "count": 1
+        },
+        {
+          "value": "\"30+000\"",
+          "count": 1
+        },
+        {
+          "value": "\"4\"",
+          "count": 1
+        },
+        {
+          "value": "\"44+000\"",
+          "count": 1
+        },
+        {
+          "value": "\"58\"",
+          "count": 1
+        },
+        {
+          "value": "\"6\"",
+          "count": 1
+        },
+        {
+          "value": "\"8\"",
+          "count": 1
+        },
+        {
+          "value": "\"9+000\"",
+          "count": 1
+        },
+        {
+          "value": "\"Km 11\"",
+          "count": 1
+        },
+        {
+          "value": "\"Km 118\"",
+          "count": 1
+        },
+        {
+          "value": "\"Km 3\"",
+          "count": 1
+        },
+        {
+          "value": "\"Km 7\"",
+          "count": 1
+        },
+        {
+          "value": "12",
+          "count": 1
+        },
+        {
+          "value": "128",
+          "count": 1
+        },
+        {
+          "value": "18",
+          "count": 1
+        },
+        {
+          "value": "205",
+          "count": 1
+        },
+        {
+          "value": "3",
+          "count": 1
+        },
+        {
+          "value": "8",
+          "count": 1
+        }
+      ],
+      "shapes": [
+        {
+          "value": "9",
+          "count": 7
+        },
+        {
+          "value": "9+9",
+          "count": 7
+        },
+        {
+          "value": "a 9",
+          "count": 4
+        }
+      ],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].ubicacion.coordenadas",
+      "present": 31,
+      "absent": 0,
+      "nulls": 2,
+      "empty_strings": 0,
+      "types": {
+        "string": 15,
+        "object": 14,
+        "null": 2
+      },
+      "distinct": 15,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"-2.9121,-79.0059\"",
+          "count": 2
+        },
+        {
+          "value": "null",
+          "count": 2
+        },
+        {
+          "value": "\"-0.1807,-78.4638\"",
+          "count": 1
+        },
+        {
+          "value": "\"-0.33,-78.458\"",
+          "count": 1
+        },
+        {
+          "value": "\"-0.9232,-78.6115\"",
+          "count": 1
+        },
+        {
+          "value": "\"-0.9637,-80.7129\"",
+          "count": 1
+        },
+        {
+          "value": "\"-1.0105,-79.4644\"",
+          "count": 1
+        },
+        {
+          "value": "\"-1.0626,-80.4505\"",
+          "count": 1
+        },
+        {
+          "value": "\"-1.2377,-78.6117\"",
+          "count": 1
+        },
+        {
+          "value": "\"-1.2497,-78.6237\"",
+          "count": 1
+        },
+        {
+          "value": "\"-1.3884,-78.4327\"",
+          "count": 1
+        },
+        {
+          "value": "\"-1.6676,-78.6466\"",
+          "count": 1
+        },
+        {
+          "value": "\"-2.178,-79.838\"",
+          "count": 1
+        },
+        {
+          "value": "\"-3.2621,-79.9554\"",
+          "count": 1
+        },
+        {
+          "value": "\"0.0847,-76.895\"",
+          "count": 1
+        }
+      ],
+      "shapes": [
+        {
+          "value": "9.9,9.9",
+          "count": 15
+        }
+      ],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].ubicacion.coordenadas.latitud",
+      "present": 14,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "number": 14
+      },
+      "distinct": 13,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "-2.174",
+          "count": 2
+        },
+        {
+          "value": "-0.1767",
+          "count": 1
+        },
+        {
+          "value": "-0.1807",
+          "count": 1
+        },
+        {
+          "value": "-0.342",
+          "count": 1
+        },
+        {
+          "value": "-0.9978",
+          "count": 1
+        },
+        {
+          "value": "-2.178",
+          "count": 1
+        },
+        {
+          "value": "-2.2187",
+          "count": 1
+        },
+        {
+          "value": "-2.7477",
+          "count": 1
+        },
+        {
+          "value": "-3.2541",
+          "count": 1
+        },
+        {
+          "value": "-3.9851",
+          "count": 1
+        },
+        {
+          "value": "0.031",
+          "count": 1
+        },
+        {
+          "value": "0.234",
+          "count": 1
+        },
+        {
+          "value": "0.9632",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].ubicacion.coordenadas.longitud",
+      "present": 14,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "number": 14
+      },
+      "distinct": 14,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "-77.8169",
+          "count": 1
+        },
+        {
+          "value": "-78.145",
+          "count": 1
+        },
+        {
+          "value": "-78.269",
+          "count": 1
+        },
+        {
+          "value": "-78.442",
+          "count": 1
+        },
+        {
+          "value": "-78.4638",
+          "count": 1
+        },
+        {
+          "value": "-78.4718",
+          "count": 1
+        },
+        {
+          "value": "-78.8526",
+          "count": 1
+        },
+        {
+          "value": "-79.2042",
+          "count": 1
+        },
+        {
+          "value": "-79.6499",
+          "count": 1
+        },
+        {
+          "value": "-79.9144",
+          "count": 1
+        },
+        {
+          "value": "-79.9184",
+          "count": 1
+        },
+        {
+          "value": "-79.9224",
+          "count": 1
+        },
+        {
+          "value": "-79.9474",
+          "count": 1
+        },
+        {
+          "value": "-80.867",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].tipo_siniestro",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 31
+      },
+      "distinct": 9,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"CHOQUE\"",
+          "count": 9
+        },
+        {
+          "value": "\"Choque\"",
+          "count": 9
+        },
+        {
+          "value": "\"Atropello\"",
+          "count": 3
+        },
+        {
+          "value": "\"ATROPELLO\"",
+          "count": 2
+        },
+        {
+          "value": "\"Estrellamiento\"",
+          "count": 2
+        },
+        {
+          "value": "\"PERDIDA DE PISTA\"",
+          "count": 2
+        },
+        {
+          "value": "\"VOLCAMIENTO\"",
+          "count": 2
+        },
+        {
+          "value": "\"P\u00e9rdida de pista\"",
+          "count": 1
+        },
+        {
+          "value": "\"Volcamiento\"",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].causa_probable",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 31
+      },
+      "distinct": 17,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"EXCESO DE VELOCIDAD\"",
+          "count": 5
+        },
+        {
+          "value": "\"Invadir carril\"",
+          "count": 3
+        },
+        {
+          "value": "\"VELOCIDAD EXCESIVA\"",
+          "count": 3
+        },
+        {
+          "value": "\"Distracci\u00f3n del conductor\"",
+          "count": 2
+        },
+        {
+          "value": "\"MAL ESTADO DE LA VIA\"",
+          "count": 2
+        },
+        {
+          "value": "\"No respetar sem\u00e1foro\"",
+          "count": 2
+        },
+        {
+          "value": "\"PEATON EN LA VIA\"",
+          "count": 2
+        },
+        {
+          "value": "\"Peat\u00f3n en la v\u00eda\"",
+          "count": 2
+        },
+        {
+          "value": "\"SOMNOLENCIA\"",
+          "count": 2
+        },
+        {
+          "value": "\"ADELANTAMIENTO INDEBIDO\"",
+          "count": 1
+        },
+        {
+          "value": "\"Adelantamiento indebido\"",
+          "count": 1
+        },
+        {
+          "value": "\"CONDUCIR BAJO EFECTOS DEL ALCOHOL\"",
+          "count": 1
+        },
+        {
+          "value": "\"CONDUCIR EN ESTADO DE EBRIEDAD\"",
+          "count": 1
+        },
+        {
+          "value": "\"Conducir bajo efectos del alcohol\"",
+          "count": 1
+        },
+        {
+          "value": "\"DISTRACCION DEL CONDUCTOR\"",
+          "count": 1
+        },
+        {
+          "value": "\"Exceso de velocidad\"",
+          "count": 1
+        },
+        {
+          "value": "\"FALLO MECANICO\"",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].condiciones",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "object": 31
+      },
+      "distinct": 0,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].condiciones.clima",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 31
+      },
+      "distinct": 3,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"DESPEJADO\"",
+          "count": 20
+        },
+        {
+          "value": "\"LLUVIA\"",
+          "count": 7
+        },
+        {
+          "value": "\"NEBLINA\"",
+          "count": 4
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].condiciones.superficie",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 31
+      },
+      "distinct": 3,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"SECA\"",
+          "count": 20
+        },
+        {
+          "value": "\"MOJADA\"",
+          "count": 7
+        },
+        {
+          "value": "\"HUMEDA\"",
+          "count": 4
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].condiciones.iluminacion",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 31
+      },
+      "distinct": 4,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"DIURNA\"",
+          "count": 12
+        },
+        {
+          "value": "\"NOCTURNA_CON_ILUMINACION\"",
+          "count": 7
+        },
+        {
+          "value": "\"AMANECER_ATARDECER\"",
+          "count": 6
+        },
+        {
+          "value": "\"NOCTURNA_SIN_ILUMINACION\"",
+          "count": 6
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].danos_materiales",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "integer": 8,
+        "string": 23
+      },
+      "distinct": 31,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"$1,200.00\"",
+          "count": 1
+        },
+        {
+          "value": "\"$1,800.00\"",
+          "count": 1
+        },
+        {
+          "value": "\"$3,900.00\"",
+          "count": 1
+        },
+        {
+          "value": "\"$33,800.00\"",
+          "count": 1
+        },
+        {
+          "value": "\"$4,100.00\"",
+          "count": 1
+        },
+        {
+          "value": "\"$6,400.00\"",
+          "count": 1
+        },
+        {
+          "value": "\"$8,900.00\"",
+          "count": 1
+        },
+        {
+          "value": "\"$9,100.00\"",
+          "count": 1
+        },
+        {
+          "value": "\"12.300,00 USD\"",
+          "count": 1
+        },
+        {
+          "value": "\"14.400,00 USD\"",
+          "count": 1
+        },
+        {
+          "value": "\"15800\"",
+          "count": 1
+        },
+        {
+          "value": "\"16000\"",
+          "count": 1
+        },
+        {
+          "value": "\"17600\"",
+          "count": 1
+        },
+        {
+          "value": "\"21.000,00 USD\"",
+          "count": 1
+        },
+        {
+          "value": "\"22700\"",
+          "count": 1
+        },
+        {
+          "value": "\"2500\"",
+          "count": 1
+        },
+        {
+          "value": "\"26.300,00 USD\"",
+          "count": 1
+        },
+        {
+          "value": "\"27500\"",
+          "count": 1
+        },
+        {
+          "value": "\"3200\"",
+          "count": 1
+        },
+        {
+          "value": "\"5600\"",
+          "count": 1
+        },
+        {
+          "value": "\"6.200,00 USD\"",
+          "count": 1
+        },
+        {
+          "value": "\"7.300,00 USD\"",
+          "count": 1
+        },
+        {
+          "value": "\"7.400,00 USD\"",
+          "count": 1
+        },
+        {
+          "value": "11200",
+          "count": 1
+        },
+        {
+          "value": "12500",
+          "count": 1
+        }
+      ],
+      "shapes": [
+        {
+          "value": "$9,9.9",
+          "count": 8
+        },
+        {
+          "value": "9",
+          "count": 8
+        },
+        {
+          "value": "9.9,9 a",
+          "count": 7
+        }
+      ],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].resumen",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "object": 31
+      },
+      "distinct": 0,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].resumen.fallecidos",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "integer": 31
+      },
+      "distinct": 3,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "0",
+          "count": 15
+        },
+        {
+          "value": "1",
+          "count": 13
+        },
+        {
+          "value": "2",
+          "count": 3
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].resumen.heridos",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "integer": 31
+      },
+      "distinct": 5,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 12
+        },
+        {
+          "value": "2",
+          "count": 8
+        },
+        {
+          "value": "0",
+          "count": 5
+        },
+        {
+          "value": "3",
+          "count": 5
+        },
+        {
+          "value": "4",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].resumen.ilesos",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "integer": 31
+      },
+      "distinct": 2,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "1",
+          "count": 16
+        },
+        {
+          "value": "0",
+          "count": 15
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].vehiculos",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "array": 31
+      },
+      "distinct": 0,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].vehiculos[].placa",
+      "present": 50,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 50
+      },
+      "distinct": 49,
+      "sensitive": true,
+      "free_text": false,
+      "top_values": [],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].vehiculos[].tipo_vehiculo",
+      "present": 50,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 50
+      },
+      "distinct": 16,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"AUTOMOVIL\"",
+          "count": 11
+        },
+        {
+          "value": "\"Autom\u00f3vil\"",
+          "count": 6
+        },
+        {
+          "value": "\"Camioneta\"",
+          "count": 5
+        },
+        {
+          "value": "\"MOTOCICLETA\"",
+          "count": 4
+        },
+        {
+          "value": "\"BUS\"",
+          "count": 3
+        },
+        {
+          "value": "\"CAMIONETA\"",
+          "count": 3
+        },
+        {
+          "value": "\"Motocicleta\"",
+          "count": 3
+        },
+        {
+          "value": "\"Bus\"",
+          "count": 2
+        },
+        {
+          "value": "\"CAMION PESADO\"",
+          "count": 2
+        },
+        {
+          "value": "\"Cami\u00f3n liviano\"",
+          "count": 2
+        },
+        {
+          "value": "\"Cami\u00f3n\"",
+          "count": 2
+        },
+        {
+          "value": "\"SUV\"",
+          "count": 2
+        },
+        {
+          "value": "\"Taxi\"",
+          "count": 2
+        },
+        {
+          "value": "\"CAMION\"",
+          "count": 1
+        },
+        {
+          "value": "\"Cami\u00f3n pesado\"",
+          "count": 1
+        },
+        {
+          "value": "\"Tr\u00e1iler\"",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].vehiculos[].marca_modelo",
+      "present": 26,
+      "absent": 24,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 26
+      },
+      "distinct": 21,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"CHEVROLET AVEO\"",
+          "count": 2
+        },
+        {
+          "value": "\"CHEVROLET D-MAX\"",
+          "count": 2
+        },
+        {
+          "value": "\"HINO AK\"",
+          "count": 2
+        },
+        {
+          "value": "\"KIA SPORTAGE\"",
+          "count": 2
+        },
+        {
+          "value": "\"TOYOTA HILUX\"",
+          "count": 2
+        },
+        {
+          "value": "\"CHEVROLET NHR\"",
+          "count": 1
+        },
+        {
+          "value": "\"CHEVROLET NKR\"",
+          "count": 1
+        },
+        {
+          "value": "\"CHEVROLET NPR\"",
+          "count": 1
+        },
+        {
+          "value": "\"CHEVROLET SAIL\"",
+          "count": 1
+        },
+        {
+          "value": "\"HINO FC\"",
+          "count": 1
+        },
+        {
+          "value": "\"HONDA CG 150\"",
+          "count": 1
+        },
+        {
+          "value": "\"HYUNDAI ACCENT\"",
+          "count": 1
+        },
+        {
+          "value": "\"HYUNDAI ELANTRA\"",
+          "count": 1
+        },
+        {
+          "value": "\"KENWORTH T800\"",
+          "count": 1
+        },
+        {
+          "value": "\"KIA CERATO\"",
+          "count": 1
+        },
+        {
+          "value": "\"KIA RIO\"",
+          "count": 1
+        },
+        {
+          "value": "\"NISSAN FRONTIER\"",
+          "count": 1
+        },
+        {
+          "value": "\"SUZUKI GN 125\"",
+          "count": 1
+        },
+        {
+          "value": "\"TOYOTA YARIS\"",
+          "count": 1
+        },
+        {
+          "value": "\"VOLVO FH\"",
+          "count": 1
+        },
+        {
+          "value": "\"YAMAHA FZ 150\"",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].vehiculos[].anio",
+      "present": 50,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 18,
+        "integer": 32
+      },
+      "distinct": 19,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "2019",
+          "count": 6
+        },
+        {
+          "value": "2020",
+          "count": 6
+        },
+        {
+          "value": "\"2018\"",
+          "count": 4
+        },
+        {
+          "value": "2017",
+          "count": 4
+        },
+        {
+          "value": "2018",
+          "count": 4
+        },
+        {
+          "value": "\"2016\"",
+          "count": 3
+        },
+        {
+          "value": "\"2021\"",
+          "count": 3
+        },
+        {
+          "value": "2021",
+          "count": 3
+        },
+        {
+          "value": "2022",
+          "count": 3
+        },
+        {
+          "value": "\"2014\"",
+          "count": 2
+        },
+        {
+          "value": "\"2022\"",
+          "count": 2
+        },
+        {
+          "value": "2014",
+          "count": 2
+        },
+        {
+          "value": "2016",
+          "count": 2
+        },
+        {
+          "value": "\"2012\"",
+          "count": 1
+        },
+        {
+          "value": "\"2015\"",
+          "count": 1
+        },
+        {
+          "value": "\"2017\"",
+          "count": 1
+        },
+        {
+          "value": "\"2019\"",
+          "count": 1
+        },
+        {
+          "value": "2013",
+          "count": 1
+        },
+        {
+          "value": "2023",
+          "count": 1
+        }
+      ],
+      "shapes": [
+        {
+          "value": "9",
+          "count": 18
+        }
+      ],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].vehiculos[].servicio",
+      "present": 50,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 50
+      },
+      "distinct": 6,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"PARTICULAR\"",
+          "count": 18
+        },
+        {
+          "value": "\"particular\"",
+          "count": 16
+        },
+        {
+          "value": "\"carga\"",
+          "count": 6
+        },
+        {
+          "value": "\"p\u00fablico\"",
+          "count": 4
+        },
+        {
+          "value": "\"CARGA\"",
+          "count": 3
+        },
+        {
+          "value": "\"PUBLICO\"",
+          "count": 3
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].vehiculos[].marca",
+      "present": 24,
+      "absent": 26,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 24
+      },
+      "distinct": 10,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"Chevrolet\"",
+          "count": 6
+        },
+        {
+          "value": "\"Hino\"",
+          "count": 3
+        },
+        {
+          "value": "\"Mercedes-Benz\"",
+          "count": 3
+        },
+        {
+          "value": "\"Honda\"",
+          "count": 2
+        },
+        {
+          "value": "\"Hyundai\"",
+          "count": 2
+        },
+        {
+          "value": "\"Kia\"",
+          "count": 2
+        },
+        {
+          "value": "\"Mazda\"",
+          "count": 2
+        },
+        {
+          "value": "\"Yamaha\"",
+          "count": 2
+        },
+        {
+          "value": "\"Nissan\"",
+          "count": 1
+        },
+        {
+          "value": "\"Toyota\"",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].vehiculos[].modelo",
+      "present": 24,
+      "absent": 26,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 24
+      },
+      "distinct": 18,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"OF\"",
+          "count": 3
+        },
+        {
+          "value": "\"Sail\"",
+          "count": 3
+        },
+        {
+          "value": "\"Accent\"",
+          "count": 2
+        },
+        {
+          "value": "\"BT-50\"",
+          "count": 2
+        },
+        {
+          "value": "\"500\"",
+          "count": 1
+        },
+        {
+          "value": "\"700\"",
+          "count": 1
+        },
+        {
+          "value": "\"Aveo\"",
+          "count": 1
+        },
+        {
+          "value": "\"CB 125\"",
+          "count": 1
+        },
+        {
+          "value": "\"Cerato\"",
+          "count": 1
+        },
+        {
+          "value": "\"Corolla\"",
+          "count": 1
+        },
+        {
+          "value": "\"FC\"",
+          "count": 1
+        },
+        {
+          "value": "\"FZ 150\"",
+          "count": 1
+        },
+        {
+          "value": "\"Frontier\"",
+          "count": 1
+        },
+        {
+          "value": "\"Onix\"",
+          "count": 1
+        },
+        {
+          "value": "\"Rio\"",
+          "count": 1
+        },
+        {
+          "value": "\"Spark\"",
+          "count": 1
+        },
+        {
+          "value": "\"XR 200\"",
+          "count": 1
+        },
+        {
+          "value": "\"YBR 125\"",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].personas",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "array": 31
+      },
+      "distinct": 0,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].personas[].rol",
+      "present": 81,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 81
+      },
+      "distinct": 5,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"CONDUCTOR\"",
+          "count": 27
+        },
+        {
+          "value": "\"conductor\"",
+          "count": 23
+        },
+        {
+          "value": "\"PASAJERO\"",
+          "count": 13
+        },
+        {
+          "value": "\"pasajero\"",
+          "count": 13
+        },
+        {
+          "value": "\"peat\u00f3n\"",
+          "count": 5
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].personas[].edad",
+      "present": 81,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "integer": 61,
+        "string": 20
+      },
+      "distinct": 55,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "29",
+          "count": 4
+        },
+        {
+          "value": "34",
+          "count": 4
+        },
+        {
+          "value": "31",
+          "count": 3
+        },
+        {
+          "value": "33",
+          "count": 3
+        },
+        {
+          "value": "44",
+          "count": 3
+        },
+        {
+          "value": "\"24\"",
+          "count": 2
+        },
+        {
+          "value": "\"35\"",
+          "count": 2
+        },
+        {
+          "value": "22",
+          "count": 2
+        },
+        {
+          "value": "24",
+          "count": 2
+        },
+        {
+          "value": "27",
+          "count": 2
+        },
+        {
+          "value": "28",
+          "count": 2
+        },
+        {
+          "value": "30",
+          "count": 2
+        },
+        {
+          "value": "36",
+          "count": 2
+        },
+        {
+          "value": "40",
+          "count": 2
+        },
+        {
+          "value": "41",
+          "count": 2
+        },
+        {
+          "value": "46",
+          "count": 2
+        },
+        {
+          "value": "49",
+          "count": 2
+        },
+        {
+          "value": "51",
+          "count": 2
+        },
+        {
+          "value": "58",
+          "count": 2
+        },
+        {
+          "value": "\"10\"",
+          "count": 1
+        },
+        {
+          "value": "\"22\"",
+          "count": 1
+        },
+        {
+          "value": "\"26\"",
+          "count": 1
+        },
+        {
+          "value": "\"32\"",
+          "count": 1
+        },
+        {
+          "value": "\"33\"",
+          "count": 1
+        },
+        {
+          "value": "\"34\"",
+          "count": 1
+        }
+      ],
+      "shapes": [
+        {
+          "value": "9",
+          "count": 20
+        }
+      ],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].personas[].sexo",
+      "present": 81,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 81
+      },
+      "distinct": 6,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"Hombre\"",
+          "count": 21
+        },
+        {
+          "value": "\"M\"",
+          "count": 21
+        },
+        {
+          "value": "\"MASCULINO\"",
+          "count": 19
+        },
+        {
+          "value": "\"FEMENINO\"",
+          "count": 8
+        },
+        {
+          "value": "\"F\"",
+          "count": 6
+        },
+        {
+          "value": "\"Mujer\"",
+          "count": 6
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].personas[].condicion",
+      "present": 81,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 81
+      },
+      "distinct": 8,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"Herido leve\"",
+          "count": 19
+        },
+        {
+          "value": "\"FALLECIDO\"",
+          "count": 13
+        },
+        {
+          "value": "\"HERIDO LEVE\"",
+          "count": 13
+        },
+        {
+          "value": "\"Ileso\"",
+          "count": 11
+        },
+        {
+          "value": "\"HERIDO GRAVE\"",
+          "count": 10
+        },
+        {
+          "value": "\"Fallecido\"",
+          "count": 6
+        },
+        {
+          "value": "\"ILESO\"",
+          "count": 5
+        },
+        {
+          "value": "\"Herido grave\"",
+          "count": 4
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].personas[].alcohol_gl",
+      "present": 81,
+      "absent": 0,
+      "nulls": 9,
+      "empty_strings": 13,
+      "types": {
+        "string": 58,
+        "number": 14,
+        "null": 9
+      },
+      "distinct": 13,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"0,0\"",
+          "count": 15
+        },
+        {
+          "value": "\"\"",
+          "count": 13
+        },
+        {
+          "value": "\"0.0\"",
+          "count": 13
+        },
+        {
+          "value": "\"N/D\"",
+          "count": 12
+        },
+        {
+          "value": "0.0",
+          "count": 12
+        },
+        {
+          "value": "null",
+          "count": 9
+        },
+        {
+          "value": "\"0,9\"",
+          "count": 1
+        },
+        {
+          "value": "\"0.9\"",
+          "count": 1
+        },
+        {
+          "value": "\"1,1\"",
+          "count": 1
+        },
+        {
+          "value": "\"1,6\"",
+          "count": 1
+        },
+        {
+          "value": "\"1.3\"",
+          "count": 1
+        },
+        {
+          "value": "0.4",
+          "count": 1
+        },
+        {
+          "value": "0.5",
+          "count": 1
+        }
+      ],
+      "shapes": [
+        {
+          "value": "9,9",
+          "count": 18
+        },
+        {
+          "value": "9.9",
+          "count": 15
+        }
+      ],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].personas[].proteccion",
+      "present": 81,
+      "absent": 0,
+      "nulls": 3,
+      "empty_strings": 1,
+      "types": {
+        "string": 78,
+        "null": 3
+      },
+      "distinct": 12,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"CINTURON\"",
+          "count": 23
+        },
+        {
+          "value": "\"SI - CINTURON\"",
+          "count": 18
+        },
+        {
+          "value": "\"Cintur\u00f3n de seguridad\"",
+          "count": 16
+        },
+        {
+          "value": "\"N/A\"",
+          "count": 6
+        },
+        {
+          "value": "\"SI - CASCO\"",
+          "count": 4
+        },
+        {
+          "value": "\"SIN DATO\"",
+          "count": 4
+        },
+        {
+          "value": "\"CASCO\"",
+          "count": 3
+        },
+        {
+          "value": "null",
+          "count": 3
+        },
+        {
+          "value": "\"\"",
+          "count": 1
+        },
+        {
+          "value": "\"NINGUNO\"",
+          "count": 1
+        },
+        {
+          "value": "\"NO APLICA\"",
+          "count": 1
+        },
+        {
+          "value": "\"NO\"",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].personas[].nombre",
+      "present": 81,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 81
+      },
+      "distinct": 61,
+      "sensitive": true,
+      "free_text": false,
+      "top_values": [],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].personas[].cedula",
+      "present": 81,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 81
+      },
+      "distinct": 80,
+      "sensitive": true,
+      "free_text": false,
+      "top_values": [],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].personas[].placa_vehiculo",
+      "present": 81,
+      "absent": 0,
+      "nulls": 5,
+      "empty_strings": 0,
+      "types": {
+        "string": 76,
+        "null": 5
+      },
+      "distinct": 50,
+      "sensitive": true,
+      "free_text": false,
+      "top_values": [],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].personas[].dias_hasta_deceso",
+      "present": 1,
+      "absent": 80,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "integer": 1
+      },
+      "distinct": 1,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "6",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].narrativa",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 31
+      },
+      "distinct": 30,
+      "sensitive": false,
+      "free_text": true,
+      "top_values": [],
+      "shapes": [],
+      "min_length": 139,
+      "max_length": 321
+    },
+    {
+      "path": "registros[].fuente",
+      "present": 31,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 31
+      },
+      "distinct": 1,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"Parte policial (ficticio)\"",
+          "count": 31
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].motivo_anulacion",
+      "present": 1,
+      "absent": 30,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 1
+      },
+      "distinct": 1,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"Ubicaci\u00f3n err\u00f3nea (cant\u00f3n incorrecto) y parte incompleto\"",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "registros[].reemplaza_a",
+      "present": 1,
+      "absent": 30,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 1
+      },
+      "distinct": 1,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"SIN-2026-0010\"",
+          "count": 1
+        }
+      ],
+      "shapes": [
+        {
+          "value": "a-9-9",
+          "count": 1
+        }
+      ],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "informes[].id",
+      "present": 5,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 5
+      },
+      "distinct": 5,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"INF-2025-01\"",
+          "count": 1
+        },
+        {
+          "value": "\"INF-2026-01\"",
+          "count": 1
+        },
+        {
+          "value": "\"INF-2026-02\"",
+          "count": 1
+        },
+        {
+          "value": "\"INF-2026-03\"",
+          "count": 1
+        },
+        {
+          "value": "\"INF-RES-01\"",
+          "count": 1
+        }
+      ],
+      "shapes": [
+        {
+          "value": "a-9-9",
+          "count": 4
+        },
+        {
+          "value": "a-a-9",
+          "count": 1
+        }
+      ],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "informes[].titulo",
+      "present": 5,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 5
+      },
+      "distinct": 5,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"Diccionario de datos y definiciones de siniestros\"",
+          "count": 1
+        },
+        {
+          "value": "\"Informe de siniestralidad del corredor E35 (datos 2025). Actualiza el informe anterior\"",
+          "count": 1
+        },
+        {
+          "value": "\"Informe de siniestralidad del corredor E35 Ambato\u2013Riobamba (datos 2024)\"",
+          "count": 1
+        },
+        {
+          "value": "\"Nota t\u00e9cnica: siniestros con motocicletas\"",
+          "count": 1
+        },
+        {
+          "value": "\"N\u00f3mina reservada de v\u00edctimas fatales (CONFIDENCIAL)\"",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "informes[].fecha",
+      "present": 5,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 5
+      },
+      "distinct": 5,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"10/02/2025\"",
+          "count": 1
+        },
+        {
+          "value": "\"12/02/2026\"",
+          "count": 1
+        },
+        {
+          "value": "\"15/01/2026\"",
+          "count": 1
+        },
+        {
+          "value": "\"20/07/2026\"",
+          "count": 1
+        },
+        {
+          "value": "\"30/03/2026\"",
+          "count": 1
+        }
+      ],
+      "shapes": [
+        {
+          "value": "9/9/9",
+          "count": 5
+        }
+      ],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "informes[].estado",
+      "present": 5,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 5
+      },
+      "distinct": 2,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"VIGENTE\"",
+          "count": 4
+        },
+        {
+          "value": "\"REEMPLAZADO\"",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "informes[].clasificacion",
+      "present": 5,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 5
+      },
+      "distinct": 2,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"PUBLICO\"",
+          "count": 4
+        },
+        {
+          "value": "\"RESERVADO\"",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "informes[].via_analizada",
+      "present": 5,
+      "absent": 0,
+      "nulls": 3,
+      "empty_strings": 0,
+      "types": {
+        "string": 2,
+        "null": 3
+      },
+      "distinct": 2,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "null",
+          "count": 3
+        },
+        {
+          "value": "\"PANAMERICANA E35 (TRONCAL DE LA SIERRA)\"",
+          "count": 2
+        }
+      ],
+      "shapes": [
+        {
+          "value": "a a9 (a a a a)",
+          "count": 2
+        }
+      ],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "informes[].secciones",
+      "present": 5,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "array": 5
+      },
+      "distinct": 0,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "informes[].secciones[].titulo",
+      "present": 10,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 10
+      },
+      "distinct": 7,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"Recomendaciones\"",
+          "count": 3
+        },
+        {
+          "value": "\"Resumen\"",
+          "count": 2
+        },
+        {
+          "value": "\"Campos y calidad de datos\"",
+          "count": 1
+        },
+        {
+          "value": "\"Gravedad de las lesiones\"",
+          "count": 1
+        },
+        {
+          "value": "\"Hallazgos\"",
+          "count": 1
+        },
+        {
+          "value": "\"N\u00f3mina\"",
+          "count": 1
+        },
+        {
+          "value": "\"Tipos de siniestro\"",
+          "count": 1
+        }
+      ],
+      "shapes": [],
+      "min_length": null,
+      "max_length": null
+    },
+    {
+      "path": "informes[].secciones[].texto",
+      "present": 10,
+      "absent": 0,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 10
+      },
+      "distinct": 10,
+      "sensitive": false,
+      "free_text": true,
+      "top_values": [],
+      "shapes": [],
+      "min_length": 116,
+      "max_length": 450
+    },
+    {
+      "path": "informes[].reemplaza_a",
+      "present": 1,
+      "absent": 4,
+      "nulls": 0,
+      "empty_strings": 0,
+      "types": {
+        "string": 1
+      },
+      "distinct": 1,
+      "sensitive": false,
+      "free_text": false,
+      "top_values": [
+        {
+          "value": "\"INF-2025-01\"",
+          "count": 1
+        }
+      ],
+      "shapes": [
+        {
+          "value": "a-9-9",
+          "count": 1
+        }
+      ],
+      "min_length": null,
+      "max_length": null
+    }
+  ],
+  "anomalies": [
+    {
+      "code": "mixed_types",
+      "path": "registros[].fecha_hora",
+      "detail": "object: 7, string: 24",
+      "count": 31,
+      "examples": [
+        "\"2025-01-12T05:40:00-05:00\""
+      ],
+      "record_ids": []
+    },
+    {
+      "code": "format_variants",
+      "path": "registros[].fecha_hora",
+      "detail": "3 formas: 9-9-9 9:9:9, 9-9-9a9:9:9-9:9, 9/9/9 9:9",
+      "count": 3,
+      "examples": [
+        "\"2025-02-22 14:05:00\"",
+        "\"2025-01-12T05:40:00-05:00\"",
+        "\"03/02/2025 22:15\""
+      ],
+      "record_ids": []
+    },
+    {
+      "code": "case_variants",
+      "path": "registros[].ubicacion.provincia",
+      "detail": "4 valores escritos de varias formas",
+      "count": 8,
+      "examples": [
+        "GUAYAS | Guayas",
+        "MANABI | Manabi",
+        "PICHINCHA | Pichincha",
+        "TUNGURAHUA | Tungurahua"
+      ],
+      "record_ids": []
+    },
+    {
+      "code": "case_variants",
+      "path": "registros[].ubicacion.canton",
+      "detail": "4 valores escritos de varias formas",
+      "count": 8,
+      "examples": [
+        "GUAYAQUIL | Guayaquil",
+        "MACHALA | Machala",
+        "QUITO | Quito",
+        "RUMINAHUI | Rumi\u00f1ahui"
+      ],
+      "record_ids": []
+    },
+    {
+      "code": "case_variants",
+      "path": "registros[].ubicacion.via",
+      "detail": "4 valores escritos de varias formas",
+      "count": 8,
+      "examples": [
+        "AUTOPISTA GENERAL RUMINAHUI | Autopista General Rumi\u00f1ahui",
+        "AV. SIMON BOLIVAR (QUITO) | Av. Sim\u00f3n Bol\u00edvar (Quito)",
+        "PANAMERICANA E35 (TRONCAL DE LA SIERRA) | Panamericana E35 (Troncal de la Sierra)",
+        "TRONCAL AMAZONICA E45 | Troncal Amaz\u00f3nica E45"
+      ],
+      "record_ids": []
+    },
+    {
+      "code": "mixed_types",
+      "path": "registros[].ubicacion.km",
+      "detail": "integer: 8, string: 22",
+      "count": 30,
+      "examples": [
+        "128",
+        "\"4\""
+      ],
+      "record_ids": []
+    },
+    {
+      "code": "format_variants",
+      "path": "registros[].ubicacion.km",
+      "detail": "3 formas: 9, 9+9, a 9",
+      "count": 3,
+      "examples": [
+        "\"4\"",
+        "\"12+000\"",
+        "\"Km 11\""
+      ],
+      "record_ids": []
+    },
+    {
+      "code": "missing_values",
+      "path": "registros[].ubicacion.km",
+      "detail": "valores null, vacios o de relleno",
+      "count": 5,
+      "examples": [
+        "\"\"",
+        "null"
+      ],
+      "record_ids": [
+        "SIN-2025-0003",
+        "SIN-2025-0007",
+        "SIN-2025-0019",
+        "SIN-2026-0003"
+      ]
+    },
+    {
+      "code": "mixed_types",
+      "path": "registros[].ubicacion.coordenadas",
+      "detail": "object: 14, string: 15",
+      "count": 29,
+      "examples": [
+        "\"-1.2497,-78.6237\""
+      ],
+      "record_ids": []
+    },
+    {
+      "code": "missing_values",
+      "path": "registros[].ubicacion.coordenadas",
+      "detail": "valores null, vacios o de relleno",
+      "count": 2,
+      "examples": [
+        "null"
+      ],
+      "record_ids": [
+        "SIN-2025-0006",
+        "SIN-2025-0019"
+      ]
+    },
+    {
+      "code": "case_variants",
+      "path": "registros[].tipo_siniestro",
+      "detail": "4 valores escritos de varias formas",
+      "count": 8,
+      "examples": [
+        "ATROPELLO | Atropello",
+        "CHOQUE | Choque",
+        "PERDIDA DE PISTA | P\u00e9rdida de pista",
+        "VOLCAMIENTO | Volcamiento"
+      ],
+      "record_ids": []
+    },
+    {
+      "code": "case_variants",
+      "path": "registros[].causa_probable",
+      "detail": "5 valores escritos de varias formas",
+      "count": 10,
+      "examples": [
+        "ADELANTAMIENTO INDEBIDO | Adelantamiento indebido",
+        "CONDUCIR BAJO EFECTOS DEL ALCOHOL | Conducir bajo efectos del alcohol",
+        "DISTRACCION DEL CONDUCTOR | Distracci\u00f3n del conductor",
+        "EXCESO DE VELOCIDAD | Exceso de velocidad",
+        "PEATON EN LA VIA | Peat\u00f3n en la v\u00eda"
+      ],
+      "record_ids": []
+    },
+    {
+      "code": "mixed_types",
+      "path": "registros[].danos_materiales",
+      "detail": "integer: 8, string: 23",
+      "count": 31,
+      "examples": [
+        "18500",
+        "\"3200\""
+      ],
+      "record_ids": []
+    },
+    {
+      "code": "format_variants",
+      "path": "registros[].danos_materiales",
+      "detail": "3 formas: $9,9.9, 9, 9.9,9 a",
+      "count": 3,
+      "examples": [
+        "\"$6,400.00\"",
+        "\"3200\"",
+        "\"21.000,00 USD\""
+      ],
+      "record_ids": []
+    },
+    {
+      "code": "case_variants",
+      "path": "registros[].vehiculos[].tipo_vehiculo",
+      "detail": "6 valores escritos de varias formas",
+      "count": 12,
+      "examples": [
+        "AUTOMOVIL | Autom\u00f3vil",
+        "BUS | Bus",
+        "CAMION | Cami\u00f3n",
+        "CAMION PESADO | Cami\u00f3n pesado",
+        "CAMIONETA | Camioneta",
+        "MOTOCICLETA | Motocicleta"
+      ],
+      "record_ids": []
+    },
+    {
+      "code": "partial_presence",
+      "path": "registros[].vehiculos[].marca_modelo",
+      "detail": "presente en 26 de 50 objetos",
+      "count": 24,
+      "examples": [],
+      "record_ids": [
+        "SIN-2025-0002",
+        "SIN-2025-0004",
+        "SIN-2025-0006",
+        "SIN-2025-0008",
+        "SIN-2025-0010",
+        "SIN-2025-0012",
+        "SIN-2025-0014",
+        "SIN-2025-0016",
+        "SIN-2025-0018",
+        "SIN-2026-0001",
+        "SIN-2026-0003",
+        "SIN-2026-0005",
+        "SIN-2026-0007",
+        "SIN-2026-0009",
+        "SIN-2026-0011"
+      ]
+    },
+    {
+      "code": "mixed_types",
+      "path": "registros[].vehiculos[].anio",
+      "detail": "integer: 32, string: 18",
+      "count": 50,
+      "examples": [
+        "2020",
+        "\"2018\""
+      ],
+      "record_ids": []
+    },
+    {
+      "code": "case_variants",
+      "path": "registros[].vehiculos[].servicio",
+      "detail": "3 valores escritos de varias formas",
+      "count": 6,
+      "examples": [
+        "CARGA | carga",
+        "PARTICULAR | particular",
+        "PUBLICO | p\u00fablico"
+      ],
+      "record_ids": []
+    },
+    {
+      "code": "partial_presence",
+      "path": "registros[].vehiculos[].marca",
+      "detail": "presente en 24 de 50 objetos",
+      "count": 26,
+      "examples": [],
+      "record_ids": [
+        "SIN-2025-0002",
+        "SIN-2025-0004",
+        "SIN-2025-0006",
+        "SIN-2025-0008",
+        "SIN-2025-0010",
+        "SIN-2025-0012",
+        "SIN-2025-0014",
+        "SIN-2025-0016",
+        "SIN-2025-0018",
+        "SIN-2026-0001",
+        "SIN-2026-0003",
+        "SIN-2026-0005",
+        "SIN-2026-0007",
+        "SIN-2026-0009",
+        "SIN-2026-0011"
+      ]
+    },
+    {
+      "code": "partial_presence",
+      "path": "registros[].vehiculos[].modelo",
+      "detail": "presente en 24 de 50 objetos",
+      "count": 26,
+      "examples": [],
+      "record_ids": [
+        "SIN-2025-0002",
+        "SIN-2025-0004",
+        "SIN-2025-0006",
+        "SIN-2025-0008",
+        "SIN-2025-0010",
+        "SIN-2025-0012",
+        "SIN-2025-0014",
+        "SIN-2025-0016",
+        "SIN-2025-0018",
+        "SIN-2026-0001",
+        "SIN-2026-0003",
+        "SIN-2026-0005",
+        "SIN-2026-0007",
+        "SIN-2026-0009",
+        "SIN-2026-0011"
+      ]
+    },
+    {
+      "code": "case_variants",
+      "path": "registros[].personas[].rol",
+      "detail": "2 valores escritos de varias formas",
+      "count": 4,
+      "examples": [
+        "CONDUCTOR | conductor",
+        "PASAJERO | pasajero"
+      ],
+      "record_ids": []
+    },
+    {
+      "code": "mixed_types",
+      "path": "registros[].personas[].edad",
+      "detail": "integer: 61, string: 20",
+      "count": 81,
+      "examples": [
+        "47",
+        "\"39\""
+      ],
+      "record_ids": []
+    },
+    {
+      "code": "case_variants",
+      "path": "registros[].personas[].condicion",
+      "detail": "4 valores escritos de varias formas",
+      "count": 8,
+      "examples": [
+        "FALLECIDO | Fallecido",
+        "HERIDO GRAVE | Herido grave",
+        "HERIDO LEVE | Herido leve",
+        "ILESO | Ileso"
+      ],
+      "record_ids": []
+    },
+    {
+      "code": "mixed_types",
+      "path": "registros[].personas[].alcohol_gl",
+      "detail": "number: 14, string: 58",
+      "count": 72,
+      "examples": [
+        "0.4",
+        "\"0,0\""
+      ],
+      "record_ids": []
+    },
+    {
+      "code": "format_variants",
+      "path": "registros[].personas[].alcohol_gl",
+      "detail": "2 formas: 9,9, 9.9",
+      "count": 2,
+      "examples": [
+        "\"0,0\"",
+        "\"0.0\""
+      ],
+      "record_ids": []
+    },
+    {
+      "code": "missing_values",
+      "path": "registros[].personas[].alcohol_gl",
+      "detail": "valores null, vacios o de relleno",
+      "count": 34,
+      "examples": [
+        "\"\"",
+        "\"N/D\"",
+        "null"
+      ],
+      "record_ids": [
+        "SIN-2025-0001",
+        "SIN-2025-0002",
+        "SIN-2025-0003",
+        "SIN-2025-0004",
+        "SIN-2025-0005",
+        "SIN-2025-0006",
+        "SIN-2025-0009",
+        "SIN-2025-0010",
+        "SIN-2025-0011",
+        "SIN-2025-0012",
+        "SIN-2025-0014",
+        "SIN-2025-0015",
+        "SIN-2025-0016",
+        "SIN-2025-0017",
+        "SIN-2025-0018"
+      ]
+    },
+    {
+      "code": "missing_values",
+      "path": "registros[].personas[].proteccion",
+      "detail": "valores null, vacios o de relleno",
+      "count": 14,
+      "examples": [
+        "\"\"",
+        "\"N/A\"",
+        "\"SIN DATO\"",
+        "null"
+      ],
+      "record_ids": [
+        "SIN-2025-0001",
+        "SIN-2025-0002",
+        "SIN-2025-0004",
+        "SIN-2025-0009",
+        "SIN-2025-0014",
+        "SIN-2025-0015",
+        "SIN-2025-0018",
+        "SIN-2026-0001",
+        "SIN-2026-0004",
+        "SIN-2026-0008"
+      ]
+    },
+    {
+      "code": "missing_values",
+      "path": "registros[].personas[].placa_vehiculo",
+      "detail": "valores null, vacios o de relleno",
+      "count": 5,
+      "examples": [
+        "null"
+      ],
+      "record_ids": [
+        "SIN-2025-0002",
+        "SIN-2025-0009",
+        "SIN-2025-0015",
+        "SIN-2025-0018",
+        "SIN-2026-0008"
+      ]
+    },
+    {
+      "code": "partial_presence",
+      "path": "registros[].personas[].dias_hasta_deceso",
+      "detail": "presente en 1 de 81 objetos",
+      "count": 80,
+      "examples": [],
+      "record_ids": [
+        "SIN-2026-0011"
+      ]
+    },
+    {
+      "code": "whitespace",
+      "path": "registros[].narrativa",
+      "detail": "espacios al inicio o al final, dobles o saltos de linea",
+      "count": 10,
+      "examples": [],
+      "record_ids": [
+        "SIN-2025-0001",
+        "SIN-2025-0006",
+        "SIN-2025-0008",
+        "SIN-2025-0011",
+        "SIN-2025-0015",
+        "SIN-2025-0016",
+        "SIN-2026-0002",
+        "SIN-2026-0003",
+        "SIN-2026-0007",
+        "SIN-2026-0010"
+      ]
+    },
+    {
+      "code": "partial_presence",
+      "path": "registros[].motivo_anulacion",
+      "detail": "presente en 1 de 31 objetos",
+      "count": 30,
+      "examples": [],
+      "record_ids": [
+        "SIN-2026-0010"
+      ]
+    },
+    {
+      "code": "partial_presence",
+      "path": "registros[].reemplaza_a",
+      "detail": "presente en 1 de 31 objetos",
+      "count": 30,
+      "examples": [],
+      "record_ids": [
+        "SIN-2026-0011"
+      ]
+    },
+    {
+      "code": "format_variants",
+      "path": "informes[].id",
+      "detail": "2 formas: a-9-9, a-a-9",
+      "count": 2,
+      "examples": [
+        "\"INF-2025-01\"",
+        "\"INF-RES-01\""
+      ],
+      "record_ids": []
+    },
+    {
+      "code": "missing_values",
+      "path": "informes[].via_analizada",
+      "detail": "valores null, vacios o de relleno",
+      "count": 3,
+      "examples": [
+        "null"
+      ],
+      "record_ids": [
+        "INF-2026-02",
+        "INF-2026-03",
+        "INF-RES-01"
+      ]
+    },
+    {
+      "code": "partial_presence",
+      "path": "informes[].reemplaza_a",
+      "detail": "presente en 1 de 5 objetos",
+      "count": 4,
+      "examples": [],
+      "record_ids": [
+        "INF-2026-01"
+      ]
+    },
+    {
+      "code": "duplicate_id",
+      "path": "registros[].id_parte",
+      "detail": "SIN-2025-0007: versiones 1, 2",
+      "count": 1,
+      "examples": [],
+      "record_ids": [
+        "SIN-2025-0007"
+      ]
+    },
+    {
+      "code": "summary_mismatch",
+      "path": "registros[].resumen",
+      "detail": "conteos del resumen distintos de los derivados de personas",
+      "count": 1,
+      "examples": [
+        "SIN-2025-0012 v1: resumen {'fallecidos': 0, 'heridos': 3, 'ilesos': 0} vs personas {'fallecidos': 0, 'heridos': 2, 'ilesos': 0}"
+      ],
+      "record_ids": [
+        "SIN-2025-0012"
+      ]
+    },
+    {
+      "code": "replacement_link",
+      "path": "registros[].reemplaza_a",
+      "detail": "SIN-2026-0011 reemplaza a SIN-2026-0010",
+      "count": 1,
+      "examples": [],
+      "record_ids": [
+        "SIN-2026-0011"
+      ]
+    },
+    {
+      "code": "replacement_link",
+      "path": "informes[].reemplaza_a",
+      "detail": "INF-2026-01 reemplaza a INF-2025-01",
+      "count": 1,
+      "examples": [],
+      "record_ids": [
+        "INF-2026-01"
+      ]
+    },
+    {
+      "code": "restricted_classification",
+      "path": "informes[].clasificacion",
+      "detail": "informes con clasificacion distinta de PUBLICO",
+      "count": 1,
+      "examples": [
+        "\"RESERVADO\""
+      ],
+      "record_ids": [
+        "INF-RES-01"
+      ]
+    },
+    {
+      "code": "pii_in_text",
+      "path": "informes[].secciones[].texto",
+      "detail": "texto libre con cedula: 1, nombre: 1",
+      "count": 1,
+      "examples": [],
+      "record_ids": [
+        "INF-RES-01"
+      ]
+    },
+    {
+      "code": "suspicious_instruction",
+      "path": "registros[].narrativa",
+      "detail": "posible prompt injection: ignorar instrucciones, mensaje dirigido al asistente",
+      "count": 1,
+      "examples": [],
+      "record_ids": [
+        "SIN-2026-0009"
+      ]
+    }
+  ]
+}

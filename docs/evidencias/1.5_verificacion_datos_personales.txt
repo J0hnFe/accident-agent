@@ -1,0 +1,10 @@
+archivo: data/siniestros_raw.json sha256: 77e2ca6e3f29c838035009cad0f720ef70bbda8138369b23616800cbd1fd8280
+nomina: 61 nombres completos distintos, 44 palabras de nombre, 80 cedulas, 49 placas
+formato de cedula: {'9999999999': 80} | empiezan con 99: 80
+formato de placa: {'AAA-9999': 49}
+textos revisados: {'narrativa': 31, 'motivo_anulacion': 1, 'titulo': 4, 'seccion': 9} total 45
+coincidencias: {('SIN-2026-0010', 'narrativa', 'palabra_de_nombre'): 1}
+  SIN-2026-0010: la palabra es un ordinal comun: True; es nombre de una persona de ese registro: False
+informes no publicos: [('INF-RES-01', 'RESERVADO')] | nombres de la nomina en su texto: 6 | cedulas: 6
+narrativas con instrucciones dirigidas al asistente: ['SIN-2026-0009']
+edades: 81 personas, de 7 a 71 | menores de 18: [(7, 'pasajero'), (10, 'peaton')]
