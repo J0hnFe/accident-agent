@@ -1,0 +1,66 @@
+{
+  "descripcion": "POST /chat con seguimiento en la misma sesion (escenarios 3 y 4): la segunda solicitud envia el session_id de la primera y el agente usa los ids recordados.",
+  "intercambios": [
+    {
+      "scenario": "3",
+      "request": {
+        "message": "Que siniestros con fallecidos hubo en la E35?"
+      },
+      "status": 200,
+      "seconds": 12.3,
+      "response": {
+        "session_id": "19be68f24ce1473a8b446e8845bb0325",
+        "answer": "Se encontraron **4 siniestros con fallecidos** en la v\u00eda **E35 (Panamericana / Troncal de la Sierra)**. Todos est\u00e1n vigentes.\n\n| ID | Fecha | Provincia / Cant\u00f3n / Parroquia | Km | Tipo | Causa | Fallecidos | Heridos | Veh\u00edculos involucrados |\n|----|-------|--------------------------------|----|------|-------|------------|---------|------------------------|\n| **SIN-2026-0007** | 2026-06-14 05:10 | Pichincha / Cayambe / Ayora | 30.0 | P\u00e9rdida de pista | Exceso de velocidad | 1 | 1 | 1 autom\u00f3vil (Chevrolet Onix 2022) |\n| **SIN-2026-0004** | 2026-03-21 09:15 | Tungurahua / Ambato / Izamba | 118.0 | Choque | Adelantamiento indebido | 2 | 4 | 1 bus (Hino AK 2019), 1 cami\u00f3n pesado (Kenworth T800 2013), 1 autom\u00f3vil (Kia Rio 2020) |\n| **SIN-2025-0013** | 2025-08-23 04:55 | Cotopaxi / Latacunga / Guaytacama | 90.0 | Choque | Somnolencia | 1 | 1 | 1 tr\u00e1iler (Volvo FH 2017), 1 cami\u00f3n liviano (Chevrolet NHR 2014) |\n| **SIN-2025-0001** | 2025-01-12 05:40 | Tungurahua / Ambato / Pasa | 128.0 | Choque | Invadir carril | 1 | 3 | 1 bus (Hino AK 2018), 1 cami\u00f3n liviano (Chevrolet NKR 2015) |\n\n**Resumen r\u00e1pido:**\n- **Total de fallecidos:** 5 (1 + 2 + 1 + 1)\n- **Total de heridos:** 9 (1 + 4 + 1 + 3)\n- **Causas principales:** adelantamiento indebido, invadir carril, exceso de velocidad y somnolencia.\n- **Condiciones frecuentes:** neblina, superficie h\u00fameda y baja iluminaci\u00f3n (amanecer/atardecer o noche sin alumbrado).\n\n\u00bfNecesitas el detalle completo de alguno (narrativa, personas, da\u00f1os) o un informe consolidado de estos cuatro siniestros?",
+        "tools_used": [
+          {
+            "name": "search_accidents",
+            "params": {
+              "mode": "search",
+              "road": "E35",
+              "only_fatal": true,
+              "limit": 50
+            },
+            "duration_ms": 23,
+            "status": "ok",
+            "error_type": null
+          }
+        ],
+        "trace_id": "b0b4c5584ca94bc0971c63db6f8ee793",
+        "stop_reason": "final_answer"
+      }
+    },
+    {
+      "scenario": "4",
+      "request": {
+        "message": "Genera el informe de esos accidentes",
+        "session_id": "19be68f24ce1473a8b446e8845bb0325"
+      },
+      "status": 200,
+      "seconds": 13.7,
+      "response": {
+        "session_id": "19be68f24ce1473a8b446e8845bb0325",
+        "answer": "Informe generado correctamente.\n\n- **Identificador del informe:** `RPT-20261115-220827-efccaf`\n- **Archivo Markdown:** `reports/RPT-20261115-220827-efccaf.md`\n- **Siniestros incluidos:** 4 (SIN-2026-0007, SIN-2026-0004, SIN-2025-0013, SIN-2025-0001)\n\n**Resumen de totales:**\n- **Fallecidos:** 5\n- **Heridos:** 9\n- **Ilesos:** 1\n- **Da\u00f1os materiales:** USD 110,900.00\n- **Tipos:** 3 choques, 1 p\u00e9rdida de pista\n- **Causas:** 1 adelantamiento indebido, 1 exceso de velocidad, 1 invadir carril, 1 somnolencia\n\nEl archivo contiene el detalle completo de cada siniestro (ubicaci\u00f3n, veh\u00edculos, personas, narrativa original) y las advertencias de calidad (ninguna en este caso).",
+        "tools_used": [
+          {
+            "name": "generate_accident_report",
+            "params": {
+              "accident_ids": [
+                "SIN-2026-0007",
+                "SIN-2026-0004",
+                "SIN-2025-0013",
+                "SIN-2025-0001"
+              ],
+              "include_narrative": true,
+              "save_file": true
+            },
+            "duration_ms": 11,
+            "status": "ok",
+            "error_type": null
+          }
+        ],
+        "trace_id": "87d4015f1573499da2b3225f104972c5",
+        "stop_reason": "final_answer"
+      }
+    }
+  ]
+}

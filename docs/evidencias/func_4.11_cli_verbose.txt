@@ -1,0 +1,21 @@
+# Salida real de la CLI con --verbose (2026-11-15, LLM real y Neo4j de compose).
+# Caracteres de dibujo de tabla convertidos a ASCII y tildes como \uXXXX (convencion ASCII).
+$ docker compose run --rm cli ask "Cuantos siniestros hubo en Guayas en 2025?" --verbose
+En la provincia de Guayas durante 2025 se registraron 4 siniestros de tr\u00e1nsito (registros anulados excluidos).
+
+Resumen del a\u00f1o 2025 en Guayas:
+
+ \u2022 Siniestros: 4
+ \u2022 Fallecidos: 3
+ \u2022 Heridos: 3
+ \u2022 Da\u00f1os materiales estimados: USD 26\u202f400
+
+Fuente: estad\u00edsticas del sistema (agrupaci\u00f3n por a\u00f1o, filtros: provincia=Guayas, 2025\u201101\u201101 a 2025\u201112\u201131).
+                                             Herramientas usadas
++------------------+--------------------------------------------------------------------------+--------+-----+
+| Herramienta      | Parametros                                                               | Estado | ms  |
++------------------+--------------------------------------------------------------------------+--------+-----+
+| search_accidents | {"mode": "stats", "province": "Guayas", "date_from": "2025-01-01",       | ok     | 349 |
+|                  | "date_to": "2025-12-31", "group_by": "year"}                             |        |     |
++------------------+--------------------------------------------------------------------------+--------+-----+
+trace_id=ca8ccd700d594ee99306bf626374f22c iteraciones=2 stop_reason=final_answer

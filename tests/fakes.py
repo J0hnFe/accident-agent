@@ -1,10 +1,16 @@
 """Dobles de prueba. `FakeAccidentRepository` cumple el mismo contrato que el adaptador Neo4j
 (lo comprueba `tests/contract/test_repository_contract.py`), sin base de datos."""
 
+import json
+import re
 from collections import defaultdict
-from collections.abc import Sequence
+from collections.abc import Callable, Sequence
 from pathlib import Path
+from typing import Any
 
+from accident_agent.core.llm import LLMResult, Message, ToolCall
+from accident_agent.core.prompts import TOOL_RESULT_TAG
+from accident_agent.core.tool import ToolSpec
 from accident_agent.domain.catalogs import ReportStatus
 from accident_agent.domain.models import Accident, CleanDataset
 from accident_agent.graph.repository import (
@@ -173,3 +179,87 @@ class FakeAccidentRepository:
             sha256=info.sha256,
             generated=info.generated,
         )
+
+
+# --- Proveedor de IA guionizado (tarea 4.10) ---
+
+Step = LLMResult | Exception | Callable[[list[Message]], LLMResult]
+
+
+def answer(text: str) -> LLMResult:
+    return LLMResult(content=text, tool_calls=[], model="fake/llm")
+
+
+def call(*calls: tuple[str, dict[str, Any]]) -> LLMResult:
+    return LLMResult(
+        content=None,
+        tool_calls=[
+            ToolCall(id=f"call_{i}", name=name, arguments=json.dumps(args))
+            for i, (name, args) in enumerate(calls, start=1)
+        ],
+        model="fake/llm",
+    )
+
+
+_TOOL_BLOCK = re.compile(rf"<{TOOL_RESULT_TAG}>\n(.*)\n</{TOOL_RESULT_TAG}>", re.S)
+
+
+def tool_results(messages: list[Message]) -> list[dict[str, Any]]:
+    """Resultados de herramientas del turno actual, tal como los recibe el LLM."""
+    last_user = max(i for i, m in enumerate(messages) if m.role == "user")
+    results = []
+    for message in messages[last_user:]:
+        if message.role == "tool" and message.content:
+            match = _TOOL_BLOCK.search(message.content)
+            assert match, "resultado de herramienta sin delimitar"
+            results.append(json.loads(match.group(1)))
+    return results
+
+
+def context_ids(messages: list[Message]) -> list[str]:
+    """Ids del contexto de la sesion que el orquestador entrega al LLM."""
+    for message in messages:
+        if (
+            message.role == "system"
+            and message.content
+            and "Contexto de la sesion" in message.content
+        ):
+            return re.findall(r"SIN-\d{4}-\d{4}", message.content)
+    return []
+
+
+class FakeLLMProvider:
+    """Cada llamada consume un paso: un resultado, una excepcion o una funcion de los mensajes."""
+
+    def __init__(self, steps: list[Step]) -> None:
+        self.steps = list(steps)
+        self.calls: list[list[Message]] = []
+        self.tools: list[ToolSpec] = []
+
+    def complete(self, messages: Any, tools: Any) -> LLMResult:
+        self.calls.append(list(messages))
+        self.tools = list(tools)
+        if not self.steps:
+            raise AssertionError("el guion del LLM simulado se agoto")
+        step = self.steps.pop(0)
+        if isinstance(step, Exception):
+            raise step
+        if callable(step):
+            return step(list(messages))
+        return step
+
+
+class ListLogger:
+    """Logger de eventos que guarda (nivel, evento, campos) para las aserciones."""
+
+    def __init__(self) -> None:
+        self.events: list[tuple[str, str, dict[str, Any]]] = []
+
+    def info(self, event: str, **fields: Any) -> None:
+        self.events.append(("info", event, fields))
+
+    def warning(self, event: str, **fields: Any) -> None:
+        self.events.append(("warning", event, fields))
+
+    def named(self, event: str) -> list[dict[str, Any]]:
+        return [fields for _, name, fields in self.events if name == event]

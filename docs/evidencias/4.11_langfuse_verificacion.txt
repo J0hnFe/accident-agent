@@ -1,0 +1,25 @@
+# Verificacion de las trazas en Langfuse Cloud (2026-11-15)
+# GET /api/public/v2/observations filtrado por traceId (claves leidas de .env, no se muestran).
+# El endpoint v1 /api/public/traces respondio que esta deprecado (lo retira Langfuse el 2026-11-16);
+# la aplicacion no lo usa: solo envia trazas por OpenTelemetry con el SDK.
+escenario 4 trace_id=87d4015f1573499da2b3225f104972c5 HTTP 200
+  AGENT      request                    latencia=13.668 uso_entrada=0 uso_salida=0
+  GENERATION llm                        latencia=0.001 uso_entrada=3631 uso_salida=194
+  TOOL       generate_accident_report   latencia=0.011 uso_entrada=0 uso_salida=0
+  GENERATION llm                        latencia=0 uso_entrada=6787 uso_salida=399
+  con sessionId: True; claves en la respuesta: False
+escenario 7 trace_id=42f350f8f01c4245953ccd5743e379f8 HTTP 200
+  AGENT      request                    latencia=8.693 uso_entrada=0 uso_salida=0
+  GENERATION llm                        latencia=0 uso_entrada=2865 uso_salida=200
+  TOOL       search_accidents           latencia=0.011 uso_entrada=0 uso_salida=0
+  GENERATION llm                        latencia=0 uso_entrada=3810 uso_salida=576
+  con sessionId: True; claves en la respuesta: False
+
+# Las generations de arriba muestran latencia ~0: se creaban despues de la llamada al LLM.
+# Se cambio el puerto Tracer para abrir la generation antes de llamar y cerrarla despues:
+escenario 2 (tras medir la generation) trace_id=42e1b32e495f47e1a3d87f35aa6c4faf HTTP 200
+  AGENT      request                    latencia=3.908 uso_entrada=0 uso_salida=0
+  GENERATION llm                        latencia=2.355 uso_entrada=2886 uso_salida=176
+  TOOL       search_accidents           latencia=0.014 uso_entrada=0 uso_salida=0
+  GENERATION llm                        latencia=1.53 uso_entrada=3937 uso_salida=51
+  con sessionId: True; claves en la respuesta: False

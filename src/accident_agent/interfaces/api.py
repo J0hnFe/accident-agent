@@ -1,20 +1,51 @@
-"""API REST. Por ahora solo `GET /health` (servicio `api` de compose, tarea 2.5).
+"""API REST (seccion 7.7 del plan, tarea 4.9). Documentacion OpenAPI en /docs.
 
-`POST /chat` y el resto del contrato 7.7 del plan se agregan en la tarea 4.9.
+Un solo proceso de uvicorn: la memoria de sesiones vive en el proceso (limitacion documentada).
 """
 
-from collections.abc import AsyncIterator
+import re
+import uuid
+from collections.abc import AsyncIterator, Callable
 from contextlib import asynccontextmanager
 from importlib.metadata import version
-from typing import Literal
+from pathlib import Path
+from typing import Final, Literal
 
-from fastapi import FastAPI, Request
-from neo4j import Driver
-from neo4j.exceptions import DriverError, Neo4jError
-from pydantic import BaseModel
+from fastapi import FastAPI, HTTPException, Request
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import JSONResponse, PlainTextResponse, Response
+from pydantic import BaseModel, Field, field_validator
 
-from accident_agent.config import Settings, get_settings
-from accident_agent.graph.connection import create_driver
+from accident_agent.bootstrap import Container, build_container
+from accident_agent.core.orchestrator import StopReason, ToolUse
+from accident_agent.graph.repository import RepositoryError
+
+REPORT_ID: Final = re.compile(r"^RPT-\d{8}-\d{6}-[0-9a-f]{6}$")
+SESSION_ID_PATTERN: Final = r"^[A-Za-z0-9_-]{1,64}$"
+
+
+class ChatRequest(BaseModel):
+    session_id: str | None = Field(
+        default=None,
+        pattern=SESSION_ID_PATTERN,
+        description="Sesion para continuar una conversacion; si se omite se crea una nueva.",
+    )
+    message: str = Field(min_length=1, max_length=2000, description="Pregunta del usuario.")
+
+    @field_validator("message")
+    @classmethod
+    def _not_blank(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("el mensaje esta vacio")
+        return value
+
+
+class ChatResponse(BaseModel):
+    session_id: str
+    answer: str
+    tools_used: list[ToolUse]
+    trace_id: str
+    stop_reason: StopReason
 
 
 class HealthResponse(BaseModel):
@@ -23,38 +54,94 @@ class HealthResponse(BaseModel):
     llm_configured: bool
 
 
-def create_app(settings: Settings | None = None, driver: Driver | None = None) -> FastAPI:
-    """El driver se puede inyectar (pruebas); si no, se crea y se cierra con la aplicacion."""
-    config = settings or get_settings()
+def _error(status: int, error_type: str, message: str, **extra: object) -> JSONResponse:
+    return JSONResponse(
+        status_code=status, content={"error": {"type": error_type, "message": message, **extra}}
+    )
+
+
+def create_app(container_factory: Callable[[], Container] | None = None) -> FastAPI:
+    """El contenedor se crea al arrancar (o lo inyectan las pruebas) y se cierra al apagar."""
+    factory = container_factory or build_container
 
     @asynccontextmanager
     async def lifespan(app: FastAPI) -> AsyncIterator[None]:
-        app.state.driver = driver or create_driver(config)
+        app.state.container = factory()
         try:
             yield
         finally:
-            if driver is None:
-                app.state.driver.close()
+            app.state.container.close()
 
     app = FastAPI(
         title="accident-agent",
-        description="Consultas sobre siniestros de transito del Ecuador.",
+        description=(
+            "Consultas en lenguaje natural sobre siniestros de transito del Ecuador "
+            "(RAG sobre Neo4j, hora actual e informes)."
+        ),
         version=version("accident-agent"),
         lifespan=lifespan,
     )
 
+    def container(request: Request) -> Container:
+        current: Container = request.app.state.container
+        return current
+
+    @app.exception_handler(RequestValidationError)
+    async def validation_error(request: Request, exc: RequestValidationError) -> JSONResponse:
+        # Solo campo y motivo: no se devuelve lo que envio el cliente.
+        details = [
+            {"field": ".".join(str(p) for p in e["loc"] if p != "body"), "message": e["msg"]}
+            for e in exc.errors()
+        ]
+        return _error(422, "validation", "solicitud no valida", details=details)
+
+    @app.exception_handler(Exception)
+    async def unexpected_error(request: Request, exc: Exception) -> JSONResponse:
+        container(request).logger.warning("api_error", error=type(exc).__name__)
+        return _error(500, "internal", "error interno; intenta de nuevo")
+
+    @app.post("/chat")
+    def chat(body: ChatRequest, request: Request) -> ChatResponse:
+        session_id = body.session_id or uuid.uuid4().hex
+        response = container(request).orchestrator.handle(session_id, body.message)
+        return ChatResponse(
+            session_id=response.session_id,
+            answer=response.answer,
+            tools_used=response.tools_used,
+            trace_id=response.trace_id,
+            stop_reason=response.stop_reason,
+        )
+
     @app.get("/health")
     def health(request: Request) -> HealthResponse:
+        current = container(request)
         try:
-            request.app.state.driver.verify_connectivity()
+            current.repository.dataset_info()
             neo4j: Literal["ok", "unavailable"] = "ok"
-        except (DriverError, Neo4jError):
+        except RepositoryError:
             neo4j = "unavailable"
         return HealthResponse(
             status="ok" if neo4j == "ok" else "degraded",
             neo4j=neo4j,
-            llm_configured=bool(config.openrouter_api_key.get_secret_value()),
+            llm_configured=bool(current.settings.openrouter_api_key.get_secret_value()),
         )
+
+    @app.get("/reports/{report_id}", response_class=PlainTextResponse)
+    def report(report_id: str, request: Request) -> PlainTextResponse:
+        if not REPORT_ID.match(report_id):
+            raise HTTPException(status_code=404, detail="informe no encontrado")
+        path = Path(container(request).settings.reports_dir) / f"{report_id}.md"
+        if not path.is_file():
+            raise HTTPException(status_code=404, detail="informe no encontrado")
+        return PlainTextResponse(path.read_text(encoding="utf-8"), media_type="text/markdown")
+
+    @app.delete("/sessions/{session_id}", status_code=204)
+    def delete_session(session_id: str, request: Request) -> Response:
+        if not re.match(SESSION_ID_PATTERN, session_id) or not container(request).memory.reset(
+            session_id
+        ):
+            raise HTTPException(status_code=404, detail="sesion no encontrada")
+        return Response(status_code=204)
 
     return app
 
