@@ -3,8 +3,26 @@
 - Fecha: 2026-11-15.
 - Implementacion documentada: `eb9537e` (aplicacion 0.1.0).
 - Estado: tareas 6.1, 6.2 y 6.3 completas; etapa abierta.
-- Repositorio remoto: no configurado al iniciar esta etapa.
-- URL publica, commit/tag entregado, acceso anonimo y confirmacion de envio: pendientes.
+- Etapa trabajada por Codex: **Etapa 6 - Documentar y entregar**, tareas 6.1 a 6.3 y verificacion parcial de 6.5.
+- Commit del trabajo documental: `c546bc1` (todavia no entregado).
+- Repositorio publico: `https://github.com/J0hnFe/accident-agent`, conectado como `origin`; rama local `main`.
+- Ultima comprobacion remota: GitHub indica `visibility=PUBLIC`, `isEmpty=true`; `git ls-remote --heads origin` no devuelve ramas. Falta el push.
+- Commit/tag entregado, acceso anonimo al contenido y confirmacion de envio: pendientes.
+
+## Punto de reanudacion
+
+Continuar en **6.4**. El usuario solicito dejar registrado el estado para continuar despues.
+
+1. Hecho (2026-11-16): revision de secretos del historial completo con gitleaks v8.30.1 (10 commits, sin hallazgos), `.env` nunca versionado y busqueda literal de las claves del `.env` local sin coincidencias. Evidencia: `6.4_revision_secretos_historial.txt`.
+2. Subir `main` con `git push -u origin main`.
+3. Verificar acceso anonimo al contenido publicado y guardar la captura.
+4. Actualizar los documentos Markdown/PDF con URL y referencia de entrega; cerrar la lista de verificacion y la matriz (6.5).
+5. Enviar enlace y documentos al destinatario del plan (6.6), con instruccion expresa del usuario para el envio.
+6. Registrar commit/tag entregado, confirmacion del envio y cierre de etapa (6.7).
+
+Las capturas de Langfuse de los escenarios 4 a 6 (5.2, recomendadas) siguen pendientes.
+El analisis con IA dentro del informe (3.5, opcional) sigue sin implementar por decision documentada.
+Las pruebas e instalacion limpia ya verificadas no necesitan repetirse salvo cambios que lo justifiquen.
 
 ## Trabajo realizado
 
@@ -57,6 +75,7 @@ bloqueada; la repeticion con acceso autorizado a Neo4j aprobo las 748. La cobert
 
 ## Evidencias y archivos
 
+- `docs/evidencias/6.4_revision_secretos_historial.txt`: gitleaks y busqueda literal de claves sobre el historial.
 - `docs/evidencias/6.5_pytest_sin_llm.txt`: ejecucion actual sin consumo del proveedor.
 - `docs/entrega/DOCUMENTO_TECNICO.md` y `.pdf`.
 - `docs/entrega/DOCUMENTO_FUNCIONAL.md` y `.pdf`.
