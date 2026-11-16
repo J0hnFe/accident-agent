@@ -14,8 +14,11 @@ def create_driver(settings: Settings) -> Driver:
         auth=(settings.neo4j_user, settings.neo4j_password.get_secret_value()),
         connection_timeout=10,
         # Reintentos breves: con Neo4j caido, una herramienta debe fallar antes de su timeout
-        # (10 s). El arranque lo espera wait_for_neo4j, no estos reintentos.
-        max_transaction_retry_time=3,
+        # (10 s). El driver inicia un reintento mientras no se supere este tiempo y espera 1, 2
+        # y 4 s con jitter: con 2 s hay a lo sumo dos reintentos (fallo en 3.6 s como maximo);
+        # con 3 s a veces entraba un tercero y el fallo llegaba a unos 7 s. El arranque lo espera
+        # wait_for_neo4j, no estos reintentos.
+        max_transaction_retry_time=2,
     )
 
 

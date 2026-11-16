@@ -40,6 +40,8 @@ from accident_agent.observability.events import EventLogger
 
 ACCIDENT_ID: Final = re.compile(r"\bSIN-\d{4}-\d{4}\b")
 MAX_REMEMBERED_IDS: Final = 20
+# Longitud maxima de un mensaje del usuario (contrato 7.7); la aplican las interfaces.
+MAX_MESSAGE_CHARS: Final = 2000
 
 StopReason = Literal["final_answer", "max_iterations", "llm_error"]
 ToolStatus = Literal["ok", "error", "timeout"]

@@ -6,14 +6,16 @@ from pathlib import Path
 from typing import Any
 
 import pytest
-from neo4j import Driver
+from neo4j import Driver, Query, RoutingControl
 from neo4j.exceptions import ClientError, ServiceUnavailable
 
 from accident_agent.config import get_settings
 from accident_agent.core.clock import FixedClock
 from accident_agent.core.tool import execute
+from accident_agent.graph import queries
 from accident_agent.graph.connection import create_driver
 from accident_agent.graph.neo4j_repository import Neo4jAccidentRepository
+from accident_agent.graph.repository import AccidentFilters
 from accident_agent.ingestion.neo4j_writer import Neo4jWriter
 from accident_agent.ingestion.pipeline import run_pipeline
 from accident_agent.tools.accident_report import GenerateReportTool
@@ -96,4 +98,39 @@ def test_repository_cannot_write(repo: Neo4jAccidentRepository, driver: Driver) 
     with pytest.raises(ClientError):
         repo._read("CREATE (n:Probe) RETURN n")
     records, _, _ = driver.execute_query("MATCH (n:Probe) RETURN count(n) AS n")
+    assert records[0]["n"] == 0
+
+
+def _templates() -> dict[str, str]:
+    found = {
+        name: value
+        for name, value in vars(queries).items()
+        if name.isupper() and not name.startswith("_") and isinstance(value, str)
+    }
+    found.update({f"STATS_QUERIES[{g.value}]": q for g, q in queries.STATS_QUERIES.items()})
+    return found
+
+
+def test_every_query_template_is_read_only(driver: Driver, repo: Neo4jAccidentRepository) -> None:
+    # Tarea 5.4: Neo4j clasifica cada plantilla con EXPLAIN, sin ejecutarla; "r" es solo lectura.
+    params = repo._filter_params(AccidentFilters())
+    params.update(limit=1, ids=["SIN-2025-0001"], query="neblina", road_code="E35")
+    templates = _templates()
+    assert len(templates) >= 12
+    kinds = {}
+    for name, cypher in templates.items():
+        _, summary, _ = driver.execute_query(
+            Query("EXPLAIN " + cypher), params, routing_=RoutingControl.READ
+        )
+        kinds[name] = summary.query_type
+    assert kinds == dict.fromkeys(templates, "r")
+
+
+def test_repository_reads_cannot_write(driver: Driver, repo: Neo4jAccidentRepository) -> None:
+    # Segunda barrera: las transacciones del repositorio van en modo READ y el servidor
+    # rechaza cualquier escritura, aunque una plantilla la tuviera por error.
+    with pytest.raises(ClientError) as info:
+        repo._read("CREATE (x:WriteProbe) RETURN x")
+    assert info.value.code == "Neo.ClientError.Statement.AccessMode"
+    records, _, _ = driver.execute_query("MATCH (x:WriteProbe) RETURN count(x) AS n")
     assert records[0]["n"] == 0

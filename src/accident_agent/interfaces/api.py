@@ -18,7 +18,7 @@ from pydantic import BaseModel, Field, field_validator
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
 from accident_agent.bootstrap import Container, build_container
-from accident_agent.core.orchestrator import StopReason, ToolUse
+from accident_agent.core.orchestrator import MAX_MESSAGE_CHARS, StopReason, ToolUse
 from accident_agent.graph.repository import RepositoryError
 
 REPORT_ID: Final = re.compile(r"^RPT-\d{8}-\d{6}-[0-9a-f]{6}$")
@@ -31,7 +31,9 @@ class ChatRequest(BaseModel):
         pattern=SESSION_ID_PATTERN,
         description="Sesion para continuar una conversacion; si se omite se crea una nueva.",
     )
-    message: str = Field(min_length=1, max_length=2000, description="Pregunta del usuario.")
+    message: str = Field(
+        min_length=1, max_length=MAX_MESSAGE_CHARS, description="Pregunta del usuario."
+    )
 
     @field_validator("message")
     @classmethod

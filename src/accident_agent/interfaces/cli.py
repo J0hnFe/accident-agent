@@ -14,7 +14,7 @@ from rich.markdown import Markdown
 from rich.table import Table
 
 from accident_agent.bootstrap import Container, build_container
-from accident_agent.core.orchestrator import OrchestratorResponse
+from accident_agent.core.orchestrator import MAX_MESSAGE_CHARS, OrchestratorResponse
 
 app = typer.Typer(help="Consultas sobre siniestros de transito del Ecuador.", no_args_is_help=True)
 console = Console()
@@ -63,6 +63,15 @@ def _print_details(response: OrchestratorResponse) -> None:
     )
 
 
+def _message_error(message: str) -> str | None:
+    """Mismas reglas que POST /chat: un mensaje vacio no debe llegar al LLM."""
+    if not message.strip():
+        return "La pregunta esta vacia."
+    if len(message) > MAX_MESSAGE_CHARS:
+        return f"La pregunta supera {MAX_MESSAGE_CHARS} caracteres."
+    return None
+
+
 def _answer(
     container: Container, session_id: str, message: str, verbose: bool
 ) -> OrchestratorResponse:
@@ -80,6 +89,10 @@ def ask(
     verbose: bool = VerboseOption,
 ) -> None:
     """Responde una sola pregunta y termina."""
+    error = _message_error(question)
+    if error:
+        console.print(error)
+        raise typer.Exit(code=2)
     container = container_factory()
     try:
         response = _answer(container, uuid.uuid4().hex, question, verbose)
@@ -120,6 +133,8 @@ def chat(verbose: bool = VerboseOption) -> None:
                 for item in history:
                     who = "Tu" if item.role == "user" else "Agente"
                     console.print(f"[bold]{who}:[/bold] {item.content}")
+            elif error := _message_error(message):
+                console.print(error)
             else:
                 _answer(container, session_id, message, verbose)
     finally:

@@ -1,9 +1,12 @@
+import time
 from typing import Any
 
 import pytest
 from neo4j import GraphDatabase
 from neo4j.exceptions import ClientError, Neo4jError, ServiceUnavailable
 
+from accident_agent.config import Settings
+from accident_agent.graph.connection import create_driver
 from accident_agent.graph.neo4j_repository import Neo4jAccidentRepository, lucene_query
 from accident_agent.graph.repository import AccidentFilters, RepositoryError
 
@@ -61,3 +64,13 @@ def test_unreachable_server_is_unavailable() -> None:
         with pytest.raises(RepositoryError) as info:
             repo.dataset_info()
     assert info.value.kind == "unavailable"
+
+
+def test_configured_driver_fails_well_before_the_tool_timeout() -> None:
+    # Con 3 s de reintentos, el backoff con jitter a veces iniciaba un tercer reintento de
+    # hasta 4.8 s y el fallo tardaba unos 7 s (medido en la tarea 5.3 con Neo4j detenido).
+    settings = Settings(_env_file=None, neo4j_uri="bolt://127.0.0.1:1")
+    start = time.monotonic()
+    with create_driver(settings) as driver, pytest.raises(RepositoryError):
+        Neo4jAccidentRepository(driver).dataset_info()
+    assert time.monotonic() - start < 5

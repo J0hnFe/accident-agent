@@ -82,3 +82,25 @@ def test_chat_ends_on_end_of_input(use_steps: Any) -> None:
     result = runner.invoke(cli.app, ["chat"], input="")
     assert result.exit_code == 0
     assert "Hasta luego." in result.output
+
+
+@pytest.mark.parametrize("question", ["", "   ", "a" * 2001])
+def test_ask_rejects_invalid_question_without_building_the_app(
+    question: str, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # Antes, un mensaje vacio llegaba al LLM, que inventaba una pregunta (tarea 5.3).
+    def factory() -> Container:
+        raise AssertionError("no debe conectarse a Neo4j ni al LLM")
+
+    monkeypatch.setattr(cli, "container_factory", factory)
+    result = runner.invoke(cli.app, ["ask", question])
+    assert result.exit_code == 2
+    assert ("vacia" if len(question) < 10 else "2000 caracteres") in result.output
+
+
+def test_chat_skips_too_long_messages(use_steps: Any) -> None:
+    use_steps([answer("Respuesta corta.")])
+    result = runner.invoke(cli.app, ["chat"], input=f"{'a' * 2001}\nhola\n/salir\n")
+    assert result.exit_code == 0
+    assert "2000 caracteres" in result.output
+    assert "Respuesta corta." in result.output

@@ -232,35 +232,49 @@ def test_new_tool_without_changing_the_orchestrator() -> None:
 
 
 class RecordingTracer:
-    def __init__(self, fail: bool = False) -> None:
-        self.fail = fail
+    """Trazador de prueba; `fail_on` hace fallar una operacion con el nombre que usa SafeTracer."""
+
+    def __init__(self, fail_on: str = "") -> None:
+        self.fail_on = fail_on
         self.events: list[str] = []
+        self._kind = "span"
+
+    def _maybe_fail(self, operation: str) -> None:
+        if operation == self.fail_on:
+            raise RuntimeError("langfuse caido")
 
     def start_trace(self, *, trace_id: str, session_id: str, input: Any) -> Any:
         self.events.append(f"trace:{session_id}")
-        if self.fail:
-            raise RuntimeError("langfuse caido")
+        self._maybe_fail("trace.start")
         return self
 
     @contextmanager
     def span(self, name: str, input: Any) -> Iterator[Any]:
+        self._maybe_fail("span.start")
         self.events.append(f"span:{name}")
+        self._kind = "span"
         yield self
+        self._maybe_fail("span.end")
 
     def update(self, **kwargs: Any) -> None:
+        self._maybe_fail(f"{self._kind}.update")
         self.events.append(f"update:{kwargs.get('model', 'span')}")
 
     @contextmanager
     def generation(self, input: Any) -> Iterator[Any]:
+        self._maybe_fail("generation.start")
         self.events.append("generation.start")
+        self._kind = "generation"
         yield self
+        self._maybe_fail("generation.end")
         self.events.append("generation.end")
 
     def end(self, **kwargs: Any) -> None:
+        self._maybe_fail("trace.end")
         self.events.append(f"end:{kwargs['metadata']['stop_reason']}")
 
     def flush(self) -> None:
-        return None
+        self._maybe_fail("flush")
 
 
 def test_tracer_receives_trace_spans_and_generations() -> None:
@@ -281,9 +295,33 @@ def test_tracer_receives_trace_spans_and_generations() -> None:
     ]
 
 
-def test_failing_tracer_does_not_affect_the_answer() -> None:
+@pytest.mark.parametrize(
+    "operation",
+    [
+        "trace.start",
+        "generation.start",
+        "generation.update",
+        "generation.end",
+        "span.start",
+        "span.update",
+        "span.end",
+        "trace.end",
+    ],
+)
+def test_failing_tracer_does_not_affect_the_answer(operation: str) -> None:
     logger = ListLogger()
-    tracer = SafeTracer(RecordingTracer(fail=True), logger)
+    tracer = SafeTracer(RecordingTracer(fail_on=operation), logger)
     orch, _, _, _ = _orchestrator([call(("echo", {"text": "a"})), answer("ok")], tracer=tracer)
-    assert orch.handle("s1", "x").answer == "ok"
-    assert logger.named("tracer_error")[0]["operation"] == "trace.start"
+    response = orch.handle("s1", "x")
+    assert (response.answer, response.stop_reason) == ("ok", "final_answer")
+    assert response.tools_used[0].status == "ok"
+    errors = logger.named("tracer_error")
+    assert errors
+    assert {e["operation"] for e in errors} == {operation}
+    assert errors[0]["error"] == "RuntimeError"
+
+
+def test_failing_tracer_flush_is_logged() -> None:
+    logger = ListLogger()
+    SafeTracer(RecordingTracer(fail_on="flush"), logger).flush()
+    assert logger.named("tracer_error")[0]["operation"] == "flush"
