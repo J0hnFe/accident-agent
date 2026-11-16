@@ -57,8 +57,8 @@
 
 | # | Seccion del documento final | Se completa al cerrar | Estado |
 | --- | --- | --- | --- |
-| 1 | Portada y control del documento | Etapa 6 | [ ] |
-| 2 | Resumen ejecutivo | Etapa 6 | [ ] |
+| 1 | Portada y control del documento | Etapa 6 | [x] |
+| 2 | Resumen ejecutivo | Etapa 6 | [x] |
 | 3 | Alcance y cumplimiento de requisitos | Etapa 5 | [ ] |
 | 4 | Analisis de los datos | Etapa 1 | [x] |
 | 5 | Normalizacion y carga | Etapa 2 | [x] |
@@ -73,7 +73,7 @@
 | 14 | Infraestructura y reproducibilidad | Etapas 2 y 5 | [x] |
 | 15 | Pruebas | Etapa 5 | [x] |
 | 16 | Limitaciones conocidas y trabajo futuro | Etapa 5 | [x] |
-| 17 | Anexos | Etapa 6 | [ ] |
+| 17 | Anexos | Etapa 6 | [x] |
 
 **Ultima actualizacion:** cierre de la Etapa 5 (2026-11-15). `[x]` indica que el material de la seccion esta completo; la redaccion final es la tarea 6.2.
 
@@ -413,3 +413,7 @@ El evaluador probablemente se hara estas preguntas. El documento debe responderl
 - [ ] Las limitaciones estan declaradas.
 - [ ] Todas las preguntas de la seccion 8 tienen respuesta.
 - [ ] No hay contradicciones con el README ni con el documento funcional.
+
+## Avance de entrega (2026-11-15)
+
+Documento redactado y exportado a PDF en `docs/entrega/`, con fuente Markdown, ejemplos y evidencias. Publicacion, envio y verificacion limpia con README final pendientes. Ver `docs/evidencias/etapa-6_notas.md`.

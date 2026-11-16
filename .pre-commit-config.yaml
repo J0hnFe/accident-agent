@@ -33,4 +33,4 @@ repos:
         language: system
         entry: uv run python scripts/ascii_guard.py
         types_or: [python, markdown, toml, yaml, jinja]
-        exclude: ^(data/|docs/enunciado/)
+        exclude: ^(data/|docs/enunciado/|docs/entrega/)

@@ -1,0 +1,8 @@
+flowchart LR
+ N0["JSON + SHA-256"]
+ N1["Validacion raw"]
+ N2["Normalizacion y versiones"]
+ N3["Privacidad y conteos"]
+ N4["Carga atomica en Neo4j"]
+ N5["Verificacion post-carga"]
+N0 --> N1 --> N2 --> N3 --> N4 --> N5

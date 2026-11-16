@@ -1,0 +1,94 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.12.16, pytest-9.2.0, pluggy-1.7.0
+rootdir: /Users/johnfe/Documents/Personal/Proyectos/Prueba_Tecnica_BIT
+configfile: pyproject.toml
+testpaths: tests
+plugins: cov-7.1.0, platformdirs-4.14.2, anyio-4.15.1, respx-0.23.1
+collected 749 items / 1 deselected / 748 selected
+
+tests/contract/test_repository_contract.py ............................  [  3%]
+tests/e2e/test_scenarios.py ...................                          [  6%]
+tests/integration/test_graph_load.py .........                           [  7%]
+tests/integration/test_tools_neo4j.py ......                             [  8%]
+tests/unit/test_accident_report.py ....................                  [ 10%]
+tests/unit/test_accident_search.py ..................................... [ 15%]
+.                                                                        [ 16%]
+tests/unit/test_api.py .............                                     [ 17%]
+tests/unit/test_ascii_guard.py ...................                       [ 20%]
+tests/unit/test_bootstrap.py ....                                        [ 20%]
+tests/unit/test_catalogs.py ............................................ [ 26%]
+........................................................................ [ 36%]
+.......................................                                  [ 41%]
+tests/unit/test_cli.py .........                                         [ 42%]
+tests/unit/test_config.py ....                                           [ 43%]
+tests/unit/test_current_time.py ...........                              [ 44%]
+tests/unit/test_domain_models.py ....................................... [ 50%]
+.....................                                                    [ 52%]
+tests/unit/test_langfuse_tracer.py ....                                  [ 53%]
+tests/unit/test_logging.py ........                                      [ 54%]
+tests/unit/test_neo4j_repository.py .........                            [ 55%]
+tests/unit/test_neo4j_writer.py ........                                 [ 56%]
+tests/unit/test_normalizers.py ......................................... [ 62%]
+........................................................................ [ 71%]
+........................................................                 [ 79%]
+tests/unit/test_openrouter_provider.py .................                 [ 81%]
+tests/unit/test_orchestrator.py .........................                [ 84%]
+tests/unit/test_pipeline.py ..................                           [ 87%]
+tests/unit/test_privacy.py .................                             [ 89%]
+tests/unit/test_quality_markdown.py ............                         [ 91%]
+tests/unit/test_quality_report.py .............................          [ 95%]
+tests/unit/test_raw_models.py ............                               [ 96%]
+tests/unit/test_tool_base.py ...............                             [ 98%]
+tests/unit/test_verification.py ..........                               [100%]
+
+================================ tests coverage ================================
+______________ coverage: platform darwin, python 3.12.16-final-0 _______________
+
+Name                                                  Stmts   Miss  Cover
+-------------------------------------------------------------------------
+src/accident_agent/__init__.py                            0      0   100%
+src/accident_agent/bootstrap.py                          68      8    88%
+src/accident_agent/config.py                             48      0   100%
+src/accident_agent/core/__init__.py                       0      0   100%
+src/accident_agent/core/clock.py                         14      0   100%
+src/accident_agent/core/llm.py                           33      0   100%
+src/accident_agent/core/memory.py                        35      0   100%
+src/accident_agent/core/orchestrator.py                 184      2    99%
+src/accident_agent/core/prompts.py                       12      0   100%
+src/accident_agent/core/registry.py                      16      1    94%
+src/accident_agent/core/tool.py                          79      0   100%
+src/accident_agent/core/tracer.py                        78      0   100%
+src/accident_agent/domain/__init__.py                     0      0   100%
+src/accident_agent/domain/catalogs.py                   132      0   100%
+src/accident_agent/domain/models.py                     198      0   100%
+src/accident_agent/domain/privacy.py                      9      0   100%
+src/accident_agent/graph/__init__.py                      0      0   100%
+src/accident_agent/graph/connection.py                   17      3    82%
+src/accident_agent/graph/neo4j_repository.py             66      3    95%
+src/accident_agent/graph/queries.py                      12      0   100%
+src/accident_agent/graph/repository.py                  115      0   100%
+src/accident_agent/ingestion/__init__.py                  0      0   100%
+src/accident_agent/ingestion/__main__.py                 63     29    54%
+src/accident_agent/ingestion/neo4j_writer.py             87      1    99%
+src/accident_agent/ingestion/normalizers.py             193      0   100%
+src/accident_agent/ingestion/pipeline.py                141      4    97%
+src/accident_agent/ingestion/quality_markdown.py        116      4    97%
+src/accident_agent/ingestion/quality_report.py          269     19    93%
+src/accident_agent/ingestion/raw_models.py              107      2    98%
+src/accident_agent/ingestion/verification.py             42      0   100%
+src/accident_agent/interfaces/__init__.py                 0      0   100%
+src/accident_agent/interfaces/api.py                    108      3    97%
+src/accident_agent/interfaces/cli.py                     96      4    96%
+src/accident_agent/observability/__init__.py              0      0   100%
+src/accident_agent/observability/events.py                2      0   100%
+src/accident_agent/observability/langfuse_tracer.py      47      0   100%
+src/accident_agent/observability/logging.py              36      1    97%
+src/accident_agent/providers/__init__.py                  0      0   100%
+src/accident_agent/providers/openrouter.py              122      9    93%
+src/accident_agent/tools/__init__.py                      0      0   100%
+src/accident_agent/tools/accident_report.py             109      0   100%
+src/accident_agent/tools/accident_search.py             171      8    95%
+src/accident_agent/tools/current_time.py                 42      0   100%
+-------------------------------------------------------------------------
+TOTAL                                                  2867    101    96%
+====================== 748 passed, 1 deselected in 7.09s =======================

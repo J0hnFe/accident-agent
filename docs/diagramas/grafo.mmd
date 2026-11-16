@@ -1,0 +1,15 @@
+graph LR
+ Accident -->|OCCURRED_IN| Parish
+ Parish -->|BELONGS_TO| Canton
+ Canton -->|BELONGS_TO| Province
+ Accident -->|ON_ROAD| Road
+ Accident -->|OF_TYPE| AccidentType
+ Accident -->|HAS_CAUSE| Cause
+ Person -->|PARTICIPATED_IN| Accident
+ Vehicle -->|INVOLVED_IN| Accident
+ Person -->|RODE_IN| Vehicle
+ Vehicle -->|OF_TYPE| VehicleType
+ Report -->|HAS_SECTION| ReportSection
+ Report -->|ANALYZES_ROAD| Road
+ Report -->|SUPERSEDES| Report
+ Accident -->|REPLACED_BY| Accident

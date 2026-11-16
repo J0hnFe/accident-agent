@@ -1,0 +1,8 @@
+flowchart LR
+ N0["Usuario: informe de motos"]
+ N1["LLM: search_accidents"]
+ N2["Neo4j: siete ids"]
+ N3["LLM: generate_accident_report"]
+ N4["Neo4j + Jinja2: Markdown"]
+ N5["LLM: resumen al usuario"]
+N0 --> N1 --> N2 --> N3 --> N4 --> N5

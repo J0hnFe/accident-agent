@@ -1,0 +1,12 @@
+flowchart LR
+ N0["Neo4j + volumen"]
+ N1["Healthcheck OK"]
+ N2["Loader"]
+ N3["Carga exitosa"]
+ N4["API :8000"]
+ N5["CLI (perfil)"]
+ N0 --> N1
+ N1 --> N2
+ N2 --> N3
+ N3 --> N4
+ N3 --> N5

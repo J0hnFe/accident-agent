@@ -39,11 +39,11 @@
 
 | # | Seccion del documento final | Se completa al cerrar | Estado |
 | --- | --- | --- | --- |
-| 1 | Portada y control del documento | Etapa 6 | [ ] |
+| 1 | Portada y control del documento | Etapa 6 | [x] |
 | 2 | Introduccion | Etapa 4 | [x] |
 | 3 | Conceptos basicos | Etapa 2 | [x] |
 | 4 | Capacidades del agente | Etapa 4 | [x] |
-| 5 | Puesta en marcha (resumen) | Etapa 5 | [ ] |
+| 5 | Puesta en marcha (resumen) | Etapa 5 | [x] |
 | 6 | Uso desde la linea de comandos | Etapa 4 | [x] |
 | 7 | Uso desde la API REST | Etapa 4 | [x] |
 | 8 | Como formular consultas | Etapa 4 | [x] |
@@ -52,8 +52,8 @@
 | 11 | Privacidad y tratamiento de datos | Etapa 5 | [x] |
 | 12 | Comportamiento ante errores y ausencia de datos | Etapa 5 | [x] |
 | 13 | Limitaciones para el usuario | Etapa 5 | [x] |
-| 14 | Preguntas frecuentes | Etapa 6 | [ ] |
-| 15 | Anexos | Etapa 6 | [ ] |
+| 14 | Preguntas frecuentes | Etapa 6 | [x] |
+| 15 | Anexos | Etapa 6 | [x] |
 
 **Ultima actualizacion:** cierre de la Etapa 5 (2026-11-15). `[x]` indica que el material de la seccion esta completo; la redaccion final es la tarea 6.3.
 
@@ -290,3 +290,7 @@ Se usa la misma carpeta y convencion que en la guia del documento tecnico (`docs
 - [ ] Ningun ejemplo muestra nombres, cedulas, placas ni claves.
 - [ ] El catalogo de valores coincide con el codigo.
 - [ ] No hay contradicciones con el README ni con el documento tecnico.
+
+## Avance de entrega (2026-11-15)
+
+Documento redactado y exportado a PDF en `docs/entrega/`, con fuente Markdown, ejemplos y evidencias. Publicacion, envio y verificacion limpia con README final pendientes. Ver `docs/evidencias/etapa-6_notas.md`.
