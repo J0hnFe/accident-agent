@@ -6,21 +6,22 @@
 - Etapa trabajada por Codex: **Etapa 6 - Documentar y entregar**, tareas 6.1 a 6.3 y verificacion parcial de 6.5.
 - Commit del trabajo documental: `c546bc1` (todavia no entregado).
 - Repositorio publico: `https://github.com/J0hnFe/accident-agent`, conectado como `origin`; rama local `main`.
-- Ultima comprobacion remota: GitHub indica `visibility=PUBLIC`, `isEmpty=true`; `git ls-remote --heads origin` no devuelve ramas. Falta el push.
-- Commit/tag entregado, acceso anonimo al contenido y confirmacion de envio: pendientes.
+- Publicacion (2026-11-16): `main` subida con seguimiento de `origin/main`; ultimo commit publicado `e44eaa0` (11 commits). GitHub indica `visibility=PUBLIC`, `isEmpty=false`.
+- Acceso anonimo verificado en ventana de incognito: `6.4_acceso_anonimo_github.png`.
+- Commit/tag entregado y confirmacion de envio: pendientes.
 
 ## Punto de reanudacion
 
-Continuar en **6.4**. El usuario solicito dejar registrado el estado para continuar despues.
+Continuar en **6.5**. El usuario solicito dejar registrado el estado para continuar despues.
 
 1. Hecho (2026-11-16): revision de secretos del historial completo con gitleaks v8.30.1 (10 commits, sin hallazgos), `.env` nunca versionado y busqueda literal de las claves del `.env` local sin coincidencias. Evidencia: `6.4_revision_secretos_historial.txt`.
-2. Subir `main` con `git push -u origin main`.
-3. Verificar acceso anonimo al contenido publicado y guardar la captura.
+2. Hecho (2026-11-16): `main` subida con `git push -u origin main` (`e44eaa0`).
+3. Hecho (2026-11-16): acceso anonimo verificado; captura `6.4_acceso_anonimo_github.png`.
 4. Actualizar los documentos Markdown/PDF con URL y referencia de entrega; cerrar la lista de verificacion y la matriz (6.5).
 5. Enviar enlace y documentos al destinatario del plan (6.6), con instruccion expresa del usuario para el envio.
 6. Registrar commit/tag entregado, confirmacion del envio y cierre de etapa (6.7).
 
-Las capturas de Langfuse de los escenarios 4 a 6 (5.2, recomendadas) siguen pendientes.
+Capturas de Langfuse de los escenarios 4 a 6 (5.2, recomendadas): guardadas el 2026-11-16 (`5.2_langfuse_escenario_4.png`, `_5.png`, `_6.png`); falta incorporarlas a la seccion 12 del documento tecnico y regenerar el PDF (6.5).
 El analisis con IA dentro del informe (3.5, opcional) sigue sin implementar por decision documentada.
 Las pruebas e instalacion limpia ya verificadas no necesitan repetirse salvo cambios que lo justifiquen.
 
@@ -71,11 +72,13 @@ bloqueada; la repeticion con acceso autorizado a Neo4j aprobo las 748. La cobert
   loader correcto y API saludable. Sin clave IA, por lo que no se repitio conversacion real.
 - Falta revisar secretos en el historial final, publicar, verificar acceso anonimo y enviar.
 - No se marca 6.5, 6.7 ni el DoD de la etapa hasta cerrar esos puntos.
-- Las capturas adicionales de Langfuse de 5.2 siguen pendientes; no se fabrican capturas.
+- Las capturas de Langfuse de 5.2 las tomo el candidato desde el panel el 2026-11-16; se contrastaron con el arbol guardado (trace_id, herramientas, latencias y tokens).
 
 ## Evidencias y archivos
 
 - `docs/evidencias/6.4_revision_secretos_historial.txt`: gitleaks y busqueda literal de claves sobre el historial.
+- `docs/evidencias/5.2_langfuse_escenario_4.png`, `_5.png` y `_6.png`: arbol de las trazas de los escenarios 4 a 6 en Langfuse.
+- `docs/evidencias/6.4_acceso_anonimo_github.png`: pagina publica del repositorio vista sin sesion.
 - `docs/evidencias/6.5_pytest_sin_llm.txt`: ejecucion actual sin consumo del proveedor.
 - `docs/entrega/DOCUMENTO_TECNICO.md` y `.pdf`.
 - `docs/entrega/DOCUMENTO_FUNCIONAL.md` y `.pdf`.

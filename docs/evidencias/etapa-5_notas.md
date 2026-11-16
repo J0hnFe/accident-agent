@@ -1,7 +1,7 @@
 # Etapa 5 - Notas de cierre
 
 - **Fecha de cierre:** 2026-11-15.
-- **Tareas:** 5.1 a 5.9. Queda pendiente la subtarea `[R]` de 5.2: capturas de pantalla de las trazas de los escenarios 4, 5 y 6 en Langfuse. Las trazas existen y su arbol esta en `5.2_langfuse_escenarios_4_5_6.txt`; la captura la toma el candidato desde el panel.
+- **Tareas:** 5.1 a 5.9. La subtarea `[R]` de 5.2 (capturas de las trazas de los escenarios 4, 5 y 6 en Langfuse) se completo el 2026-11-16, durante la etapa 6: `5.2_langfuse_escenario_4.png`, `_5.png` y `_6.png`. Coinciden con el arbol de `5.2_langfuse_escenarios_4_5_6.txt` (trace_id, herramientas, latencia total y tokens por generation).
 - **DoD verificada:** todas las verificaciones pasan y la evidencia esta guardada:
   - suite completa: 748 pruebas pasan y la e2e con el LLM real se omite de forma controlada por cuota agotada;
   - escenarios 1 a 17 automatizados y escenarios 1 a 13 con el LLM real;
