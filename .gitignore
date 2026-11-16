@@ -24,6 +24,10 @@ reports/
 # Enunciado de BIT: material del evaluador, no se publica (seccion 12 del plan)
 *.docx
 
+# Documentos de trabajo que se conservan solo en local
+docs/enunciado/
+docs/PLAN_DESARROLLO.md
+
 # Sistema operativo y editores
 .DS_Store
 .idea/

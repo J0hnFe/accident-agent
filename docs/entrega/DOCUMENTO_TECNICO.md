@@ -37,7 +37,7 @@ La etapa 5 registró 748 pruebas aprobadas y una prueba real omitida por cuota a
 | Privacidad y consultas seguras | DTOs, exclusiones y execute_read | Evidencias 5.4 y 5.6 |
 | Documentos y repositorio público | README y documentos de entrega | https://github.com/J0hnFe/accident-agent, acceso anónimo verificado (evidencia 6.4) |
 
-No se incluyen interfaz gráfica, embeddings, autenticación ni sesiones persistentes. La matriz completa está en la sección 11 del plan. La evidencia de cada requisito está inventariada en las notas de las etapas 0 a 5; las tareas de entrega se auditan en la etapa 6.
+No se incluyen interfaz gráfica, embeddings, autenticación ni sesiones persistentes. Cada requisito del enunciado se contrastó con su evidencia antes de la entrega. La evidencia está inventariada en las notas de las etapas 0 a 6 (`docs/evidencias/`).
 
 ## 3. Análisis de datos
 

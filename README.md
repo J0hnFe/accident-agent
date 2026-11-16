@@ -179,13 +179,12 @@ clave de una base ya inicializada: debe coincidir con la del volumen existente.
 - `ingestion/`, `domain/`, `graph/`: normalizacion, catalogos y repositorio Neo4j.
 - `tools/`, `providers/`, `observability/`, `interfaces/`: adaptadores y entradas.
 - `tests/`: pruebas unitarias, contrato, integracion y escenarios.
-- [Plan y estado de entrega](docs/PLAN_DESARROLLO.md).
 - [Documento tecnico (PDF)](docs/entrega/DOCUMENTO_TECNICO.pdf) y [fuente](docs/entrega/DOCUMENTO_TECNICO.md).
 - [Documento funcional (PDF)](docs/entrega/DOCUMENTO_FUNCIONAL.pdf) y [fuente](docs/entrega/DOCUMENTO_FUNCIONAL.md).
 - [Evidencias](docs/evidencias/etapa-5_notas.md) y [modelo del grafo](docs/modelo_grafo.md).
 
-El enunciado original `Prueba_Tecnica_Orquestador_Multiagente_BIT.docx` se conserva
-localmente y no se publica; su guia reorganizada esta en `docs/enunciado/`.
+El enunciado original, su guia reorganizada y el plan de desarrollo se conservan
+localmente y no se publican. El registro de cada etapa esta en `docs/evidencias/`.
 
 ## Alcance y limitaciones
 
