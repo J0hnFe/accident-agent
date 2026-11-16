@@ -504,7 +504,7 @@ Resultado: 5 informes -> 4 cargados; 2 enlazados a la E35.
 | `ubicacion.canton` | `Canton.name` | N02 |
 | `ubicacion.parroquia` | `Parish.name` | N02 |
 | `ubicacion.via` | `Road.name`, `Road.code` | N03 |
-| `ubicacion.km` | `Accident.km` y `ON_ROAD.km` | N07 |
+| `ubicacion.km` | `ON_ROAD.km` (posicion en la via; ver `docs/modelo_grafo.md`) | N07 |
 | `ubicacion.coordenadas` | `Accident.latitude`, `longitude` | N08 |
 | `tipo_siniestro` | `AccidentType.code` | 3.1 |
 | `causa_probable` | `Cause.code` | 3.1 |
@@ -521,7 +521,7 @@ Resultado: 5 informes -> 4 cargados; 2 enlazados a la E35.
 | `vehiculos[].servicio` | `Vehicle.service` | 3.1 |
 | `vehiculos[].placa` | Solo para el enlace; no se carga | R04 |
 | `personas[].nombre`, `cedula` | Se descartan al leer el archivo (`RawPerson`) | R04, P1 |
-| `personas[].rol`, `condicion` | `Person.role`, `condition` y en `PARTICIPATED_IN` | 3.1 |
+| `personas[].rol`, `condicion` | `Person.role`, `condition` | 3.1 |
 | `personas[].edad` | `Person.age` | N10 |
 | `personas[].sexo` | `Person.sex` | 3.1 |
 | `personas[].alcohol_gl` | `Person.alcohol_gl` | N09 |

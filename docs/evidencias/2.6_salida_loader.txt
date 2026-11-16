@@ -1,0 +1,26 @@
+# docker compose logs loader (arranque desde cero, 2026-11-15)
+loader: siniestros_raw.json SHA-256 77e2ca6e3f29c838035009cad0f720ef70bbda8138369b23616800cbd1fd8280 (verificado contra siniestros_raw.json.sha256)
+loader: pipeline: 30 siniestros (29 vigentes), 4 informes
+loader: carga: 287 nodos y 438 relaciones en una transaccion
+loader:   accidents = 30 [ok]
+loader:   active_accidents = 29 [ok]
+loader:   annulled = ['SIN-2026-0010 -> SIN-2026-0011'] [ok]
+loader:   sin_2025_0007_version_damages = [2, 4100.0] [ok]
+loader:   active_with_motorcycle = 7 [ok]
+loader:   deaths_active = 18 [ok]
+loader:   injured_active = 44 [ok]
+loader:   active_with_deaths = 15 [ok]
+loader:   active_pichincha = 5 [ok]
+loader:   active_guayas = 5 [ok]
+loader:   active_e35 = 6 [ok]
+loader:   active_e35_with_deaths = ['SIN-2025-0001', 'SIN-2025-0013', 'SIN-2026-0004', 'SIN-2026-0007'] [ok]
+loader:   reports = 4 [ok]
+loader:   personal_data_properties = 0 [ok]
+loader:   nodes = {'Accident': 30, 'AccidentType': 5, 'Canton': 22, 'Cause': 10, 'Dataset': 1, 'Parish': 30, 'Person': 80, 'Province': 17, 'Report': 4, 'ReportSection': 9, 'Road': 20, 'Vehicle': 49, 'VehicleType': 10} [ok]
+loader:   relationships = {'ANALYZES_ROAD': 2, 'BELONGS_TO': 52, 'HAS_CAUSE': 30, 'HAS_SECTION': 9, 'INVOLVED_IN': 49, 'OCCURRED_IN': 30, 'OF_TYPE': 79, 'ON_ROAD': 30, 'PARTICIPATED_IN': 80, 'REPLACED_BY': 1, 'RODE_IN': 75, 'SUPERSEDES': 1} [ok]
+loader:   fulltext_indexes = ['accident_narratives: ONLINE', 'report_texts: ONLINE'] [ok]
+loader: datos personales en el grafo: ninguno
+loader: carga verificada
+
+# curl -s localhost:8000/health
+{"status":"ok","neo4j":"ok","llm_configured":true}

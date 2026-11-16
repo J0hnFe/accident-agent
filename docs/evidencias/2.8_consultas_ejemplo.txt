@@ -1,0 +1,104 @@
+# Consultas de ejemplo de docs/modelo_grafo.md (seccion 9), ejecutadas el 2026-11-15
+# contra el Neo4j de docker compose recien cargado. Solo lectura y parametrizadas.
+
+## Siniestros vigentes por provincia
+parametros: {}
+  {"province": "Guayas", "accidents": 5}
+  {"province": "Pichincha", "accidents": 5}
+  {"province": "Tungurahua", "accidents": 3}
+  {"province": "El Oro", "accidents": 2}
+  {"province": "Manabi", "accidents": 2}
+  {"province": "Azuay", "accidents": 1}
+  {"province": "Canar", "accidents": 1}
+  {"province": "Chimborazo", "accidents": 1}
+  {"province": "Cotopaxi", "accidents": 1}
+  {"province": "Esmeraldas", "accidents": 1}
+  {"province": "Imbabura", "accidents": 1}
+  {"province": "Loja", "accidents": 1}
+  {"province": "Los Rios", "accidents": 1}
+  {"province": "Napo", "accidents": 1}
+  {"province": "Santa Elena", "accidents": 1}
+  {"province": "Santo Domingo de los Tsachilas", "accidents": 1}
+  {"province": "Sucumbios", "accidents": 1}
+
+## Siniestros con fallecidos en una via
+parametros: {'road_code': 'E35'}
+  {"accident_id": "SIN-2025-0001", "date": "2025-01-12", "deaths": 1, "km": 128.0}
+  {"accident_id": "SIN-2025-0013", "date": "2025-08-23", "deaths": 1, "km": 90.0}
+  {"accident_id": "SIN-2026-0004", "date": "2026-03-21", "deaths": 2, "km": 118.0}
+  {"accident_id": "SIN-2026-0007", "date": "2026-06-14", "deaths": 1, "km": 30.0}
+
+## Siniestros con un tipo de vehiculo
+parametros: {'vehicle_type': 'motocicleta'}
+  {"accidents": 7}
+
+## Siniestros en un rango de fechas (ultimos 6 meses desde 2026-11-15)
+parametros: {'date_from': datetime.date(2026, 5, 15), 'date_to': datetime.date(2026, 11, 15)}
+  {"accident_id": "SIN-2026-0007", "date": "2026-06-14"}
+  {"accident_id": "SIN-2026-0008", "date": "2026-07-04"}
+  {"accident_id": "SIN-2026-0009", "date": "2026-08-15"}
+  {"accident_id": "SIN-2026-0011", "date": "2026-09-02"}
+
+## Trazabilidad de un anulado
+parametros: {'accident_id': 'SIN-2026-0010'}
+  {"accident_id": "SIN-2026-0010", "status": "anulado", "annulment_reason": "Ubicaci\u00f3n err\u00f3nea (cant\u00f3n incorrecto) y parte incompleto", "replaced_by": "SIN-2026-0011"}
+
+## Busqueda en narrativas
+parametros: {'text': 'neblina'}
+  {"accident_id": "SIN-2026-0007", "score": 0.959}
+  {"accident_id": "SIN-2025-0009", "score": 0.939}
+  {"accident_id": "SIN-2025-0001", "score": 0.815}
+  {"accident_id": "SIN-2025-0013", "score": 0.815}
+
+## Informes de una via, vigentes primero
+parametros: {'road_code': 'E35'}
+  {"report_id": "INF-2026-01", "status": "vigente", "supersedes": "INF-2025-01"}
+  {"report_id": "INF-2025-01", "status": "reemplazado", "supersedes": null}
+
+## Subgrafo de un siniestro (caminos devueltos)
+parametros: {'accident_id': 'SIN-2025-0001'}
+  {"paths": 14}
+
+# Muestra: SIN-2025-0001 en el grafo frente al JSON original (sin nombres, cedulas, placas ni narrativa)
+
+  fecha_hora:
+    JSON:  "2025-01-12T05:40:00-05:00"
+    grafo: "2025-01-12T05:40:00-05:00"
+  provincia / canton / parroquia:
+    JSON:  "Tungurahua / Ambato / Pasa"
+    grafo: "Tungurahua / Ambato / Pasa"
+  via:
+    JSON:  "Panamericana E35 (Troncal de la Sierra)"
+    grafo: "Panamericana E35 (Troncal de la Sierra) (codigo E35)"
+  km:
+    JSON:  128
+    grafo: 128.0
+  coordenadas:
+    JSON:  "-1.2497,-78.6237"
+    grafo: "-1.2497,-78.6237"
+  tipo_siniestro / causa:
+    JSON:  "Choque / Invadir carril"
+    grafo: "choque / invadir_carril"
+  condiciones:
+    JSON:  "NEBLINA / HUMEDA / AMANECER_ATARDECER"
+    grafo: "neblina / humeda / amanecer_atardecer"
+  danos_materiales:
+    JSON:  18500
+    grafo: 18500.0
+  resumen (F/H/I):
+    JSON:  "1/3/0"
+    grafo: "1/3/0 (summary_mismatch=False)"
+  vehiculos:
+    JSON:  Bus | HINO AK | 2018 | p\u00fablico
+    grafo: SIN-2025-0001-V1 bus | HINO AK | 2018 | publico
+    JSON:  Cami\u00f3n liviano | CHEVROLET NKR | 2015 | carga
+    grafo: SIN-2025-0001-V2 camion_liviano | CHEVROLET NKR | 2015 | carga
+  personas:
+    JSON:  CONDUCTOR | 47 | MASCULINO | Herido leve | 0,0 | CINTURON
+    grafo: SIN-2025-0001-P1 conductor | 47 | M | herido_leve | 0.0 | cinturon | viaja en SIN-2025-0001-V1
+    JSON:  pasajero | 31 | Mujer | HERIDO LEVE |  | SIN DATO
+    grafo: SIN-2025-0001-P2 pasajero | 31 | F | herido_leve | None | no_registrado | viaja en SIN-2025-0001-V1
+    JSON:  PASAJERO | 55 | M | Herido grave | N/D | None
+    grafo: SIN-2025-0001-P3 pasajero | 55 | M | herido_grave | None | no_registrado | viaja en SIN-2025-0001-V1
+    JSON:  conductor | 39 | MASCULINO | FALLECIDO | 0,0 | CINTURON
+    grafo: SIN-2025-0001-P4 conductor | 39 | M | fallecido | 0.0 | cinturon | viaja en SIN-2025-0001-V2

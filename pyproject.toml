@@ -22,7 +22,7 @@ dependencies = [
 accident-agent = "accident_agent.interfaces.cli:app"
 
 [build-system]
-requires = ["uv_build>=0.13.8,<0.14"]
+requires = ["uv_build>=0.13.6,<0.14"]
 build-backend = "uv_build"
 
 [tool.uv]
@@ -53,6 +53,8 @@ markers = [
     "integration: requiere Neo4j levantado con docker compose",
     "e2e: escenarios de punta a punta del orquestador",
 ]
+# Aviso de Starlette sobre su propio TestClient; no depende del codigo del proyecto.
+filterwarnings = ["ignore:Using `httpx` with `starlette.testclient` is deprecated"]
 
 [dependency-groups]
 dev = [

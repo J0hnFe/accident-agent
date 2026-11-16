@@ -1,0 +1,16 @@
+# Solo entran pyproject.toml, uv.lock, README.md y src/ (ver Dockerfile).
+.env
+.env.*
+.git
+.venv
+**/__pycache__
+.pytest_cache
+.mypy_cache
+.ruff_cache
+data
+docs
+tests
+scripts
+logs
+reports
+*.docx

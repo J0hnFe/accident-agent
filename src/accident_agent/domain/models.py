@@ -234,14 +234,32 @@ class Report(_DomainModel):
         return self
 
 
+class DatasetInfo(_DomainModel):
+    """Procedencia de la carga (nodo `Dataset`): se cita en los informes generados."""
+
+    sha256: str = Field(pattern=r"^[0-9a-f]{64}$")
+    source_file: CleanText
+    source: CleanText
+    generated: dt.date
+    schema_version: CleanText
+    timezone: CleanText
+
+
 class CleanDataset(_DomainModel):
     """Resultado completo del pipeline, con la integridad referencial ya verificada."""
 
+    info: DatasetInfo
     accidents: list[Accident]
     reports: list[Report]
+    # Definiciones de INF-2026-02 para `AccidentType.definition`; una por cada tipo.
+    accident_type_definitions: dict[AccidentType, CleanText]
 
     @model_validator(mode="after")
     def _check(self) -> Self:
+        if missing := sorted(
+            t.value for t in set(AccidentType) - set(self.accident_type_definitions)
+        ):
+            raise ValueError(f"tipos de siniestro sin definicion: {missing}")
         accidents = {a.accident_id: a for a in self.accidents}
         reports = {r.report_id: r for r in self.reports}
         if repeated := _duplicates(a.accident_id for a in self.accidents):

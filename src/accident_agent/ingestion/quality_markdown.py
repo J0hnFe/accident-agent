@@ -26,7 +26,7 @@ from pydantic import BaseModel, ConfigDict
 from accident_agent.domain import catalogs
 from accident_agent.ingestion import normalizers as norm
 from accident_agent.ingestion.quality_report import DatasetProfile, ValueCount, profile_data
-from accident_agent.ingestion.raw_models import RawDataset, RawRecord
+from accident_agent.ingestion.raw_models import RawDataset, RawRecord, to_json_value
 
 REGENERATE_COMMAND: Final = (
     "uv run python -m accident_agent.ingestion.quality_markdown "
@@ -71,11 +71,6 @@ class NormalizationSummary(_Frozen):
     dates: list[DateSummary]
     cleaned_narratives: int
     excluded_report_ids: list[str]
-
-
-def _plain(value: Any) -> Any:
-    # Los normalizadores reciben valores JSON; los objetos anidados llegan como modelos crudos.
-    return value.model_dump() if isinstance(value, BaseModel) else value
 
 
 def _vehicles(ds: RawDataset) -> list[Any]:
@@ -219,13 +214,13 @@ _NUMERIC: Final[list[tuple[str, str, Callable[[RawDataset], list[Any]], Callable
         "registros[].ubicacion.coordenadas (latitud)",
         "N08",
         _records(lambda r: r.ubicacion.coordenadas),
-        lambda v: norm.parse_coordinates(_plain(v))[0],
+        lambda v: norm.parse_coordinates(to_json_value(v))[0],
     ),
     (
         "registros[].ubicacion.coordenadas (longitud)",
         "N08",
         _records(lambda r: r.ubicacion.coordenadas),
-        lambda v: norm.parse_coordinates(_plain(v))[1],
+        lambda v: norm.parse_coordinates(to_json_value(v))[1],
     ),
     (
         "registros[].vehiculos[].anio",
@@ -289,7 +284,7 @@ def summarize_normalization(raw: RawDataset) -> NormalizationSummary:
             )
         )
 
-    occurred = [norm.parse_occurred_at(_plain(r.fecha_hora)) for r in raw.registros]
+    occurred = [norm.parse_occurred_at(to_json_value(r.fecha_hora)) for r in raw.registros]
     updated = [norm.parse_update_date(r.fecha_actualizacion) for r in raw.registros]
     report_dates = [norm.parse_report_date(i.fecha) for i in raw.informes]
     dates = [

@@ -1,0 +1,116 @@
+# docker compose down -v --rmi local && docker compose up -d --build
+# Fecha: 2026-11-15. Equipo: macOS (arm64), Docker 29.9.3, Compose v5.7.0. Imagenes base ya descargadas.
+
+ Image accident-agent:local Building
+ Image accident-agent:local Building
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.08kB done
+#1 DONE 0.0s
+
+#2 [loader internal] load build definition from Dockerfile
+#2 transferring dockerfile: 853B done
+#2 DONE 0.0s
+
+#3 [api internal] load metadata for docker.io/library/python:3.12.15-slim-trixie
+#3 DONE 0.4s
+
+#4 [api internal] load metadata for ghcr.io/astral-sh/uv:0.13.6
+#4 DONE 0.7s
+
+#5 [api internal] load .dockerignore
+#5 transferring context: 236B done
+#5 DONE 0.0s
+
+#6 [api stage-0 1/8] FROM docker.io/library/python:3.12.15-slim-trixie@sha256:a0f57064cbdcd6285fa45f51237ab0b35ea8ebaed06a1f5973e89e19dfb86704
+#6 resolve docker.io/library/python:3.12.15-slim-trixie@sha256:a0f57064cbdcd6285fa45f51237ab0b35ea8ebaed06a1f5973e89e19dfb86704 0.0s done
+#6 DONE 0.0s
+
+#7 [api] FROM ghcr.io/astral-sh/uv:0.13.6@sha256:af22a52f5eafef3d78e551599d405c02df61919d18028f0cea8eda93bc9986d0
+#7 resolve ghcr.io/astral-sh/uv:0.13.6@sha256:af22a52f5eafef3d78e551599d405c02df61919d18028f0cea8eda93bc9986d0 0.0s done
+#7 DONE 0.0s
+
+#8 [loader internal] load build context
+#8 transferring context: 1.97kB done
+#8 DONE 0.0s
+
+#9 [api stage-0 3/8] WORKDIR /app
+#9 CACHED
+
+#10 [api stage-0 6/8] COPY src ./src
+#10 CACHED
+
+#11 [api stage-0 7/8] RUN uv sync --frozen --no-dev --no-editable
+#11 CACHED
+
+#12 [api stage-0 2/8] COPY --from=ghcr.io/astral-sh/uv:0.13.6 /uv /bin/uv
+#12 CACHED
+
+#13 [api stage-0 4/8] COPY pyproject.toml uv.lock README.md ./
+#13 CACHED
+
+#14 [api stage-0 5/8] RUN uv sync --frozen --no-dev --no-install-project
+#14 CACHED
+
+#15 [loader stage-0 8/8] RUN useradd --create-home --uid 1000 app && mkdir -p reports logs && chown app reports logs
+#15 CACHED
+
+#16 [loader] exporting to image
+#16 exporting layers done
+#16 exporting manifest sha256:488f4c0a727f9bcaaf841d3af403b62ec021dc518c70f4f96ec6d12b8eab1dce done
+#16 exporting config sha256:1cc76aefbc9c97095863a98e8b212ce7c7ca94b148dea91c9ca1d5d27676bce5 done
+#16 exporting attestation manifest sha256:cf65b88c7df04b3545d7ef46591ec8be9bc6071554b2c8b9c099be29348f8987 done
+#16 exporting manifest list sha256:bd648dc6b59d9a11c89d40c0bbdc059a231b78aaf2b2f346512b47c83a162cee done
+#16 naming to docker.io/library/accident-agent:local done
+#16 unpacking to docker.io/library/accident-agent:local
+#16 unpacking to docker.io/library/accident-agent:local 1.2s done
+#16 DONE 1.3s
+
+#17 [api] exporting to image
+#17 exporting layers done
+#17 exporting manifest sha256:05e2dcc71a04b6d4971dbf9ccc4ac706566fc18a957caaf423e96eef92506f8c done
+#17 exporting config sha256:bf01adceac2002aac40c93ed19b819c68a1f38ee83cb774ec030b52216d461ba done
+#17 exporting attestation manifest sha256:416ac4ebac6ca650e9e864800f2eb1ce4a032ffe89ab97056d02c91fa3389873 done
+#17 exporting manifest list sha256:a03aa63ef8d518e1331d82c5041059f0beb5c5a0852933ca77fa24d12b02981d done
+#17 naming to docker.io/library/accident-agent:local done
+#17 unpacking to docker.io/library/accident-agent:local 1.2s done
+#17 DONE 1.3s
+
+#18 [api] resolving provenance for metadata file
+#18 DONE 0.0s
+
+#19 [loader] resolving provenance for metadata file
+#19 DONE 0.0s
+ Image accident-agent:local Built
+ Image accident-agent:local Built
+ Network accident-agent_default Creating
+ Network accident-agent_default Creating
+ Volume accident-agent_neo4j_data Creating
+ Volume accident-agent_neo4j_data Creating
+ Volume accident-agent_neo4j_data Created
+ Volume accident-agent_neo4j_data Created
+ Network accident-agent_default Created
+ Network accident-agent_default Created
+ Container accident-agent-neo4j-1 Creating
+ Container accident-agent-neo4j-1 Created
+ Container accident-agent-loader-1 Creating
+ Container accident-agent-loader-1 Created
+ Container accident-agent-api-1 Creating
+ Container accident-agent-api-1 Created
+ Container accident-agent-neo4j-1 Starting
+ Container accident-agent-neo4j-1 Started
+ Container accident-agent-neo4j-1 Waiting
+ Container accident-agent-neo4j-1 Healthy
+ Container accident-agent-loader-1 Starting
+ Container accident-agent-loader-1 Started
+ Container accident-agent-loader-1 Waiting
+ Container accident-agent-loader-1 Exited
+ Container accident-agent-api-1 Starting
+ Container accident-agent-api-1 Started
+
+# Duracion total: 12 s
+
+# docker compose ps -a
+SERVICE   IMAGE                     STATUS                              PORTS
+api       accident-agent:local      Up Less than a second               127.0.0.1:8000->8000/tcp
+loader    accident-agent:local      Exited (0) Less than a second ago
+neo4j     neo4j:5.26.31-community   Up 8 seconds (healthy)              127.0.0.1:7474->7474/tcp, 127.0.0.1:7687->7687/tcp

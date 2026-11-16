@@ -1,0 +1,70 @@
+# Un solo comando deja Neo4j levantado, los datos cargados y la API arriba (tarea 2.5):
+#   docker compose up -d --build
+# Requiere NEO4J_PASSWORD en .env (copiar .env.example). La CLI va en un perfil propio:
+#   docker compose run --rm cli ask "..."
+name: accident-agent
+
+x-app: &app
+  image: accident-agent:local
+  build: .
+  env_file:
+    - path: .env
+      required: false
+  environment:
+    # Dentro de la red de compose Neo4j se llama "neo4j", no "localhost".
+    NEO4J_URI: bolt://neo4j:7687
+
+services:
+  neo4j:
+    image: neo4j:5.26.31-community
+    environment:
+      NEO4J_AUTH: neo4j/${NEO4J_PASSWORD:?Defina NEO4J_PASSWORD en .env (minimo 8 caracteres)}
+      NEO4J_server_memory_heap_initial__size: 512m
+      NEO4J_server_memory_heap_max__size: 512m
+      NEO4J_server_memory_pagecache_size: 256m
+    ports:
+      - "127.0.0.1:7474:7474"
+      - "127.0.0.1:7687:7687"
+    volumes:
+      - neo4j_data:/data
+    healthcheck:
+      test: ["CMD-SHELL", "cypher-shell -u neo4j -p \"$${NEO4J_AUTH#neo4j/}\" 'RETURN 1' >/dev/null 2>&1"]
+      interval: 5s
+      timeout: 10s
+      retries: 30
+      start_period: 20s
+
+  loader:
+    <<: *app
+    command: ["python", "-m", "accident_agent.ingestion"]
+    volumes:
+      - ./data:/app/data:ro
+    depends_on:
+      neo4j:
+        condition: service_healthy
+    restart: "no"
+
+  api:
+    <<: *app
+    command: ["uvicorn", "accident_agent.interfaces.api:app", "--host", "0.0.0.0", "--port", "8000"]
+    ports:
+      - "127.0.0.1:8000:8000"
+    depends_on:
+      neo4j:
+        condition: service_healthy
+      loader:
+        condition: service_completed_successfully
+
+  cli:
+    <<: *app
+    profiles: ["cli"]
+    entrypoint: ["accident-agent"]
+    command: ["--help"]
+    stdin_open: true
+    tty: true
+    depends_on:
+      loader:
+        condition: service_completed_successfully
+
+volumes:
+  neo4j_data:

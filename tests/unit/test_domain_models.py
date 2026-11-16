@@ -24,6 +24,7 @@ from accident_agent.domain.catalogs import (
 from accident_agent.domain.models import (
     Accident,
     CleanDataset,
+    DatasetInfo,
     Location,
     Person,
     Report,
@@ -155,7 +156,7 @@ PII_FIELD_NAMES = {"nombre", "cedula", "placa", "placa_vehiculo", "name", "plate
 
 
 @pytest.mark.parametrize(
-    "model", [Accident, Person, Vehicle, Location, Report, ReportSection, CleanDataset]
+    "model", [Accident, Person, Vehicle, Location, Report, ReportSection, CleanDataset, DatasetInfo]
 )
 def test_models_have_no_personal_data_fields(model: type[BaseModel]) -> None:
     assert not (set(model.model_fields) & PII_FIELD_NAMES)
@@ -239,8 +240,33 @@ def test_models_are_frozen() -> None:
         accident.damages_usd = 1.0  # type: ignore[misc]
 
 
-def _dataset(accidents: list[Accident], reports: list[Report]) -> CleanDataset:
-    return CleanDataset(accidents=accidents, reports=reports)
+def _info(**overrides: Any) -> DatasetInfo:
+    data: dict[str, Any] = {
+        "sha256": "77e2ca6e3f29c838035009cad0f720ef70bbda8138369b23616800cbd1fd8280",
+        "source_file": "siniestros_raw.json",
+        "source": "Extracto ficticio de partes de siniestros",
+        "generated": date(2026, 11, 9),
+        "schema_version": "1.0",
+        "timezone": "America/Guayaquil (UTC-05:00)",
+    }
+    data.update(overrides)
+    return DatasetInfo(**data)
+
+
+DEFINITIONS = {t: f"Definicion de {t.value}." for t in AccidentType}
+
+
+def _dataset(
+    accidents: list[Accident],
+    reports: list[Report],
+    definitions: dict[AccidentType, str] | None = None,
+) -> CleanDataset:
+    return CleanDataset(
+        info=_info(),
+        accidents=accidents,
+        reports=reports,
+        accident_type_definitions=DEFINITIONS if definitions is None else definitions,
+    )
 
 
 def test_valid_dataset_with_replacement_and_superseded_report() -> None:
@@ -305,3 +331,19 @@ def test_dataset_rejects_broken_supersedes_links() -> None:
     old_still_active = Report(**_report(report_id="INF-2025-01"))
     with pytest.raises(ValidationError, match="reemplazado"):
         _dataset([], [old_still_active, new])
+
+
+def test_dataset_requires_a_definition_for_every_accident_type() -> None:
+    incomplete: dict[AccidentType, str] = {
+        t: d for t, d in DEFINITIONS.items() if t is not AccidentType.CHOQUE
+    }
+    with pytest.raises(ValidationError, match="choque"):
+        _dataset([], [], incomplete)
+
+
+@pytest.mark.parametrize(
+    "overrides", [{"sha256": "abc"}, {"generated": "2026-11-09"}, {"source": " "}]
+)
+def test_dataset_info_is_validated(overrides: dict[str, Any]) -> None:
+    with pytest.raises(ValidationError):
+        _info(**overrides)

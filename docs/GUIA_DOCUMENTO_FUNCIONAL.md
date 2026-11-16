@@ -41,7 +41,7 @@
 | --- | --- | --- | --- |
 | 1 | Portada y control del documento | Etapa 6 | [ ] |
 | 2 | Introduccion | Etapa 4 | [ ] |
-| 3 | Conceptos basicos | Etapa 2 | [ ] |
+| 3 | Conceptos basicos | Etapa 2 | [x] |
 | 4 | Capacidades del agente | Etapa 4 | [ ] |
 | 5 | Puesta en marcha (resumen) | Etapa 5 | [ ] |
 | 6 | Uso desde la linea de comandos | Etapa 4 | [ ] |
@@ -55,10 +55,11 @@
 | 14 | Preguntas frecuentes | Etapa 6 | [ ] |
 | 15 | Anexos | Etapa 6 | [ ] |
 
-**Ultima actualizacion:** cierre de la Etapa 1 (2026-11-15). Ninguna seccion se completa todavia.
+**Ultima actualizacion:** cierre de la Etapa 2 (2026-11-15). `[x]` indica que el material de la seccion esta completo; la redaccion final es la tarea 6.3.
 
 - **Etapa 0:** no produce evidencia `func_`; solo prepara el entorno.
 - **Etapa 1:** no produce evidencia `func_`. Sus documentos alimentan la seccion 3 (conceptos basicos: tipos de siniestro y gravedad de INF-2026-02, en `docs/datos/catalogo_anomalias.md`), la 11 (privacidad: `docs/datos/politica_datos_personales.md`) y la 13 (limitaciones: riesgos residuales de privacidad).
+- **Etapa 2:** no produce evidencia `func_`. Completa la seccion 3 (conceptos basicos: tipos de siniestro con su definicion de INF-2026-02 en el grafo, gravedad, registros anulados e informes reemplazados; ver `docs/modelo_grafo.md`) y alimenta la 5 (puesta en marcha: comando unico y `NEO4J_PASSWORD` obligatoria).
 
 ## 4. Estructura del documento final
 

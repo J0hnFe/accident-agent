@@ -152,3 +152,9 @@ class RawDataset(_RawModel):
             else:
                 public.append(report)
         return {**data, "informes": public, "excluded_report_ids": excluded}
+
+
+def to_json_value(value: Any) -> Any:
+    """Valor JSON original de un campo: los objetos anidados (fecha, coordenadas) vuelven a ser
+    diccionarios, que es lo que reciben los normalizadores."""
+    return value.model_dump() if isinstance(value, BaseModel) else value
